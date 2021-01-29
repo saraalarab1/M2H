@@ -11,7 +11,6 @@ const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
-const alert = require('alert');
 
 
 
@@ -150,7 +149,7 @@ Item.insertMany([item1,item2,item3],function(err){
 
 
 app.get("/", function(req, res) {
-    res.render("home",{req:req});
+    res.render("home", { req: req });
 });
 
 
@@ -182,7 +181,7 @@ app.post("/signup", function(req, res) {
             passport.authenticate("local")(req, res, function() {
                 res.redirect("/");
             });
-         
+
         }
     });
 
@@ -202,10 +201,10 @@ app.post("/signin", function(req, res) {
             console.log(err);
         } else {
             passport.authenticate("local")(req, res, function() {
-             
+
                 res.redirect("/");
             });
-            alert("Wrong")
+
         }
     });
 
