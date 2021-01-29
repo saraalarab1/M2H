@@ -34,7 +34,7 @@ app.use(passport.session());
 
 
 
-mongoose.connect("mongodb://localhost:27017/userM2HDB", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost:27017/M2HDB", { useNewUrlParser: true });
 mongoose.set("useCreateIndex", true);
 
 const userSchema = new mongoose.Schema({
@@ -44,9 +44,23 @@ const userSchema = new mongoose.Schema({
     secret: String
 });
 
+const itemSchema = new mongoose.Schema({
+    title:String,
+    description:String,
+    imgURL:String,
+    brand:String,
+    price:Number,
+    category:String,
+    quantity:Number,
+    size:Number
+
+})
+
+
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
 
+const Item = new mongoose.model("Item", itemSchema);
 const User = new mongoose.model("User", userSchema);
 
 passport.use(User.createStrategy());
@@ -76,6 +90,61 @@ passport.use(new GoogleStrategy({
     }
 ));
 
+const item1= new Item(
+   {
+
+        title: "Beyonce",
+        description:"hahahhaahhahahha",
+        imgURL:"lebanon.jpg",
+        brand: "b@beyonce.com",
+        price:33,
+        category:"Shampoo",
+        quantity:3,
+        size:200
+
+        
+      })
+const item2=  new Item ( {
+ 
+        title: "Hadi",
+        description:"hahahhaahhahahha",
+        imgURL:"deodorant.Jpeg",
+        brand: "b@beyonce.com",
+        price:34,
+        category:"Shampoo",
+        quantity:3,
+        size:200
+
+        
+      })
+
+const item3=  new Item ( {
+   
+        title: "Sara",
+        description:"hahahhaahhahahha",
+        imgURL:"teeth.jpg",
+        brand: "b@beyonce.com",
+        price:35,
+        category:"Shampoo",
+        quantity:3,
+        size:200
+
+        
+      }
+)
+
+Item.insertMany([item1,item2,item3],function(err){ 
+     if(err){
+            console.log(err);
+        }else{
+            console.log('success')
+        }
+    })
+    
+
+
+
+
 
 
 
@@ -101,7 +170,7 @@ app.get("/auth/google/secrets",
 
 
 app.get("/signup", function(req, res) {
-    res.render("signup");
+    res.render("signup",{req:req});
 })
 app.post("/signup", function(req, res) {
 
@@ -151,18 +220,26 @@ app.get("/signout", function(req, res) {
 
 
 app.get("/about", function(req, res) {
-    res.render("about.ejs");
+    res.render("about.ejs",{req:req});
 })
 
 app.get("/feedback", function(req, res) {
-    res.render("feedback.ejs");
+    res.render("feedback.ejs",{req:req});
 })
+
 app.get("/products", function(req, res) {
-    res.send("this is the products page");
+    Item.find({},function(err,foundItems){
+        if(!err){
+        res.render("products",{req:req,items:foundItems});    
+    }else{
+        console.log(err);
+    }
+    
+})
 })
 
 app.get("/brands", function(req, res) {
-    res.render("brands.ejs");
+    res.render("brands.ejs",{req:req});
 })
 
 
