@@ -8,250 +8,199 @@
             <!--title-->
             <div class="row  text-center">
                 <div class="col m-4">
-
                     <label for="exampleDataList" class="form-label fw-bold display-5">Search Product</label>
                     <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
                     <datalist id="datalistOptions">
-                      <option value="San Francisco">
-                      <option value="New York">
-                      <option value="Seattle">
-                      <option value="Los Angeles">
-                      <option value="Chicago">
-                    </datalist>
-                    <div class=" underline mb-4 ">
-
-
-                    </div>
+                            <option value="San Francisco">
+                            <option value="New York">
+                            <option value="Seattle">
+                            <option value="Los Angeles">
+                            <option value="Chicago">
+                            </datalist>
+                    <div class=" underline mb-4 "></div>
                     <p class="lead ">Lorem ipsum dolor sit, amet consectetur adipisicing elit. A nisi, omnis laborum rerum sit esse fugit ratione, ab voluptatem ducimus totam aliquid dolores accusantium. Eligendi distinctio illo aut nostrum molestiae?</p>
                 </div>
 
             </div>
             <!--end of title-->
+            <%items.forEach(function(item){ %>
+                <div class="row ">
+                    <div class="col-lg-3 col-md-4 col-sm-6 my-2 ">
+                        <div class="card card-shadow border-0 ">
+                            <img src="images/" <%=item.imgURL%> alt=" " class="card-img">
+                            <div class="card-body">
+                                <h3 class="card-title text-uppercase fw-bold p-2 headings "> <span class="text-start "><%=item.title%></span> <span class="text-danger float-end"><%=item.price%>$</span></h3>
+                                <div class="d-grid">
+                                    <a href="#" class="btn bs" style="background-color:#ffc917">Click for Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 my-2 ">
+                        <div class="card  border-0 ">
+                            <img src="images/teeth.jpg" alt=" " class="card-img">
+                            <div class="card-body">
+                                <h3 class="card-title text-uppercase fw-bold p-2 headings "> <span class="text-start ">Toothpaste</span> <span class="text-danger float-end">30$</span></h3>
+                                <div class="d-grid">
+                                    <a href="#" class="btn bs" style="background-color:#ffc917">Click for Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- <div class="row ">
-                <div class="col-lg-3 col-md-4 col-sm-6 my-2 ">
-                    <div class="card  border-0 ">
-                        <img src="images/shampoo.jfif" alt=" " class="card-img">
-                        <div class="card-body">
-                            <h3 class="card-title text-uppercase fw-bold p-2 headings "> <span class="text-start ">Shampoo</span> <span class="text-danger float-end">30$</span></h3>
-                            <div class="d-grid">
-                                <a href="#" class="btn bs" style="background-color:#ffc917">Click for Details</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 my-2 ">
-                    <div class="card  border-0 ">
-                        <img src="images/deodorant.Jpeg" alt=" " class="card-img">
-                        <div class="card-body">
-                            <h3 class="card-title text-uppercase fw-bold p-2 headings "> <span class="text-start ">Shampoo</span> <span class="text-danger float-end">30$</span></h3>
-                            <div class="d-grid">
-                                <a href="#" class="btn bs" style="background-color:#ffc917">Click for Details</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-4 col-sm-6 my-2 ">
-                    <div class="card  border-0 ">
-                        <img src="images/deodorant.Jpeg" alt=" " class="card-img">
-                        <div class="card-body">
-                            <h3 class="card-title text-uppercase fw-bold p-2 headings "> <span class="text-start ">Shampoo</span> <span class="text-danger float-end">30$</span></h3>
-                            <div class="d-grid">
-                                <a href="#" class="btn bs" style="background-color:#ffc917">Click for Details</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-4 col-sm-6 my-2 ">
-                    <div class="card card-shadow border-0 ">
-                        <img src="images/deodorant.Jpeg" alt=" " class="card-img">
-                        <div class="card-body">
-                            <h3 class="card-title text-uppercase fw-bold p-2 headings "> <span class="text-start ">Shampoo</span> <span class="text-danger float-end">30$</span></h3>
-                            <div class="d-grid">
-                                <a href="#" class="btn bs" style="background-color:#ffc917">Click for Details</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-4 col-sm-6 my-2 ">
-                    <div class="card card-shadow border-0 ">
-                        <img src="images/deodorant.Jpeg" alt=" " class="card-img">
-                        <div class="card-body">
-                            <h3 class="card-title text-uppercase fw-bold p-2 headings "> <span class="text-start ">Shampoo</span> <span class="text-danger float-end">30$</span></h3>
-                            <div class="d-grid">
-                                <a href="#" class="btn bs" style="background-color:#ffc917">Click for Details</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 my-2 ">
-                    <div class="card  border-0 ">
-                        <img src="images/teeth.jpg" alt=" " class="card-img">
-                        <div class="card-body">
-                            <h3 class="card-title text-uppercase fw-bold p-2 headings "> <span class="text-start ">Toothpaste</span> <span class="text-danger float-end">30$</span></h3>
-                            <div class="d-grid">
-                                <a href="#" class="btn bs" style="background-color:#ffc917">Click for Details</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </div> -->
 
-            <div class="row main px-1 justify-content-start">
-                <!-- <div class="content"> -->
-                <div class="col ">
-                    <ul class="products">
-                        <li>
-                            <div class="product">
-                                <img class="product-image" src="images/teeth.jpg" alt="">
-                                <div class="product-name row">
-                                    <div class="center-block col"><a href="product.html" style="text-decoration: none;">Slim Shirt</a></div>
-                                    <div class="col text-end pr-5 center-block product-price">
-                                        60$
-                                    </div>
-                                </div>
-                                <div class="product-brand">
-                                    Nike
-                                </div>
-                                <div class="product-rating">
-                                    4.5 Start (10 reviews)
+        <div class="row main px-1 justify-content-start">
+            <!-- <div class="content"> -->
+            <div class="col ">
+                <ul class="products">
+                    <li>
+                        <div class="product">
+                            <img class="product-image" src="images/teeth.jpg" alt="">
+                            <div class="product-name row">
+                                <div class="center-block col"><a href="product.html" style="text-decoration: none;">Slim Shirt</a></div>
+                                <div class="col text-end pr-5 center-block product-price">
+                                    60$
                                 </div>
                             </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col">
-                    <ul class="products">
-                        <li>
-                            <div class="product">
-                                <img class="product-image" src="images/teeth.jpg" alt="">
-                                <div class="product-name row">
-                                    <div class="center-block col"><a href="product.html" style="text-decoration: none;">Slim Shirt</a></div>
-                                    <div class="col text-end pr-5 center-block product-price">
-                                        60$
-                                    </div>
-                                </div>
-                                <div class="product-brand">
-                                    Nike
-                                </div>
-                                <div class="product-rating">
-                                    4.5 Start (10 reviews)
-                                </div>
+                            <div class="product-brand">
+                                Nike
                             </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col">
-                    <ul class="products">
-                        <li>
-                            <div class="product">
-                                <img class="product-image" src="images/teeth.jpg" alt="">
-                                <div class="product-name row">
-                                    <div class="center-block col"><a href="product.html" style="text-decoration: none;">Slim Shirt</a></div>
-                                    <div class="col text-end pr-5 center-block product-price">
-                                        60$
-                                    </div>
-                                </div>
-                                <div class="product-brand">
-                                    Nike
-                                </div>
-                                <div class="product-rating">
-                                    4.5 Start (10 reviews)
-                                </div>
+                            <div class="product-rating">
+                                4.5 Start (10 reviews)
                             </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col">
-                    <ul class="products">
-                        <li>
-                            <div class="product">
-                                <img class="product-image" src="images/teeth.jpg" alt="">
-                                <div class="product-name row">
-                                    <div class="center-block col"><a href="product.html" style="text-decoration: none;">Slim Shirt</a></div>
-                                    <div class="col text-end pr-5 center-block product-price">
-                                        60$
-                                    </div>
-                                </div>
-                                <div class="product-brand">
-                                    Nike
-                                </div>
-                                <div class="product-rating">
-                                    4.5 Start (10 reviews)
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col">
-                    <ul class="products">
-                        <li>
-                            <div class="product">
-                                <img class="product-image" src="images/teeth.jpg" alt="">
-                                <div class="product-name row">
-                                    <div class="center-block col"><a href="product.html" style="text-decoration: none;">Slim Shirt</a></div>
-                                    <div class="col text-end pr-5 center-block product-price">
-                                        60$
-                                    </div>
-                                </div>
-                                <div class="product-brand">
-                                    Nike
-                                </div>
-                                <div class="product-rating">
-                                    4.5 Start (10 reviews)
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col">
-                    <ul class="products">
-                        <li>
-                            <div class="product">
-                                <img class="product-image" src="images/teeth.jpg" alt="">
-                                <div class="product-name row">
-                                    <div class="center-block col"><a href="product.html" style="text-decoration: none;">Slim Shirt</a></div>
-                                    <div class="col text-end pr-5 center-block product-price">
-                                        60$
-                                    </div>
-                                </div>
-                                <div class="product-brand">
-                                    Nike
-                                </div>
-                                <div class="product-rating">
-                                    4.5 Start (10 reviews)
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col left">
-                    <ul class="products">
-                        <li>
-                            <div class="product">
-                                <img class="product-image" src="images/teeth.jpg" alt="">
-                                <div class="product-name row">
-                                    <div class="center-block col"><a href="product.html" style="text-decoration: none;">Slim Shirt</a></div>
-                                    <div class="col text-end pr-5 center-block product-price">
-                                        60$
-                                    </div>
-                                </div>
-                                <div class="product-brand">
-                                    Nike
-                                </div>
-                                <div class="product-rating">
-                                    4.5 Start (10 reviews)
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
+            <div class="col">
+                <ul class="products">
+                    <li>
+                        <div class="product">
+                            <img class="product-image" src="images/teeth.jpg" alt="">
+                            <div class="product-name row">
+                                <div class="center-block col"><a href="product.html" style="text-decoration: none;">Slim Shirt</a></div>
+                                <div class="col text-end pr-5 center-block product-price">
+                                    60$
+                                </div>
+                            </div>
+                            <div class="product-brand">
+                                Nike
+                            </div>
+                            <div class="product-rating">
+                                4.5 Start (10 reviews)
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col">
+                <ul class="products">
+                    <li>
+                        <div class="product">
+                            <img class="product-image" src="images/teeth.jpg" alt="">
+                            <div class="product-name row">
+                                <div class="center-block col"><a href="product.html" style="text-decoration: none;">Slim Shirt</a></div>
+                                <div class="col text-end pr-5 center-block product-price">
+                                    60$
+                                </div>
+                            </div>
+                            <div class="product-brand">
+                                Nike
+                            </div>
+                            <div class="product-rating">
+                                4.5 Start (10 reviews)
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col">
+                <ul class="products">
+                    <li>
+                        <div class="product">
+                            <img class="product-image" src="images/teeth.jpg" alt="">
+                            <div class="product-name row">
+                                <div class="center-block col"><a href="product.html" style="text-decoration: none;">Slim Shirt</a></div>
+                                <div class="col text-end pr-5 center-block product-price">
+                                    60$
+                                </div>
+                            </div>
+                            <div class="product-brand">
+                                Nike
+                            </div>
+                            <div class="product-rating">
+                                4.5 Start (10 reviews)
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col">
+                <ul class="products">
+                    <li>
+                        <div class="product">
+                            <img class="product-image" src="images/teeth.jpg" alt="">
+                            <div class="product-name row">
+                                <div class="center-block col"><a href="product.html" style="text-decoration: none;">Slim Shirt</a></div>
+                                <div class="col text-end pr-5 center-block product-price">
+                                    60$
+                                </div>
+                            </div>
+                            <div class="product-brand">
+                                Nike
+                            </div>
+                            <div class="product-rating">
+                                4.5 Start (10 reviews)
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col">
+                <ul class="products">
+                    <li>
+                        <div class="product">
+                            <img class="product-image" src="images/teeth.jpg" alt="">
+                            <div class="product-name row">
+                                <div class="center-block col"><a href="product.html" style="text-decoration: none;">Slim Shirt</a></div>
+                                <div class="col text-end pr-5 center-block product-price">
+                                    60$
+                                </div>
+                            </div>
+                            <div class="product-brand">
+                                Nike
+                            </div>
+                            <div class="product-rating">
+                                4.5 Start (10 reviews)
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col left">
+                <ul class="products">
+                    <li>
+                        <div class="product">
+                            <img class="product-image" src="images/teeth.jpg" alt="">
+                            <div class="product-name row">
+                                <div class="center-block col"><a href="product.html" style="text-decoration: none;">Slim Shirt</a></div>
+                                <div class="col text-end pr-5 center-block product-price">
+                                    60$
+                                </div>
+                            </div>
+                            <div class="product-brand">
+                                Nike
+                            </div>
+                            <div class="product-rating">
+                                4.5 Start (10 reviews)
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
 
     </section>
