@@ -11,7 +11,6 @@ const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
-const alert = require('alert');
 
 
 
@@ -81,7 +80,7 @@ passport.use(new GoogleStrategy({
 
 
 app.get("/", function(req, res) {
-    res.render("home",{req:req});
+    res.render("home", { req: req });
 });
 
 
@@ -113,7 +112,7 @@ app.post("/signup", function(req, res) {
             passport.authenticate("local")(req, res, function() {
                 res.redirect("/");
             });
-         
+
         }
     });
 
@@ -133,10 +132,10 @@ app.post("/signin", function(req, res) {
             console.log(err);
         } else {
             passport.authenticate("local")(req, res, function() {
-             
+
                 res.redirect("/");
             });
-            alert("Wrong")
+
         }
     });
 
@@ -151,18 +150,18 @@ app.get("/signout", function(req, res) {
 
 
 app.get("/about", function(req, res) {
-    res.render("about.ejs");
+    res.render("about.ejs", { req: req });
 })
 
 app.get("/feedback", function(req, res) {
-    res.render("feedback.ejs");
+    res.render("feedback.ejs", { req: req });
 })
 app.get("/products", function(req, res) {
-    res.send("this is the products page");
+    res.render("products.ejs", { req: req });
 })
 
 app.get("/brands", function(req, res) {
-    res.render("brands.ejs");
+    res.render("brands.ejs", { req: req });
 })
 
 
