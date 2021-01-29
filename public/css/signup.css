@@ -1,0 +1,70 @@
+body {
+    background-color: white !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.submit-button {
+    background: #318fb5 !important;
+    color: #eee;
+    transition: all.3s;
+}
+
+.submit-button:hover {
+    background: #56acce !important;
+    transform: translateY(-3px);
+}
+
+.submit-google {
+    background: #db4437 !important;
+    color: #eee;
+    transition: all.3s;
+}
+
+.submit-google:hover {
+    background: #fc321f !important;
+    transform: translateY(-3px);
+}
+
+.label {
+    color: white;
+    display: block;
+    font-size: 16px;
+}
+
+.input {
+    border: 1px solid white !important;
+    border-radius: 3px !important;
+}
+
+.boxx {
+    box-shadow: 7px 18px 50px #555;
+    border-radius: 3px;
+}
+
+.signin {
+    color: #318fb5 !important;
+    text-decoration: none;
+}
+
+.signin:hover {
+    color: #56acce !important;
+    text-decoration: none;
+}
+
+
+/* /footer/ */
+
+.footer-link {
+    color: #eee;
+    font-size: 13px;
+    transition: all .3s;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    color: #318fb5;
+    text-decoration: none;
+}
+
+
+/* /end of footer/ */

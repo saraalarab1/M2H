@@ -1,0 +1,73 @@
+<%- include("partials/header2") -%>
+
+
+    <section class="contact p-5 ">
+        <div class="container-fluid">
+            <h1 class="text-dark text-uppercase mb-4 text-center"><span class="display-2">M</span><span class="display-1">2</span><span class="display-2">H</span></h1>
+
+            <div class="row justify-content-center cs">
+
+                <div class="col-lg-4 col-md-5 col-sm-6  pb-4 bg-dark boxx">
+
+                    <form class="contact-form" method="POST" action="signup">
+
+                        <div class="row mt-3">
+
+
+
+                            <div class="col-md-6 py-2 ">
+
+                                <label for="FirstName" class="label">First Name</label>
+                                <input type="text" class="form-control my-2 p-2 input" name="fname">
+
+                            </div>
+
+                            <div class="col-md-6 py-2">
+
+                                <label for="LastName" class="label">Last Name</label>
+                                <input type="text" class="form-control my-2 p-2 input" name="lname">
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="form-group py-2">
+                                <label for="email" class="label">Email Address</label>
+                                <input type="email" class="form-control my-2 p-2 input" name="username">
+
+                            </div>
+
+                            <div class="form-group py-2">
+                                <label for="password" class="label">Password</label>
+                                <input type="password" class="form-control my-2 p-2 input" name="password">
+
+                            </div>
+                        </div>
+
+
+                        <div class="d-grid gap-2 py-2">
+                            <button type="submit" class="btn p-2 fw-bold text-uppercase submit-button text-light">Sign up</button>
+                        </div>
+
+                    </form>
+
+
+                   <a href="auth/google" class="text-decoration-none">
+                        <div class="d-grid gap-2 py-">
+                            <button type="submit" class="btn p-2 fw-bold text-uppercase submit-google text-light">
+                                <i class="fab fa-google"></i>
+                                Sign Up With Google
+                            </button>
+                        </div> 
+                    </a>
+
+                    <div>
+                        <p class="mt-2 text-light">Already have an account? <a href="#" class="signin">Sign in</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include("partials/footer") -%>
