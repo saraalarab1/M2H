@@ -93,7 +93,7 @@ const item1 = new Item({
 
     title: "Beyonce",
     description: "hahahhaahhahahha",
-    imgURL: "images/teeth.jpg",
+    imgURL: "teeth.jpg",
     brand: "b@beyonce.com",
     price: 33,
     category: "Shampoo",
@@ -106,7 +106,7 @@ const item2 = new Item({
 
     title: "Hadi",
     description: "hahahhaahhahahha",
-    imgURL: "images/deodorant.Jpeg",
+    imgURL: "deodorant.Jpeg",
     brand: "b@beyonce.com",
     price: 34,
     category: "Shampoo",
@@ -120,7 +120,7 @@ const item3 = new Item({
 
     title: "Sara",
     description: "hahahhaahhahahha",
-    imgURL: "images/teeth.jpg",
+    imgURL: "teeth.jpg",
     brand: "b@beyonce.com",
     price: 35,
     category: "Shampoo",
@@ -227,13 +227,16 @@ app.get("/feedback", function(req, res) {
 //     res.render("product", { req: req });
 // })
 
-app.get("/products/:customLN", function(req, res) {
-    Item.find({ title: "Sara" }, function(err, foundItems) {
+app.get("/products/:custom", function(reqq, res) {
+    const custom = reqq.params.custom
+    Item.findOne({ title: custom}, function(err, foundItems) {
         if (!err) {
+            if(!foundItems){
+                res.redirect("/"+custom);
+            }else{
             console.log("item found: " + foundItems);
-            res.render("product", { req: req, items: foundItems });
-        } else {
-            console.log(err);
+            res.render("product", {req:reqq, item:foundItems });
+            }
         }
 
     })

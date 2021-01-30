@@ -29,10 +29,11 @@
                         <ul class="products">
                             <li>
                                 <div class="product">
-                                    <img src=<%=item.imgURL%> alt=" " class="product-image">
+                                    <img src=<%="images/"+item.imgURL%> alt=" " class="product-image">
+                             
                                     <div class="product-name row">
                                         <div class="center-block col">
-                                            <a href="/" <%=item.title%> onclick="" name="inn" style="text-decoration: none;">
+                                            <a href=<%="/products/" +item.title%> onclick="" name="inn" style="text-decoration: none;">
                                                 <%=item.title%>
                                             </a>
                                         </div>

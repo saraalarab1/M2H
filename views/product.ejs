@@ -4,15 +4,17 @@
     <br>
     <br>
     <br>
-    <section>
-        <%items.forEach(function(item){ %>
 
+
+    
+     <section>
+     
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-0 col-lg-2"></div>
                     <div class="col-6 col-lg-4 align-items-center">
                         <div>
-                            <img src="" +<%=item.imgURL%> style="max-width: 100%;" alt="">
+                          <img src=<%="../images/"+item.imgURL%> alt="hello " style="max-width: 100%;">
                         </div>
                         <div>
                             <p class="my-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi sint labore assumenda, quis velit doloremque ea deleniti fugiat. Odit ipsum voluptate aut. Iusto, quae obcaecati!</p>
@@ -66,8 +68,9 @@
                         </div>
                     </div>
                 </div>
-                <%})%>
 
+          
+           
                     <br><br><br><br>
                     <div class="container-fluid">
                         <div class="row">
@@ -78,7 +81,7 @@
                                 <div class="featured-carousel owl-carousel">
                                     <div class="item">
                                         <div class="work">
-                                            <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(images/work-1.jpg);">
+                                            <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-1.jpg);">
                                                 <a href="#" class="icon d-flex align-items-center justify-content-center">
                                                     <span class="ion-ios-search"></span>
                                                 </a>
@@ -91,7 +94,7 @@
                                     </div>
                                     <div class="item">
                                         <div class="work">
-                                            <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(images/work-2.jpg);">
+                                            <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-2.jpg);">
                                                 <a href="#" class="icon d-flex align-items-center justify-content-center">
                                                     <span class="ion-ios-search"></span>
                                                 </a>
@@ -104,7 +107,7 @@
                                     </div>
                                     <div class="item">
                                         <div class="work">
-                                            <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(images/work-3.jpg);">
+                                            <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-3.jpg);">
                                                 <a href="#" class="icon d-flex align-items-center justify-content-center">
                                                     <span class="ion-ios-search"></span>
                                                 </a>
@@ -117,7 +120,7 @@
                                     </div>
                                     <div class="item">
                                         <div class="work">
-                                            <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(images/work-4.jpg);">
+                                            <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-4.jpg);">
                                                 <a href="#" class="icon d-flex align-items-center justify-content-center">
                                                     <span class="ion-ios-search"></span>
                                                 </a>
@@ -130,7 +133,7 @@
                                     </div>
                                     <div class="item">
                                         <div class="work">
-                                            <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(images/work-5.jpg);">
+                                            <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-5.jpg);">
                                                 <a href="#" class="icon d-flex align-items-center justify-content-center">
                                                     <span class="ion-ios-search"></span>
                                                 </a>
@@ -143,7 +146,7 @@
                                     </div>
                                     <div class="item">
                                         <div class="work">
-                                            <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(images/work-6.jpg);">
+                                            <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-6.jpg);">
                                                 <a href="#" class="icon d-flex align-items-center justify-content-center">
                                                     <span class="ion-ios-search"></span>
                                                 </a>
@@ -158,14 +161,6 @@
                             </div>
                         </div>
                     </div>
-    </section>
-
-
-
-
-
-
-
-
+    </section> 
 
     <%- include("partials/footer") -%>
