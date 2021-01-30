@@ -44,14 +44,14 @@ const userSchema = new mongoose.Schema({
 });
 
 const itemSchema = new mongoose.Schema({
-    title:String,
-    description:String,
-    imgURL:String,
-    brand:String,
-    price:Number,
-    category:String,
-    quantity:Number,
-    size:Number
+    title: String,
+    description: String,
+    imgURL: String,
+    brand: String,
+    price: Number,
+    category: String,
+    quantity: Number,
+    size: Number
 
 })
 
@@ -89,58 +89,54 @@ passport.use(new GoogleStrategy({
     }
 ));
 
-const item1= new Item(
-   {
+const item1 = new Item({
 
-        title: "Beyonce",
-        description:"hahahhaahhahahha",
-        imgURL:"lebanon.jpg",
-        brand: "b@beyonce.com",
-        price:33,
-        category:"Shampoo",
-        quantity:3,
-        size:200
+    title: "Beyonce",
+    description: "hahahhaahhahahha",
+    imgURL: "images/teeth.jpg",
+    brand: "b@beyonce.com",
+    price: 33,
+    category: "Shampoo",
+    quantity: 3,
+    size: 200
 
-        
-      })
-const item2=  new Item ( {
- 
-        title: "Hadi",
-        description:"hahahhaahhahahha",
-        imgURL:"deodorant.Jpeg",
-        brand: "b@beyonce.com",
-        price:34,
-        category:"Shampoo",
-        quantity:3,
-        size:200
 
-        
-      })
+})
+const item2 = new Item({
 
-const item3=  new Item ( {
-   
-        title: "Sara",
-        description:"hahahhaahhahahha",
-        imgURL:"teeth.jpg",
-        brand: "b@beyonce.com",
-        price:35,
-        category:"Shampoo",
-        quantity:3,
-        size:200
+    title: "Hadi",
+    description: "hahahhaahhahahha",
+    imgURL: "images/deodorant.Jpeg",
+    brand: "b@beyonce.com",
+    price: 34,
+    category: "Shampoo",
+    quantity: 3,
+    size: 200
 
-        
-      }
-)
 
-Item.insertMany([item1,item2,item3],function(err){ 
-     if(err){
-            console.log(err);
-        }else{
-            console.log('success')
-        }
-    })
-    
+})
 
+const item3 = new Item({
+
+    title: "Sara",
+    description: "hahahhaahhahahha",
+    imgURL: "images/teeth.jpg",
+    brand: "b@beyonce.com",
+    price: 35,
+    category: "Shampoo",
+    quantity: 3,
+    size: 200
+
+
+})
+
+// Item.insertMany([item1, item2, item3], function(err) {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         console.log([item1, item2, item3])
+//     }
+// })
 
 
 
@@ -169,7 +165,7 @@ app.get("/auth/google/secrets",
 
 
 app.get("/signup", function(req, res) {
-    res.render("signup",{req:req});
+    res.render("signup", { req: req });
 })
 app.post("/signup", function(req, res) {
 
@@ -219,26 +215,44 @@ app.get("/signout", function(req, res) {
 
 
 app.get("/about", function(req, res) {
-    res.render("about.ejs",{req:req});
+    res.render("about.ejs", { req: req });
 })
 
 app.get("/feedback", function(req, res) {
-    res.render("feedback.ejs",{req:req});
+    res.render("feedback.ejs", { req: req });
 })
 
-app.get("/products", function(req, res) {
-    Item.find({},function(err,foundItems){
-        if(!err){
-        res.render("products",{req:req,items:foundItems});    
-    }else{
-        console.log(err);
-    }
-    
+// app.get("/product", function(req, res) {
+//     // console.log(res.body.titlee)
+//     res.render("product", { req: req });
+// })
+
+app.get("/products/:customLN", function(req, res) {
+    Item.find({ title: "Sara" }, function(err, foundItems) {
+        if (!err) {
+            console.log("item found: " + foundItems);
+            res.render("product", { req: req, items: foundItems });
+        } else {
+            console.log(err);
+        }
+
+    })
 })
+
+
+app.get("/products", function(req, res) {
+    Item.find({}, function(err, foundItems) {
+        if (!err) {
+            res.render("products", { req: req, items: foundItems });
+        } else {
+            console.log(err);
+        }
+
+    })
 })
 
 app.get("/brands", function(req, res) {
-    res.render("brands.ejs",{req:req});
+    res.render("brands.ejs", { req: req });
 })
 
 
