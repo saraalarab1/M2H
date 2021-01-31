@@ -75,57 +75,53 @@
                                 <p style="display: inline-block;">Your Orders</p>
                                 <p class="float-end" style="display: inline-block;">Prices</p>
                             </div>
-
-                            <%orders.forEach(function(order){%>
-                                <%console.log(order.item.title)%>
-                                    <%  })%>
-
-                                        <div class="card-body justify-content-start">
-                                            <div class="row">
-                                                <div class="col-3">
-                                                    <img src="../images/teeth.jpg" style="display: inline-block; height: 5rem; width: 5rem;" alt="">
-                                                </div>
-                                                <div class="col-9">
-                                                    <div>
-                                                        <p style="display: inline-block;">
-                                                            <%=req.user.username%> Hello
-                                                        </p>
-                                                        <p class="float-end" style="display: inline-block;">30,000LL</p>
-                                                    </div>
-                                                    <p>Qty: <span>4</span></p>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-3">
-                                                    <img src="../images/bodycare.jpg" style="display: inline-block; height: 5rem; width: 5rem;" alt="">
-                                                </div>
-                                                <div class="col-9">
-                                                    <div>
-                                                        <p style="display: inline-block;">Jhonson Shampoo 200ML</p>
-                                                        <p class="float-end" style="display: inline-block;">50,000LL</p>
-                                                    </div>
-                                                    <p>Qty: <span>5</span></p>
-                                                </div>
-                                            </div>
-                                            <hr>
+                    
+                            
+                            <div class="card-body justify-content-start">
+                                    <% var sum=0%>
+                            <%items.forEach(function(item){%>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <img src=<%="../images/"+item.img%> style="display: inline-block; height: 5rem; width: 5rem;" alt="">
+                                    </div>
+                                    <div class="col-9">
+                                        <div>
+                                            <p style="display: inline-block;"><%=item.title%></p>
+                                            <p class="float-end" style="display: inline-block;"><%=item.price%>LL</p>
                                         </div>
+                                        <p>Quantity: <span><%=item.qty%></span></p>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <%sum+=item.price*item.qty%>
+                                  <%  })%>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            
+
+
+
+            
             <div class="col-md-5">
                 <div class="row py-3">
                     <div class="col">
                         <div class="card bg-light mb-3">
+
                             <div class="card-header text-center ">
+                      
                                 <button style="width: 65%;" class="btn btn-warning" Onclick="return ConfirmOrder();" type="submit" name="actiondelete" value="1">Place Order</button>
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">Order Summary</h5>
                                 <div class="row">
                                     <div class="col-6">Items: </div>
-                                    <div class="col-6">$10</div>
+                                    <div class="col-6"><%=sum%>LL</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">Delivery: </div>
@@ -135,25 +131,51 @@
                                     <div class="col-6">
                                         <h5 class="text-danger">Order Total: </h5>
                                     </div>
-                                    <div class="col-6">$10</div>
+                                    <div class="col-6"><%=sum%>LL</div>
                                 </div>
                             </div>
+
+
+
                         </div>
                     </div>
                 </div>
+
+            <div class="col-md-5">
+                <div class="row py-3">
+                    <div class="col purchase">
+                        <div class="card bg-light mb-3 ">
+
+                   
+
+
+
+
+                        </div>
+            </div>
+                </div>
+                    </div>
+
+
             </div>
         </div>
 
     </div>
 
     <script>
-        function ConfirmOrder(req, res) {
+        function ConfirmOrder() {
             var x = confirm("Are you sure you want to place your order?");
-            if (x)
-                window.location.href = 'home'
+            if (x){
+            const orders = document.querySelector('#orders')
+            const item = document.createElement('div')
+            item.textContent= `Hello `
+            document.querySelector('.purchase').appendChild(item)
+            }
             else
                 return false;
         }
+
+        
     </script>
 
 

@@ -60,13 +60,18 @@ const userSchema = new mongoose.Schema({
     number: Number,
     name: String,
     message: String,
-    orders: [{
-        item: { type: mongoose.Schema.Types.ObjectId, ref: 'Item' },
-        qty: Number,
-        recieved: Boolean,
+    orders: {
+        recieved: { type: Boolean, default: false },
         date: String,
-        size: String
-    }],
+        items: [{
+            img: String,
+            title: String,
+            price: Number,
+            qty: Number,
+            size: String
+
+        }]
+    },
     address: {
         addrs: String,
         city: String,
@@ -215,16 +220,20 @@ app.get("/auth/google/secrets",
 app.get("/card", function(req, res) {
 
 
-    // const items = User.findById(req.user.id,function(err,user){
-    //     const orders = user.orders;
-
-
-    // })
-    //   const usesr =  User.findOne({id:req.user.id}).populate('orders.item')
-    //     console.log(usesr)
-
-    // res.render("place-order", { req: req ,orders:req.user.orders});
+    res.render("place-order", { req: req, orders: req.user.orders });
 })
+
+
+// const items = User.findById(req.user.id,function(err,user){
+//     const orders = user.orders;
+
+
+// })
+//   const usesr =  User.findOne({id:req.user.id}).populate('orders.item')
+//     console.log(usesr)
+
+// res.render("place-order", { req: req ,orders:req.user.orders});
+
 
 app.post("/card", function(req, res) {
 
@@ -233,14 +242,35 @@ app.post("/card", function(req, res) {
 
         console.log("user is signed in")
         const box = req.body.box
-        const id = req.body.id
         const size = req.body.size
+        const img = req.body.img
+        const title = req.body.title
+        const price = req.body.price
 
-        User.findByIdAndUpdate(req.user.id, { $push: { orders: { 'item': id, 'qty': box, 'recieved': false, date: created_at } } }, function(err) {
+
+
+        User.findByIdAndUpdate(req.user.id, {
+            $push:
+
+            {
+                items: {
+                    'img': img,
+                    'title': title,
+                    'price': price,
+                    'qty': box,
+                    'size': size
+                }
+            }
+
+
+        }, function(err) {
             if (err) {
                 console.log(err)
             }
         });
+
+
+
 
         res.render("shipping-card", { req: req, address: req.user.address });
 
@@ -256,7 +286,7 @@ app.get("/shipping-card", function(req, res) {
 })
 
 app.post("/payment-card", function(req, res) {
-    res.render("place-order", { req: req, orders: req.user.orders });
+    res.render("place-order", { req: req, items: req.user.orders.items, order: req.user.orders });
 })
 
 
@@ -319,7 +349,7 @@ app.post("/shipping-card", function(req, res) {
 
 app.post("/payment.card", function(req, res) {
     console.log("payment success")
-    res.render("place-order", { req: req });
+    res.render("place-order", { req: req, orders: req.user.orders });
 })
 
 app.post("/signin-card", function(req, res) {
