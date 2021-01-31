@@ -38,6 +38,7 @@ mongoose.set('useFindAndModify', false)
 mongoose.set("useCreateIndex", true);
 
 
+
 const itemSchema = new mongoose.Schema({
     title: String,
     description: String,
@@ -56,6 +57,9 @@ const userSchema = new mongoose.Schema({
     password: String,
     googleId: String,
     secret: String,
+    number: Number,
+    name: String,
+    message: String,
     orders:[{
         item:{type: mongoose.Schema.Types.ObjectId, ref: 'Item'},
         qty:Number,
@@ -70,6 +74,10 @@ const userSchema = new mongoose.Schema({
 
     },
 });
+
+
+
+
 
 
 userSchema.plugin(passportLocalMongoose);
@@ -251,6 +259,40 @@ app.post("/payment-card", function(req, res) {
     res.render("place-order", { req: req,orders:req.user.orders});
 })
 
+
+
+app.post("/contact", function(req, res) {
+
+    if (req.isAuthenticated()) {
+        User.updateOne({ _id: req.user.id }, {
+            message: newMessage
+        }, function(err) {
+            if (!err) {
+                console.log("message received")
+                    // alert("Thank you for your feedback")
+                    // confirm("Message Received")
+                res.redirect("/");
+            } else {
+                console.log(err);
+            }
+        })
+    } else {
+        const newUser = new User({
+            name: req.body.txtName,
+            email: req.body.txtEmail,
+            number: req.body.Phone,
+            message: req.body.txtMsg
+        });
+
+        newUser.save();
+
+        res.redirect("/")
+
+    }
+
+
+
+})
 app.post("/shipping-card", function(req, res) {
     const tel = req.body.number;
     const add = req.body.address;
@@ -265,6 +307,15 @@ app.post("/shipping-card", function(req, res) {
    
     res.render("payment-card", { req: req });
 })
+
+
+    // Fruit.updateOne({ _id: "600c196dbbc9c90e3c9fef4d" }, { name: "Peach" }, function(err) {
+    //     if (err) {
+    //         console.log(err);
+    //     } else {
+    //         console.log("succesfully updated!");
+    //     }
+    // });
 
 app.post("/payment.card", function(req, res) {
     console.log("payment success")
@@ -369,31 +420,31 @@ app.get("/products/:custom", function(reqq, res) {
     })
 })
 
-app.post("/products", function(req,res){
+app.post("/products", function(req, res) {
 
     const item = req.body.productlist;
-    
-    Item.find({title:item}, function(err,found){
-        if(!err){
-            if(found.length!=0){
+
+    Item.find({ title: item }, function(err, found) {
+        if (!err) {
+            if (found.length != 0) {
                 console.log(found)
-                res.render("products",{items:found,req:req})
-            }else{
-                Item.find({brand:item},function(errr,foundb){
-                    if(!err){
-                        if(foundb){
+                res.render("products", { items: found, req: req })
+            } else {
+                Item.find({ brand: item }, function(errr, foundb) {
+                    if (!err) {
+                        if (foundb) {
                             console.log(foundb)
-                            res.render("products",{items:foundb,req:req})
+                            res.render("products", { items: foundb, req: req })
                         }
                     }
                 })
             }
         }
-    
+
     })
-    
-    
-    })
+
+
+})
 
 
 app.get("/products", function(req, res) {

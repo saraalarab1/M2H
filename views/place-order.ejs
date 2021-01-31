@@ -41,13 +41,20 @@
             <div class="col-md-7">
                 <div class="row py-3">
                     <div class="col">
-                        <div class="card bg-light mb-3" style=";">
-                            <div class="card-header">Address</div>
-                            <div class="card-body">
-                                <h5 class="card-title">Nabatieh, Lebanon</h5>
-                                <p class="card-text">Ebba, Main Street, Moussa Youness' building, First floor</p>
+                        <%=console.log("This is user's address: "+req.user.address)%>
+                            <div class="card bg-light mb-3" style=";">
+                                <div class="card-header">
+                                    <%=req.user.address.addrs%>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <%=req.user.address.city%>
+                                    </h5>
+                                    <p class="card-text">
+                                        <%=req.user.address.number%>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
                     </div>
                 </div>
                 <div class="row">
