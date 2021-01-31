@@ -116,6 +116,26 @@ body {
 }
 
 
+.badge {
+    padding-left: 5px;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+  }
+  
+ 
+  #lblCartCount {
+      font-size: 12px;
+      background: #dc3545;
+      color: #fff;
+      padding: 1px 4px;
+      vertical-align: top;
+      margin-left: -10px; 
+      border-radius: 50%;
+   
+  }
+
+
 /*footer*/
 
 .footer-link {
