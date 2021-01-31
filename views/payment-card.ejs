@@ -42,11 +42,11 @@
                                 <div class="card-header">Payment</div>
                                 <div class="card-body">
                                     <div class="form-check text-start  py-3">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                        <input type="checkbox" class="form-check-input" onclick=" return termsChanged(this)" id="exampleCheck1">
                                         <label class="form-check-label" for="exampleCheck1">Cash on Delivery</label>
                                     </div>
                                     <div>
-                                        <button type="submit" class="btn btn-warning">Next</button>
+                                        <button disabled type="submit" id="nextSumit" class="btn btn-warning">Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -61,6 +61,14 @@
         </div>
     </div>
 
-
+    <script>
+        function termsChanged(termsCheckBox) {
+            if (termsCheckBox.checked) {
+                document.getElementById("nextSumit").disabled = false;
+            } else {
+                document.getElementById("nextSumit").disabled = true;
+            }
+        }
+    </script>
 
     <%- include("partials/footer") -%>
