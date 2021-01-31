@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../css/owl.carousel.min.css">
     <link rel="stylesheet" href="../css/owl.theme.default.min.css">
 
-  
+
 
 
     <!------ Include the above in your HEAD tag ---------->
@@ -42,28 +42,28 @@
 
 
             <div class="collapse navbar-collapse justify-content-start text-uppercase fw-bold" id="myNavbar">
-                <div class="col-10">
+                <div class="col-10 grp">
 
                     <ul class="navbar-nav m-1">
                         <li class="nav-item">
-                            <a href="/" class="nav-link m-2 menu-item nav-active ">Home</a>
+                            <a href="/" class="nav-link hea m-2 menu-item nav-active ">Home</a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="brands" class="nav-link m-2 menu-item">Brands</a>
+                            <a href="brands" onclick="return changeActive();" class="nav-link hea m-2 menu-item">Brands</a>
                         </li>
 
 
                         <li class="nav-item">
-                            <a href="products" class="nav-link m-2 menu-item">Products</a>
+                            <a href="products" class="nav-link hea m-2 menu-item">Products</a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="about" class="nav-link m-2 menu-item">About Us</a>
+                            <a href="about" class="nav-link hea m-2 menu-item">About Us</a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="feedback" class="nav-link m-2 menu-item border-0">Contact</a>
+                            <a href="feedback" class="nav-link hea m-2 menu-item border-0">Contact</a>
                         </li>
 
                     </ul>
@@ -89,15 +89,14 @@
             <%if(req.isAuthenticated()){%>
                 <div class=" col-1 px-1  ">
                     <ul class="navbar-nav ">
-
-                        <li class="nav-item"><a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#sign-out"><i class="fas fa-shopping-cart fa-lg" style="color: white" ></i></a></li>
+                        <li class="nav-item"><a href="/card" class="nav-link"><i class="fas fa-shopping-cart fa-lg" style="color: white" ></i></a></li>
                     </ul>
                 </div>
                 <%  }%>
 
 
                     <%if(req.isAuthenticated()){%>
-                        <a href="/signout" class="navbar-brand m-0 "><button type="button"  class="btn" style="background-color:#db4437;">Sign Out</button></a>
+                        <a href="/signout" onclick="return Confirmlogout();" class="navbar-brand m-0 "><button type="button"  class="btn" style="background-color:#db4437;">Sign Out</button></a>
                         <%  }else{%>
                             <a href="#" class="navbar-brand" data-bs-toggle="modal" data-bs-target="#sign-in"><button type="button"  class="btn" style="background-color:#318fb5 ;">Sign in</button></a>
                             <%  }%>
@@ -165,6 +164,20 @@
 
 
     </div>
+    <script>
+        function Confirmlogout(req, res) {
+            var x = confirm("Are you sure you want to logout?");
+            if (x)
+                window.location.href = 'home'
+            else
+                return false;
+        }
+
+        function changeActive(req, res) {
+            console.log("entered")
+            document.getElementsByClassName("active").classList.remove("active");
+        }
+    </script>
 
 
     <!-- End of Model -->

@@ -6,161 +6,160 @@
     <br>
 
 
-    
-     <section>
-     
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-0 col-lg-2"></div>
-                    <div class="col-6 col-lg-4 align-items-center">
-                        <div>
-                          <img src=<%="../images/"+item.imgURL%> alt="hello " style="max-width: 100%;">
+
+    <section>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-0 col-lg-2"></div>
+                <div class="col-6 col-lg-4 align-items-center">
+                    <div>
+                        <img src=<%="../images/" +item.imgURL%> alt="hello " style="max-width: 100%;">
+                    </div>
+                    <div>
+                        <p class="my-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi sint labore assumenda, quis velit doloremque ea deleniti fugiat. Odit ipsum voluptate aut. Iusto, quae obcaecati!</p>
+                    </div>
+
+                </div>
+                <div class="col-6 col-lg-4 ">
+                    <h2 class="text-info">
+                        <%=item.title%>
+                    </h2>
+
+                    <p class="fw-bold">
+                        <%=item.description%>.</p>
+                    <p>Price: <span class="text-secondary font-weight-bold"><%=item.price%></span>LL</p>
+                    <br>
+                    <p class=""><span class="font-weight-bold ">Brand: </span>
+                        <%=item.brand%>
+                    </p>
+                    <br>
+                    <p class="text-secondary short">Size </p>
+                    <div>
+                        <div class="row">
+                            <div class="col-3">
+                                <button type="button" class="btn bg-dark text-white ">200ML</button>
+
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn bg-light active">400ML</button>
+                            </div>
                         </div>
-                        <div>
-                            <p class="my-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi sint labore assumenda, quis velit doloremque ea deleniti fugiat. Odit ipsum voluptate aut. Iusto, quae obcaecati!</p>
+                    </div>
+                    <br>
+                    <br>
+                    <div>
+                        <div class="row">
+                            <p class="text-secondary short">
+                                <%=item.quantity%> bottles per box</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="" style="display: inline-block;">
+                            <input type="text" class="input w-25" style="display: inline-block;" placeholder="1" min="1">
+                            <h4 class="font-weight-bold text-lg-left" style="display: inline-block;">Boxes</h2>
+                        </div>
+                        <div class="my-3">
+                            <button type="button" style="display: inline-block;" class="btn btn-dark">Add To Card</button>
 
                         </div>
 
                     </div>
-                    <div class="col-6 col-lg-4 ">
-                        <h2 class="text-info">
-                            <%=item.title%>
-                        </h2>
+                </div>
+            </div>
 
-                        <p class="fw-bold">
-                            <%=item.description%>.</p>
-                        <p>Price: <span class="text-secondary font-weight-bold"><%=item.price%></span>LL</p>
-                        <br>
-                        <p class=""><span class="font-weight-bold ">Brand: </span>
-                            <%=item.brand%>
-                        </p>
-                        <br>
-                        <p class="text-secondary short">Size </p>
-                        <div>
-                            <div class="row">
-                                <div class="col-3">
-                                    <button type="button" class="btn bg-dark text-white ">200ML</button>
 
+
+            <br><br><br><br>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h2 class="heading-section mb-5 pb-md-4">You Might Also Like</h2>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="featured-carousel owl-carousel">
+                            <div class="item">
+                                <div class="work">
+                                    <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-1.jpg);">
+                                        <a href="#" class="icon d-flex align-items-center justify-content-center">
+                                            <span class="ion-ios-search"></span>
+                                        </a>
+                                    </div>
+                                    <div class="text pt-3 w-100 text-center">
+                                        <h3><a href="#">Axe</a></h3>
+                                        <span>Web Design</span>
+                                    </div>
                                 </div>
-                                <div class="col-3">
-                                    <button type="button" class="btn bg-light active">400ML</button>
+                            </div>
+                            <div class="item">
+                                <div class="work">
+                                    <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-2.jpg);">
+                                        <a href="#" class="icon d-flex align-items-center justify-content-center">
+                                            <span class="ion-ios-search"></span>
+                                        </a>
+                                    </div>
+                                    <div class="text pt-3 w-100 text-center">
+                                        <h3><a href="#">Work 02</a></h3>
+                                        <span>Web Design</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <br>
-                        <br>
-                        <div>
-                            <div class="row">
-                                <p class="text-secondary short">
-                                    <%=item.quantity%> bottles per box</p>
+                            <div class="item">
+                                <div class="work">
+                                    <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-3.jpg);">
+                                        <a href="#" class="icon d-flex align-items-center justify-content-center">
+                                            <span class="ion-ios-search"></span>
+                                        </a>
+                                    </div>
+                                    <div class="text pt-3 w-100 text-center">
+                                        <h3><a href="#">Work 03</a></h3>
+                                        <span>Web Design</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <div class="" style="display: inline-block;">
-                                <input type="text" class="input w-25" style="display: inline-block;" placeholder="1" min="1">
-                                <h4 class="font-weight-bold text-lg-left" style="display: inline-block;">Boxes</h2>
+                            <div class="item">
+                                <div class="work">
+                                    <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-4.jpg);">
+                                        <a href="#" class="icon d-flex align-items-center justify-content-center">
+                                            <span class="ion-ios-search"></span>
+                                        </a>
+                                    </div>
+                                    <div class="text pt-3 w-100 text-center">
+                                        <h3><a href="#">Work 04</a></h3>
+                                        <span>Web Design</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="my-3">
-                                <button type="button" style="display: inline-block;" class="btn btn-dark">Add To Card</button>
-
+                            <div class="item">
+                                <div class="work">
+                                    <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-5.jpg);">
+                                        <a href="#" class="icon d-flex align-items-center justify-content-center">
+                                            <span class="ion-ios-search"></span>
+                                        </a>
+                                    </div>
+                                    <div class="text pt-3 w-100 text-center">
+                                        <h3><a href="#">Work 05</a></h3>
+                                        <span>Web Design</span>
+                                    </div>
+                                </div>
                             </div>
-
+                            <div class="item">
+                                <div class="work">
+                                    <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-6.jpg);">
+                                        <a href="#" class="icon d-flex align-items-center justify-content-center">
+                                            <span class="ion-ios-search"></span>
+                                        </a>
+                                    </div>
+                                    <div class="text pt-3 w-100 text-center">
+                                        <h3><a href="#">Work 06</a></h3>
+                                        <span>Web Design</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-          
-           
-                    <br><br><br><br>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <h2 class="heading-section mb-5 pb-md-4">You Might Also Like</h2>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="featured-carousel owl-carousel">
-                                    <div class="item">
-                                        <div class="work">
-                                            <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-1.jpg);">
-                                                <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                                    <span class="ion-ios-search"></span>
-                                                </a>
-                                            </div>
-                                            <div class="text pt-3 w-100 text-center">
-                                                <h3><a href="#">Axe</a></h3>
-                                                <span>Web Design</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="work">
-                                            <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-2.jpg);">
-                                                <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                                    <span class="ion-ios-search"></span>
-                                                </a>
-                                            </div>
-                                            <div class="text pt-3 w-100 text-center">
-                                                <h3><a href="#">Work 02</a></h3>
-                                                <span>Web Design</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="work">
-                                            <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-3.jpg);">
-                                                <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                                    <span class="ion-ios-search"></span>
-                                                </a>
-                                            </div>
-                                            <div class="text pt-3 w-100 text-center">
-                                                <h3><a href="#">Work 03</a></h3>
-                                                <span>Web Design</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="work">
-                                            <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-4.jpg);">
-                                                <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                                    <span class="ion-ios-search"></span>
-                                                </a>
-                                            </div>
-                                            <div class="text pt-3 w-100 text-center">
-                                                <h3><a href="#">Work 04</a></h3>
-                                                <span>Web Design</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="work">
-                                            <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-5.jpg);">
-                                                <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                                    <span class="ion-ios-search"></span>
-                                                </a>
-                                            </div>
-                                            <div class="text pt-3 w-100 text-center">
-                                                <h3><a href="#">Work 05</a></h3>
-                                                <span>Web Design</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="work">
-                                            <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-6.jpg);">
-                                                <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                                    <span class="ion-ios-search"></span>
-                                                </a>
-                                            </div>
-                                            <div class="text pt-3 w-100 text-center">
-                                                <h3><a href="#">Work 06</a></h3>
-                                                <span>Web Design</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-    </section> 
+            </div>
+    </section>
 
     <%- include("partials/footer") -%>

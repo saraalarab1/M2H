@@ -1,0 +1,72 @@
+<%- include("partials/header") -%>
+
+
+
+
+    <div class="container-fluid">
+        <div class="row py-3">
+            <div class="col-lg-4">
+
+            </div>
+            <div class="col col-lg-4">
+                <div class="row">
+                    <div class="py-3">
+                        <div class="progress bg-secondary mb-3">
+                            <div class="progress-bar bg-warning" style="width: 25%;">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row pb-5">
+                    <div class="col-3">
+                        Sign in
+                    </div>
+                    <div class="col-3">
+                        Shipping
+                    </div>
+                    <div class="col-3">
+                        Payment
+                    </div>
+                    <div class="col-3">
+                        Place order
+                    </div>
+                </div>
+                <div class="row text-center py-5 text-light">
+                    <div class="col-1">
+
+                    </div>
+                    <div class="col-10 bg-dark text-start" style="height: 28rem;">
+                        <form action="shipping-card" method="POST">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" class="py-3">Address</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" name="address" aria-describedby="emailHelp" placeholder="Enter your address">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1" class="py-3">City</label>
+                                <input type="text" class="form-control" name="city" id="exampleInputPassword1" placeholder="Enter your city">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1" class="py-3">Phone Number</label>
+                                <input type="text" class="form-control" name="number" id="exampleInputPassword1" value="+961">
+                            </div>
+                            <div class="text-center py-3">
+                                <button type="submit" class="btn btn-primary text-center">Next</button>
+
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <div class="col-1"></div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <%- include("partials/footer") -%>

@@ -1,0 +1,147 @@
+<%- include("partials/header") -%>
+
+
+
+
+    <div class="container-fluid">
+        <div class="row py-3">
+            <div class="col-lg-4">
+
+            </div>
+            <div class="col col-lg-4">
+                <div class="row">
+                    <div>
+                        <div class="progress bg-secondary mb-3">
+                            <div class="progress-bar bg-warning" style="width: 75%;">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row pb-5">
+                    <div class="col-3">
+                        Sign in
+                    </div>
+                    <div class="col-3">
+                        Shipping
+                    </div>
+                    <div class="col-3">
+                        Payment
+                    </div>
+                    <div class="col-3">
+                        Place order
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-7">
+                <div class="row py-3">
+                    <div class="col">
+                        <div class="card bg-light mb-3" style=";">
+                            <div class="card-header">Address</div>
+                            <div class="card-body">
+                                <h5 class="card-title">Nabatieh, Lebanon</h5>
+                                <p class="card-text">Ebba, Main Street, Moussa Youness' building, First floor</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card bg-light mb-3" style=";">
+                            <div class="card-header">Payment</div>
+                            <div class="card-body">
+                                <h5 class="card-title">Cash on Delivery</h5>
+                                <p class="card-text">Free delivery for orders above 100,000LL</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card bg-light mb-3" style=";">
+                            <div class="card-header">
+                                <p style="display: inline-block;">Your Orders</p>
+                                <p class="float-end" style="display: inline-block;">Prices</p>
+                            </div>
+                            <div class="card-body justify-content-start">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <img src="../images/teeth.jpg" style="display: inline-block; height: 5rem; width: 5rem;" alt="">
+                                    </div>
+                                    <div class="col-9">
+                                        <div>
+                                            <p style="display: inline-block;">ToothPaste this is tooth</p>
+                                            <p class="float-end" style="display: inline-block;">30,000LL</p>
+                                        </div>
+                                        <p>Qty: <span>4</span></p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <img src="../images/bodycare.jpg" style="display: inline-block; height: 5rem; width: 5rem;" alt="">
+                                    </div>
+                                    <div class="col-9">
+                                        <div>
+                                            <p style="display: inline-block;">Jhonson Shampoo 200ML</p>
+                                            <p class="float-end" style="display: inline-block;">50,000LL</p>
+                                        </div>
+                                        <p>Qty: <span>5</span></p>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="row py-3">
+                    <div class="col">
+                        <div class="card bg-light mb-3">
+                            <div class="card-header text-center ">
+                                <button style="width: 65%;" class="btn btn-warning" Onclick="return ConfirmOrder();" type="submit" name="actiondelete" value="1">Place Order</button>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Order Summary</h5>
+                                <div class="row">
+                                    <div class="col-6">Items: </div>
+                                    <div class="col-6">$10</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">Delivery: </div>
+                                    <div class="col-6">Free</div>
+                                </div>
+                                <div class="row py-3">
+                                    <div class="col-6">
+                                        <h5 class="text-danger">Order Total: </h5>
+                                    </div>
+                                    <div class="col-6">$10</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function ConfirmOrder(req, res) {
+            var x = confirm("Are you sure you want to place your order?");
+            if (x)
+                window.location.href = 'home'
+            else
+                return false;
+        }
+    </script>
+
+
+
+    <%- include("partials/footer") -%>

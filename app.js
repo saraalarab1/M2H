@@ -51,6 +51,12 @@ const itemSchema = new mongoose.Schema({
     price: Number,
     category: String,
     quantity: Number,
+    address: {
+        addrs: String,
+        city: String,
+        number: Number,
+
+    },
     size: Number
 
 })
@@ -147,7 +153,9 @@ const item3 = new Item({
 app.get("/", function(req, res) {
     res.render("home", { req: req });
 });
-
+app.get("/home", function(req, res) {
+    res.render("home", { req: req });
+})
 
 app.get("/auth/google",
     passport.authenticate('google', { scope: ["profile"] })
@@ -161,8 +169,57 @@ app.get("/auth/google/secrets",
     });
 
 
+app.get("/card", function(req, res) {
+    if (req.isAuthenticated()) {
+        console.log("user is signed in")
+        res.render("shipping-card", { req: req });
+    } else {
+        console.log("user is not signed in")
+        res.render("card", { req: req });
+
+    }
+})
+
+app.get("/shipping-card", function(req, res) {
+    res.render("shipping-card", { req: req });
+})
+
+app.post("/payment-card", function(req, res) {
+    res.render("place-order", { req: req });
+})
+
+app.post("/shipping-card", function(req, res) {
+    console.log(req.body.address);
+    console.log(req.body.city);
+    console.log(req.body.number);
+    console.log(req.body.username);
+    res.render("payment-card", { req: req });
+})
+
+app.post("/payment.card", function(req, res) {
+    console.log("payment success")
+    res.render("place-order", { req: req });
+})
+
+app.post("/signin-card", function(req, res) {
+
+    const user = new User({
+        username: req.body.username,
+    });
 
 
+    req.login(user, function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            passport.authenticate("local")(req, res, function() {
+
+                res.render("shipping-card", { req: req });
+            });
+
+        }
+    });
+})
 
 app.get("/signup", function(req, res) {
     res.render("signup", { req: req });
@@ -229,13 +286,13 @@ app.get("/feedback", function(req, res) {
 
 app.get("/products/:custom", function(reqq, res) {
     const custom = reqq.params.custom
-    Item.findOne({ title: custom}, function(err, foundItems) {
+    Item.findOne({ title: custom }, function(err, foundItems) {
         if (!err) {
-            if(!foundItems){
-                res.redirect("/"+custom);
-            }else{
-            console.log("item found: " + foundItems);
-            res.render("product", {req:reqq, item:foundItems });
+            if (!foundItems) {
+                res.redirect("/" + custom);
+            } else {
+                console.log("item found: " + foundItems);
+                res.render("product", { req: reqq, item: foundItems });
             }
         }
 
