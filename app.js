@@ -130,6 +130,33 @@ const item3 = new Item({
 
 })
 
+const item4 = new Item({
+
+    title: "Nivine",
+    description: "hahahhaahhahahha",
+    imgURL: "teeth.jpg",
+    brand: "b@beyonce.com",
+    price: 35,
+    category: "Shampoo",
+    quantity: 3,
+    size: 200
+
+
+})
+const item5 = new Item({
+
+    title: "Tala",
+    description: "hahahhaahhahahha",
+    imgURL: "teeth.jpg",
+    brand: "b@beyonce.com",
+    price: 35,
+    category: "Shampoo",
+    quantity: 3,
+    size: 200
+
+
+})
+
 // Item.insertMany([item1, item2, item3], function(err) {
 //     if (err) {
 //         console.log(err);
@@ -241,6 +268,32 @@ app.get("/products/:custom", function(reqq, res) {
 
     })
 })
+
+app.post("/products", function(req,res){
+
+    const item = req.body.productlist;
+    
+    Item.find({title:item}, function(err,found){
+        if(!err){
+            if(found.length!=0){
+                console.log(found)
+                res.render("products",{items:found,req:req})
+            }else{
+                Item.find({brand:item},function(errr,foundb){
+                    if(!err){
+                        if(foundb){
+                            console.log(foundb)
+                            res.render("products",{items:foundb,req:req})
+                        }
+                    }
+                })
+            }
+        }
+    
+    })
+    
+    
+    })
 
 
 app.get("/products", function(req, res) {

@@ -1,6 +1,7 @@
 <%- include("partials/header") -%>
 
 
+
     <!--collection-->
 
     <section class="bg-light py-4">
@@ -8,58 +9,62 @@
             <!--title-->
             <div class="row  text-center">
                 <div class="col m-4">
-                    <label for="exampleDataList" class="form-label fw-bold display-5">Search Product</label>
-                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-                    <datalist id="datalistOptions">
-                            <option value="San Francisco">
-                            <option value="New York">
-                            <option value="Seattle">
-                            <option value="Los Angeles">
-                            <option value="Chicago">
-                            </datalist>
+                    <label for="exampleDataList"class="form-label fw-bold display-5">Search Product</label>
+
+
+                    <form action="/products" method="POST">
+                    <div class="input-group">
+             
+                    <input class="form-control" type="text" name="productlist" placeholder="Type to search..." >
+               
+              
+                    <input type="submit" class="btn text-light " style="background-color:#318fb5">
+           
+                      </div>
+                    </form>
+
+
+
+                    
                     <div class=" underline mb-4 "></div>
                     <p class="lead ">Lorem ipsum dolor sit, amet consectetur adipisicing elit. A nisi, omnis laborum rerum sit esse fugit ratione, ab voluptatem ducimus totam aliquid dolores accusantium. Eligendi distinctio illo aut nostrum molestiae?</p>
                 </div>
 
             </div>
             <!--end of title-->
-            <div class="row main px-1 justify-content-start">
-                <%items.forEach(function(item){ %>
-                    <div class="col ">
+            <div class="row">
+                    <div class="col">
                         <ul class="products">
+                         <%items.forEach(function(item){ %>
                             <li>
                                 <div class="product">
+                                   <a href=<%="/products/" +item.title%>  name="inn" style="text-decoration: none;">
                                     <img src=<%="images/"+item.imgURL%> alt=" " class="product-image">
                              
-                                    <div class="product-name row">
+                                    <div class="row mt-2">
+
                                         <div class="center-block col">
-                                            <a href=<%="/products/" +item.title%> onclick="" name="inn" style="text-decoration: none;">
-                                                <%=item.title%>
-                                            </a>
+                                            <span  name="inn" style="text-decoration: none;" class="product-name h4">  <%=item.title%> </span>
                                         </div>
-                                        <div class="col text-end pr-5 center-block product-price">
-                                            $
-                                            <%=item.price%>
-                                        </div>
+                                    </a>
+                                        <div class="col text-end mx-2 h5 center-block product-price">$<%=item.price%></div>
+
                                     </div>
-                                    <div class="product-brand">
-                                        <%=item.brand%>
-                                    </div>
-                                    <div class="product-rating">
-                                        4.5 Start (10 reviews)
-                                    </div>
+
+                                    <div class="product-brand"> <%=item.brand%></div>
+
+                                    <div class="product-rating"> 4.5 Start (10 reviews) </div>
+
                                 </div>
                             </li>
+                               <%})%>
                         </ul>
                     </div>
-                    <%})%>
             </div>
         </div>
 
     </section>
     <!--end of collection-->
-
-
 
 
 
