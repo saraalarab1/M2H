@@ -17,60 +17,73 @@
                         <img src=<%="../images/" +item.imgURL%> alt="hello " style="max-width: 100%;">
                     </div>
                     <div>
-                        <p class="my-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi sint labore assumenda, quis velit doloremque ea deleniti fugiat. Odit ipsum voluptate aut. Iusto, quae obcaecati!</p>
+                        <p class="my-3"><%=item.description%>.</p>
                     </div>
-
                 </div>
+
                 <div class="col-6 col-lg-4 ">
-                    <h2 class="text-info">
-                        <%=item.title%>
-                    </h2>
 
-                    <p class="fw-bold">
-                        <%=item.description%>.</p>
-                    <p>Price: <span class="text-secondary font-weight-bold"><%=item.price%></span>LL</p>
-                    <br>
-                    <p class=""><span class="font-weight-bold ">Brand: </span>
-                        <%=item.brand%>
-                    </p>
-                    <br>
-                    <p class="text-secondary short">Size </p>
-                    <div>
-                        <div class="row">
-                            <div class="col-3">
-                                <button type="button" class="btn bg-dark text-white ">200ML</button>
+                    <form method="post" action="/card">
 
-                            </div>
-                            <div class="col-3">
-                                <button type="button" class="btn bg-light active">400ML</button>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <br>
-                    <div>
+                        <h2 class="text-info"><%=item.title%></h2>
+
+                        <p class="h5">Price: <span class="text-secondary"><%=item.price%>$</span></p>
+                        <br>
+                        <p class=""><span class="font-weight-bold ">Brand: </span><%=item.brand%></p>
+
+                        <br>
+                                    
+                                    
                         <div class="row">
-                            <p class="text-secondary short">
-                                <%=item.quantity%> bottles per box</p>
+
+                            <div class="col-2 m-1">
+                                <p class="text-secondary h6">Size </p>
+                            </div>
+                            <div class="col-2">
+                                <select name="size" class="btn border-bottom rounded-0 p-0">
+                                <%item.sizes.forEach(function(size){%>
+                                <option><%=size%>ML</option>
+                                <%  })%>
+                                </select>
+                            </div>
+
                         </div>
-                    </div>
-                    <div>
-                        <div class="" style="display: inline-block;">
-                            <input type="text" class="input w-25" style="display: inline-block;" placeholder="1" min="1">
-                            <h4 class="font-weight-bold text-lg-left" style="display: inline-block;">Boxes</h2>
+                
+
+                        <br>
+
+                        
+                        <p class="text-secondary "><%=item.quantity%> bottles per box</p>
+                    
+
+                        <div class="row">
+                            <div class="col-2">
+                                <input type="text" name="box" class="form-control px-2" value="1" min="1"/>
+                            </div>
+                            <div class="col-2">
+                                <h4 class="font-weight-bold text-lg-left">Boxes</h4>
+                            </div>
+                        
+
                         </div>
+
                         <div class="my-3">
-                            <button type="button" style="display: inline-block;" class="btn btn-dark">Add To Card</button>
-
+                        <button type="submit" style="display: inline-block;" class="btn btn-dark">Add To Card</button>
                         </div>
+                        <input type="hidden" name="id" value=<%=item.id%>>
+                    </form>
 
-                    </div>
                 </div>
-            </div>
+                            
 
+                            
+            </div>
+      </div>
 
 
             <br><br><br><br>
+
+        
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 text-center">
@@ -158,7 +171,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>    
             </div>
     </section>
 

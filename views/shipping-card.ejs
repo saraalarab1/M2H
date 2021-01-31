@@ -40,15 +40,21 @@
                         <form action="shipping-card" method="POST">
                             <div class="form-group">
                                 <label for="exampleInputEmail1" class="py-3">Address</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" name="address" aria-describedby="emailHelp" placeholder="Enter your address">
+                                <input type="text" class="form-control" id="exampleInputEmail1"  name="address" aria-describedby="emailHelp" placeholder="Enter your address" value=<%=address.addrs%>>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1" class="py-3">City</label>
-                                <input type="text" class="form-control" name="city" id="exampleInputPassword1" placeholder="Enter your city">
+                                <input type="text" class="form-control" name="city" id="exampleInputPassword1"  placeholder="Enter your city" value=<%=address.city%>>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1" class="py-3">Phone Number</label>
-                                <input type="text" class="form-control" name="number" id="exampleInputPassword1" value="+961">
+
+                                <div class="input-group mb-3">
+                                  <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">+961</label>
+                                </div>
+                                <input type="text" class="form-control" name="number" id="exampleInputPassword1"  value=<%=address.tel%>>
+                                </div>
                             </div>
                             <div class="text-center py-3">
                                 <button type="submit" class="btn btn-primary text-center">Next</button>

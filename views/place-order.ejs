@@ -68,6 +68,11 @@
                                 <p style="display: inline-block;">Your Orders</p>
                                 <p class="float-end" style="display: inline-block;">Prices</p>
                             </div>
+
+                            <%orders.forEach(function(order){%>
+                                <%console.log(order.item.title)%>
+                          <%  })%>
+
                             <div class="card-body justify-content-start">
                                 <div class="row">
                                     <div class="col-3">
