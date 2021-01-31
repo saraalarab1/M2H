@@ -34,10 +34,23 @@ app.use(passport.session());
 
 
 mongoose.connect("mongodb://localhost:27017/M2HDB", { useNewUrlParser: true });
-mongoose.set('useFindAndModify', false)
 mongoose.set("useCreateIndex", true);
 
+const userSchema = new mongoose.Schema({
+    email: String,
+    password: String,
+    googleId: String,
+    address: {
+        addrs: String,
+        city: String,
+        number: Number,
 
+    },
+    message: String,
+    name: String,
+    number: Number,
+    secret: String
+});
 
 const itemSchema = new mongoose.Schema({
     title: String,
@@ -47,43 +60,16 @@ const itemSchema = new mongoose.Schema({
     price: Number,
     category: String,
     quantity: Number,
-    sizes: [String]
+
+    size: Number
 
 })
-const Item = new mongoose.model("Item", itemSchema);
-
-const userSchema = new mongoose.Schema({
-    email: String,
-    password: String,
-    googleId: String,
-    secret: String,
-    number: Number,
-    name: String,
-    message: String,
-    orders:[{
-        item:{type: mongoose.Schema.Types.ObjectId, ref: 'Item'},
-        qty:Number,
-        recieved:Boolean,
-        date:String,
-        size:String
-    }],
-    address: {
-        addrs: String,
-        city: String,
-        tel: Number,
-
-    },
-});
-
-
-
-
 
 
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
 
-
+const Item = new mongoose.model("Item", itemSchema);
 const User = new mongoose.model("User", userSchema);
 
 passport.use(User.createStrategy());
@@ -122,7 +108,7 @@ const item1 = new Item({
     price: 33,
     category: "Shampoo",
     quantity: 3,
-    sizes:[ 200,300,500]
+    size: 200
 
 
 })
@@ -135,7 +121,7 @@ const item2 = new Item({
     price: 34,
     category: "Shampoo",
     quantity: 3,
-    sizes: [200,600,900]
+    size: 200
 
 
 })
@@ -149,7 +135,7 @@ const item3 = new Item({
     price: 35,
     category: "Shampoo",
     quantity: 3,
-    sizes: [200,500,600]
+    size: 200
 
 
 })
@@ -163,7 +149,7 @@ const item4 = new Item({
     price: 35,
     category: "Shampoo",
     quantity: 3,
-    size: [100,700]
+    size: 200
 
 
 })
@@ -176,12 +162,12 @@ const item5 = new Item({
     price: 35,
     category: "Shampoo",
     quantity: 3,
-    size: [300]
+    size: 200
 
 
 })
 
-// Item.insertMany([item1, item2, item3,item4,item5], function(err) {
+// Item.insertMany([item1, item2, item3], function(err) {
 //     if (err) {
 //         console.log(err);
 //     } else {
@@ -212,38 +198,12 @@ app.get("/auth/google/secrets",
         // Successful authentication, redirect to secrets.
         res.redirect("/");
     });
-app.get("/card",function(req,res){
 
-    
-    // const items = User.findById(req.user.id,function(err,user){
-    //     const orders = user.orders;
-    
-        
-    // })
-//   const usesr =  User.findOne({id:req.user.id}).populate('orders.item')
-//     console.log(usesr)
-    
-    // res.render("place-order", { req: req ,orders:req.user.orders});
-})
 
-app.post("/card", function(req, res) {
-   
+app.get("/card", function(req, res) {
     if (req.isAuthenticated()) {
-        const created_at = new Date().toLocaleString();
-        
         console.log("user is signed in")
-        const box=req.body.box
-        const id=req.body.id
-        const size=req.body.size
-      
-        User.findByIdAndUpdate(req.user.id, {$push: {orders:{'item': id,'qty':box,'recieved':false,date:created_at}}}, function(err) {
-            if(err){
-                console.log(err)
-            }
-        });
-    
-        res.render("shipping-card", { req: req,address:req.user.address });
-        
+        res.render("shipping-card", { req: req });
     } else {
         console.log("user is not signed in")
         res.render("card", { req: req });
@@ -256,10 +216,8 @@ app.get("/shipping-card", function(req, res) {
 })
 
 app.post("/payment-card", function(req, res) {
-    res.render("place-order", { req: req,orders:req.user.orders});
+    res.render("place-order", { req: req });
 })
-
-
 
 app.post("/contact", function(req, res) {
 
@@ -293,22 +251,30 @@ app.post("/contact", function(req, res) {
 
 
 })
+
+
 app.post("/shipping-card", function(req, res) {
-    const tel = req.body.number;
-    const add = req.body.address;
-    const city=req.body.city;
-    const id = req.user.id;
-
-    User.findByIdAndUpdate(id, {$set: {'address.addrs': add,'address.tel':tel,'address.city':city},}, function(err) {
-        if(err){
-            console.log(err)
+        console.log(req.body.address);
+        console.log(req.body.city);
+        console.log(req.body.number);
+        console.log(req.user.id);
+        var newAddress = {
+            addrs: req.body.address,
+            city: req.body.city,
+            number: req.body.number
         }
-    });
-   
-    res.render("payment-card", { req: req });
-})
+        User.updateOne({ _id: req.user.id }, {
+            address: newAddress
 
-
+        }, function(err) {
+            if (!err) {
+                console.log("No error: " + req.user.address);
+            } else {
+                console.log(err)
+            }
+        })
+        res.render("payment-card", { req: req });
+    })
     // Fruit.updateOne({ _id: "600c196dbbc9c90e3c9fef4d" }, { name: "Peach" }, function(err) {
     //     if (err) {
     //         console.log(err);
