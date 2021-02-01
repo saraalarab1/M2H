@@ -56,8 +56,6 @@ body {
 
 /* End of Nav */
 
-
-
 .contact-form {
     background: black;
     margin-top: 10%;
@@ -72,7 +70,8 @@ body {
 .contact-image {
     text-align: center;
 }
-.signup{
+
+.signup {
     min-width: 100px !important;
 }
 
@@ -115,25 +114,22 @@ body {
     cursor: pointer;
 }
 
-
 .badge {
     padding-left: 5px;
     height: 15px;
     width: 15px;
     border-radius: 50%;
-  }
-  
- 
-  #lblCartCount {
-      font-size: 12px;
-      background: #dc3545;
-      color: #fff;
-      padding: 1px 4px;
-      vertical-align: top;
-      margin-left: -10px; 
-      border-radius: 50%;
-   
-  }
+}
+
+#lblCartCount {
+    font-size: 12px;
+    background: #dc3545;
+    color: #fff;
+    padding: 1px 4px;
+    vertical-align: top;
+    margin-left: -10px;
+    border-radius: 50%;
+}
 
 
 /*footer*/
@@ -159,6 +155,7 @@ body {
 .card-shadow {
     box-shadow: 5px 8px 20px #444;
 }
+
 .submit-google {
     background: #db4437 !important;
     color: #eee;
@@ -169,6 +166,7 @@ body {
     background: #fc321f !important;
     transform: translateY(-3px);
 }
+
 .heading {
     position: absolute;
     top: 70%;
@@ -206,3 +204,19 @@ body {
 
 
 /* /end of footer/ */
+
+
+/*background brand*/
+
+.background-brand {
+    background-image: url("../images/Johnson.jpg");
+}
+
+.brand-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
+}
+
+.nav-linkk:hover {
+    background-color: #f7f7f7;
+}

@@ -17,7 +17,8 @@
                         <img src=<%="../images/" +item.imgURL%> alt="hello " style="max-width: 100%;">
                     </div>
                     <div>
-                        <p class="my-3"><%=item.description%>.</p>
+                        <p class="my-3">
+                            <%=item.description%>.</p>
                     </div>
                 </div>
 
@@ -25,15 +26,19 @@
 
                     <form method="post" action="/card">
 
-                        <h2 class="text-info"><%=item.title%></h2>
+                        <h2 class="text-info">
+                            <%=item.title%>
+                        </h2>
 
                         <p class="h5">Price: <span class="text-secondary"><%=item.price%>$</span></p>
                         <br>
-                        <p class=""><span class="font-weight-bold ">Brand: </span><%=item.brand%></p>
+                        <p class=""><span class="font-weight-bold ">Brand: </span>
+                            <%=item.brand%>
+                        </p>
 
                         <br>
-                                    
-                                    
+
+
                         <div class="row">
 
                             <div class="col-2 m-1">
@@ -48,27 +53,28 @@
                             </div>
 
                         </div>
-                
+
 
                         <br>
 
-                        
-                        <p class="text-secondary "><%=item.quantity%> bottles per box</p>
-                    
+
+                        <p class="text-secondary ">
+                            <%=item.quantity%> bottles per box</p>
+
 
                         <div class="row">
                             <div class="col-2">
-                                <input type="text" name="box" class="form-control px-2" value="1" min="1"/>
+                                <input type="text" name="box" class="form-control px-2" value="1" min="1" />
                             </div>
                             <div class="col-2">
                                 <h4 class="font-weight-bold text-lg-left">Boxes</h4>
                             </div>
-                        
+
 
                         </div>
 
                         <div class="my-3">
-                        <button type="submit" style="display: inline-block;" class="btn btn-dark">Add To Card</button>
+                            <button type="submit" style="display: inline-block;" class="btn btn-dark">Add To Card</button>
                         </div>
                         <input type="hidden" name="title" value=<%=item.title%>>
                         <input type="hidden" name="img" value=<%=item.imgURL%>>
@@ -77,105 +83,105 @@
                     </form>
 
                 </div>
-                            
 
-                            
+
+
             </div>
-      </div>
+        </div>
 
 
-            <br><br><br><br>
+        <br><br><br><br>
 
-        
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <h2 class="heading-section mb-5 pb-md-4">You Might Also Like</h2>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="featured-carousel owl-carousel">
-                            <div class="item">
-                                <div class="work">
-                                    <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-1.jpg);">
-                                        <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                            <span class="ion-ios-search"></span>
-                                        </a>
-                                    </div>
-                                    <div class="text pt-3 w-100 text-center">
-                                        <h3><a href="#">Axe</a></h3>
-                                        <span>Web Design</span>
-                                    </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2 class="heading-section mb-5 pb-md-4">You Might Also Like</h2>
+                </div>
+                <div class="col-md-12">
+                    <div class="featured-carousel owl-carousel">
+                        <div class="item">
+                            <div class="work">
+                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-1.jpg);">
+                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
+                                        <span class="ion-ios-search"></span>
+                                    </a>
+                                </div>
+                                <div class="text pt-3 w-100 text-center">
+                                    <h3><a href="#">Axe</a></h3>
+                                    <span>Web Design</span>
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="work">
-                                    <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-2.jpg);">
-                                        <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                            <span class="ion-ios-search"></span>
-                                        </a>
-                                    </div>
-                                    <div class="text pt-3 w-100 text-center">
-                                        <h3><a href="#">Work 02</a></h3>
-                                        <span>Web Design</span>
-                                    </div>
+                        </div>
+                        <div class="item">
+                            <div class="work">
+                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-2.jpg);">
+                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
+                                        <span class="ion-ios-search"></span>
+                                    </a>
+                                </div>
+                                <div class="text pt-3 w-100 text-center">
+                                    <h3><a href="#">Work 02</a></h3>
+                                    <span>Web Design</span>
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="work">
-                                    <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-3.jpg);">
-                                        <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                            <span class="ion-ios-search"></span>
-                                        </a>
-                                    </div>
-                                    <div class="text pt-3 w-100 text-center">
-                                        <h3><a href="#">Work 03</a></h3>
-                                        <span>Web Design</span>
-                                    </div>
+                        </div>
+                        <div class="item">
+                            <div class="work">
+                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-3.jpg);">
+                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
+                                        <span class="ion-ios-search"></span>
+                                    </a>
+                                </div>
+                                <div class="text pt-3 w-100 text-center">
+                                    <h3><a href="#">Work 03</a></h3>
+                                    <span>Web Design</span>
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="work">
-                                    <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-4.jpg);">
-                                        <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                            <span class="ion-ios-search"></span>
-                                        </a>
-                                    </div>
-                                    <div class="text pt-3 w-100 text-center">
-                                        <h3><a href="#">Work 04</a></h3>
-                                        <span>Web Design</span>
-                                    </div>
+                        </div>
+                        <div class="item">
+                            <div class="work">
+                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-4.jpg);">
+                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
+                                        <span class="ion-ios-search"></span>
+                                    </a>
+                                </div>
+                                <div class="text pt-3 w-100 text-center">
+                                    <h3><a href="#">Work 04</a></h3>
+                                    <span>Web Design</span>
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="work">
-                                    <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-5.jpg);">
-                                        <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                            <span class="ion-ios-search"></span>
-                                        </a>
-                                    </div>
-                                    <div class="text pt-3 w-100 text-center">
-                                        <h3><a href="#">Work 05</a></h3>
-                                        <span>Web Design</span>
-                                    </div>
+                        </div>
+                        <div class="item">
+                            <div class="work">
+                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-5.jpg);">
+                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
+                                        <span class="ion-ios-search"></span>
+                                    </a>
+                                </div>
+                                <div class="text pt-3 w-100 text-center">
+                                    <h3><a href="#">Work 05</a></h3>
+                                    <span>Web Design</span>
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="work">
-                                    <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-6.jpg);">
-                                        <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                            <span class="ion-ios-search"></span>
-                                        </a>
-                                    </div>
-                                    <div class="text pt-3 w-100 text-center">
-                                        <h3><a href="#">Work 06</a></h3>
-                                        <span>Web Design</span>
-                                    </div>
+                        </div>
+                        <div class="item">
+                            <div class="work">
+                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-6.jpg);">
+                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
+                                        <span class="ion-ios-search"></span>
+                                    </a>
+                                </div>
+                                <div class="text pt-3 w-100 text-center">
+                                    <h3><a href="#">Work 06</a></h3>
+                                    <span>Web Design</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>    
+                </div>
             </div>
+        </div>
     </section>
 
     <%- include("partials/footer") -%>
