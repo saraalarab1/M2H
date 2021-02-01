@@ -35,6 +35,8 @@ app.use(passport.session());
 
 mongoose.connect("mongodb://localhost:27017/M2HDB", { useNewUrlParser: true });
 mongoose.set("useCreateIndex", true);
+mongoose.set("useFindAndModify", false);
+
 
 const userSchema = new mongoose.Schema({
     email: String,
@@ -44,28 +46,24 @@ const userSchema = new mongoose.Schema({
     number: Number,
     name: String,
     message: String,
-    orders:{
-    recieved:{type:Boolean,default :false},
-    date:String,
-    items:[{
-            img:String,
-            title:String,
-            price:Number,
-            qty:Number,
-            size:String
-
-    }]
-},
+    orders:[{
+        items:[{
+                img:String,
+                title:String,
+                price:Number,
+                qty:Number,
+                size:String }],
+                recieved:{type:Boolean,default :false},
+                checkout:{type:Boolean,default :false},
+                date:String
+            }],
+           
     address: {
         addrs: String,
         city: String,
         number: Number,
 
     },
-    message: String,
-    name: String,
-    number: Number,
-    secret: String
 });
 
 const itemSchema = new mongoose.Schema({
@@ -77,7 +75,7 @@ const itemSchema = new mongoose.Schema({
     category: String,
     quantity: Number,
 
-    size: Number
+    sizes: [String]
 
 })
 
@@ -124,7 +122,7 @@ const item1 = new Item({
     price: 33,
     category: "Shampoo",
     quantity: 3,
-    size: 200
+    sizes: [200,500,100]
 
 
 })
@@ -137,7 +135,7 @@ const item2 = new Item({
     price: 34,
     category: "Shampoo",
     quantity: 3,
-    size: 200
+    sizes: [200,500,100]
 
 
 })
@@ -151,7 +149,7 @@ const item3 = new Item({
     price: 35,
     category: "Shampoo",
     quantity: 3,
-    size: 200
+    sizes: [200,500,100]
 
 
 })
@@ -165,7 +163,7 @@ const item4 = new Item({
     price: 35,
     category: "Shampoo",
     quantity: 3,
-    size: 200
+    sizes:[200,500,100]
 
 
 })
@@ -178,12 +176,12 @@ const item5 = new Item({
     price: 35,
     category: "Shampoo",
     quantity: 3,
-    size: 200
+    sizes: [200,500,100]
 
 
 })
 
-// Item.insertMany([item1, item2, item3], function(err) {
+// Item.insertMany([item1, item2, item3,item4,item5], function(err) {
 //     if (err) {
 //         console.log(err);
 //     } else {
@@ -214,14 +212,9 @@ app.get("/auth/google/secrets",
         // Successful authentication, redirect to secrets.
         res.redirect("/");
     });
-app.get("/card",function(req,res){
-
-    
-    res.render("place-order", { req: req ,orders:req.user.orders});
-})
 
 
-app.get("/card", function(req, res) {
+app.post("/card", function(req, res) {
     if (req.isAuthenticated()) {
         console.log("user is signed in")
         const box=req.body.box
@@ -229,21 +222,30 @@ app.get("/card", function(req, res) {
         const img=req.body.img
         const title=req.body.title
         const price = req.body.price
-    
 
-      
-        User.findByIdAndUpdate(req.user.id, 
-            {$push:
-                
-                    {items:{ 
-                            'img':img,
-                            'title':title,
-                            'price':price,
-                            'qty':box,
-                            'size':size
-                            }
-                    }
-                    
+        let checked=false;
+        if(req.user.orders.length>0){
+         checked = req.user.orders[0].checkout;
+        }
+        
+        
+      if(checked){
+        User.findByIdAndUpdate(req.user.id,
+            {$push:{'orders':{  $each:[{
+                                        'items':{
+                                        'img':img,
+                                        'title':title,
+                                        'price':price,
+                                        'qty':box,
+                                        'size':size}
+                                        }],
+                                $position:0
+                                
+                             }
+                           
+                }
+        
+               
                      
             }, function(err) {
             if(err){
@@ -251,7 +253,29 @@ app.get("/card", function(req, res) {
             }
         });
 
+        }else{
+
+            User.findByIdAndUpdate(req.user.id,
+                {$push:{'orders.0.items':{
     
+                                'img':img,
+                                'title':title,
+                                'price':price,
+                                'qty':box,
+                                'size':size
+               
+                                }
+                        }
+                   
+                         
+                }, function(err) {
+                if(err){
+                    console.log(err)
+                }
+            });
+    
+
+        }
     
     
         res.render("shipping-card", { req: req,address:req.user.address });
@@ -267,9 +291,9 @@ app.get("/shipping-card", function(req, res) {
     res.render("shipping-card", { req: req });
 })
 
-app.post("/payment-card", function(req, res) {
-    res.render("place-order", { req: req,items:req.user.orders.items,order:req.user.orders});
-})
+
+
+
 
 app.post("/contact", function(req, res) {
 
@@ -299,8 +323,42 @@ app.post("/contact", function(req, res) {
         res.redirect("/")
 
     }
+})
+app.get("/card",function(req,res){
+
+    
+    User.findById(req.user.id,function(err,user){
+
+        const orders = user.orders;
+        const order = orders[0]
+        
+    res.render("place-order", { req:req,items:order.items,order:order,orders:orders});
+})
+})
+
+app.post("/payment-card", function(req, res) {
 
 
+    User.findById(req.user.id,function(err,user){
+
+        const orders = user.orders;
+        const order = orders[0]
+        
+    res.render("place-order", { req: req,items:order.items,order:order,orders:orders});
+    })
+    
+
+    
+})
+
+
+app.post("/checkout", function(req,res){
+    const date = new Date().toLocaleString()
+
+    User.findByIdAndUpdate(req.user.id,{'orders.0.checkout':true,'orders.0.date':date},function(err,user){
+            res.redirect('/card')
+    })
+ 
 
 })
 
@@ -327,18 +385,9 @@ app.post("/shipping-card", function(req, res) {
         })
         res.render("payment-card", { req: req });
     })
-    // Fruit.updateOne({ _id: "600c196dbbc9c90e3c9fef4d" }, { name: "Peach" }, function(err) {
-    //     if (err) {
-    //         console.log(err);
-    //     } else {
-    //         console.log("succesfully updated!");
-    //     }
-    // });
+  
 
-app.post("/payment.card", function(req, res) {
-    console.log("payment success")
-    res.render("place-order", { req: req ,orders:req.user.orders});
-})
+
 
 app.post("/signin-card", function(req, res) {
 
@@ -418,10 +467,7 @@ app.get("/feedback", function(req, res) {
     res.render("feedback.ejs", { req: req });
 })
 
-// app.get("/product", function(req, res) {
-//     // console.log(res.body.titlee)
-//     res.render("product", { req: req });
-// })
+
 
 app.get("/products/:custom", function(reqq, res) {
     const custom = reqq.params.custom
