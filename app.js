@@ -37,7 +37,15 @@ mongoose.connect("mongodb://localhost:27017/M2HDB", { useNewUrlParser: true });
 mongoose.set('useFindAndModify', false)
 mongoose.set("useCreateIndex", true);
 
+const brandSchema = new mongoose.Schema({
+    brand: String,
+    img: String
+})
 
+const categorySchema = new mongoose.Schema({
+    category: String,
+    img: String
+})
 
 const itemSchema = new mongoose.Schema({
     title: String,
@@ -88,9 +96,9 @@ const userSchema = new mongoose.Schema({
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
 
-
+const Brand = new mongoose.model("Brand", brandSchema);
 const User = new mongoose.model("User", userSchema);
-
+const Category = new mongoose.model("Category", categorySchema);
 passport.use(User.createStrategy());
 
 passport.serializeUser(function(user, done) {
@@ -185,8 +193,79 @@ const item5 = new Item({
 
 
 })
+const item6 = new Item({
 
-// Item.insertMany([item1, item2, item3,item4,item5], function(err) {
+    title: "Tala",
+    description: "hahahhaahhahahha",
+    imgURL: "teeth.jpg",
+    brand: "Johnson",
+    price: 35,
+    category: "Shampoo",
+    quantity: 3,
+    size: [300]
+
+
+})
+
+const item7 = new Item({
+
+    title: "Tala",
+    description: "hahahhaahhahahha",
+    imgURL: "teeth.jpg",
+    brand: "Johnson",
+    price: 35,
+    category: "Shampoo",
+    quantity: 3,
+    size: [300]
+
+
+})
+
+const brand1 = new Brand({
+    brand: "Johnson",
+    img: "../images/Johnson.jpg"
+})
+
+
+const brand2 = new Brand({
+    brand: "Colgate",
+    img: "../images/teeth.jpg"
+})
+
+const brand3 = new Brand({
+    brand: "vaseline",
+    img: "../images/bodycare.jpg"
+})
+
+
+const categ1 = new Category({
+    category: "Shampoo",
+    img: "../images/Johnson.jpg"
+})
+const categ4 = new Category({
+    category: "body care",
+    img: "../images/Johnson.jpg"
+})
+const categ2 = new Category({
+    category: "deodorant",
+    img: "../images/Johnson.jpg"
+})
+const categ3 = new Category({
+    category: "teeth",
+    img: "../images/Johnson.jpg"
+})
+
+// Category.insertMany([categ1, categ2, categ3, categ4], function(err) {
+//     if (err) console.log(err);
+//     else console.log([categ1, categ2, categ3]);
+// })
+
+// Brand.insertMany([brand1, brand2, brand3], function(err) {
+//     if (err) console.log(err);
+//     else console.log([brand1, brand2, brand3]);
+// })
+
+// Item.insertMany([item6, item7], function(err) {
 //     if (err) {
 //         console.log(err);
 //     } else {
@@ -247,32 +326,38 @@ app.post("/card", function(req, res) {
         const title = req.body.title
         const price = req.body.price
 
-
-
+        var item = {
+            img: img,
+            title: title,
+            price: price,
+            qty: box,
+            size: size
+        }
+        var orders = {
+            recieved: false,
+            date: "today",
+            items: [item]
+        }
+        User.findById(req.user.id).orders = orders;
         User.findByIdAndUpdate(req.user.id, {
-            $push:
 
-            {
-                items: {
-                    'img': img,
-                    'title': title,
-                    'price': price,
-                    'qty': box,
-                    'size': size
+                $push: {
+                    orders: orders
                 }
-            }
+            },
+            function(err) {
+                console.log(req.user.orders);
+                if (err) {
+                    console.log(err)
+                }
+            });
 
 
-        }, function(err) {
-            if (err) {
-                console.log(err)
-            }
-        });
+        if (req.user.address == null) {
+            res.render("shipping-card", { req: req });
 
+        } else res.render("place-order", { req: req })
 
-
-
-        res.render("shipping-card", { req: req, address: req.user.address });
 
     } else {
         console.log("user is not signed in")
@@ -280,6 +365,10 @@ app.post("/card", function(req, res) {
 
     }
 })
+
+
+
+
 
 app.get("/shipping-card", function(req, res) {
     res.render("shipping-card", { req: req });
@@ -450,8 +539,35 @@ app.get("/products/:custom", function(reqq, res) {
     })
 })
 
-app.post("/products", function(req, res) {
+app.get("/brand", function(req, res) {
+    res.render("brand", { req: req, brands: brand })
+})
 
+app.post("/brand", function(req, res) {
+    console.log(req.body.brandName);
+
+    const product = req.body.brandName;
+    Item.find({ brand: product }, function(err, found) {
+        if (!err) {
+            if (found.length != 0) {
+                console.log(found);
+                Category.find({}, function(err, foundCat) {
+                    if (!err) {
+                        console.log("ready to enter");
+                        res.render("products", { items: found, categories: foundCat, req: req })
+
+                    }
+
+                })
+            } else {
+                console.log("not found");
+            }
+        }
+    })
+})
+
+app.post("/products", function(req, res) {
+    console.log("product entered")
     const item = req.body.productlist;
 
     Item.find({ title: item }, function(err, found) {
@@ -464,7 +580,14 @@ app.post("/products", function(req, res) {
                     if (!err) {
                         if (foundb) {
                             console.log(foundb)
-                            res.render("products", { items: foundb, req: req })
+                            Category.find({}, function(err, foundCat) {
+                                if (!err) {
+                                    console.log("ready to enter");
+                                    res.render("products", { items: foundb, categories: foundCat, req: req })
+
+                                }
+
+                            })
                         }
                     }
                 })
@@ -480,7 +603,14 @@ app.post("/products", function(req, res) {
 app.get("/products", function(req, res) {
     Item.find({}, function(err, foundItems) {
         if (!err) {
-            res.render("products", { req: req, items: foundItems });
+            Category.find({}, function(err, foundCat) {
+                if (!err) {
+                    console.log("ready to enter");
+                    res.render("products", { items: foundItems, categories: foundCat, req: req })
+
+                }
+
+            })
         } else {
             console.log(err);
         }
@@ -489,7 +619,14 @@ app.get("/products", function(req, res) {
 })
 
 app.get("/brands", function(req, res) {
-    res.render("brands.ejs", { req: req });
+
+    Brand.find({}, function(err, foundBrands) {
+        if (!err) {
+            res.render("brands.ejs", { brands: foundBrands, req: req });
+        } else {
+            console.log(err);
+        }
+    })
 })
 
 

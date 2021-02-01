@@ -1,26 +1,50 @@
 <%- include("partials/header") -%>
 
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <h1>hello</h1>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+
+
+    <div class="text-center background-brand">
+
+        <h1 class="pt-5">Brands</h1>
+        <p class="lead pb-5">Choose your product from the brand you like! </p>
+
+
+        <div class="input-group mb-3 mx-auto" style="max-width: 35rem;">
+            <input type="text" class="form-control" placeholder="Search for your brand" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary mb-5" type="button">Search</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row mx-auto">
+        <div class="col-6 mx-auto">
+            <div class="row">
+                <%brands.forEach(function(brand){%>
+                    <div class="col-md-6 col-lg-4 my-2">
+                        <div class="card brand-card">
+                            <form action="brand" method="POST">
+                                <img class="card-img" style="max-height: 5rem;" src=<%="../images/" +brand.img%> alt="">
+                                <div class="card-header">
+                                    <input hidden type="text" name="brandName" value=<%=brand.brand%>>
+                                    <p class="lead">
+                                        <%=brand.brand%>
+                                    </p>
+                                    <div class="text-center pt-3">
+                                        <button type="submit" class="btn btn-primary">explore</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <%})%>
+            </div>
+        </div>
+    </div>
+
+
 
     <%- include("partials/footer") -%>
