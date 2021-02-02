@@ -220,3 +220,13 @@ body {
 .nav-linkk:hover {
     background-color: #f7f7f7;
 }
+
+.scroll {
+    margin: 4px, 4px;
+    padding: 4px;
+    width: 500px;
+    height: 45rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: justify;
+}

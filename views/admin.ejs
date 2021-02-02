@@ -1,0 +1,137 @@
+<%-include('partials/header')-%>
+
+
+
+    <div class="container-fluid">
+        <div class="row p-4">
+            <div class="col-lg-6 bg-light p-3">
+                <h3>Add Category</h3>
+                <label for="name">Category Name</label>
+
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <div>
+                    <label for="">Category image</label>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputGroupFile03">
+                            <label class="custom-file-label" for="inputGroupFile03">Add image</label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-dark">Submit</button>
+                </div>
+            </div>
+            <div class="col-lg-6 bg-dark text-light p-3">
+                <h3>Add Brand</h3>
+                <label for="name">Brand Name</label>
+
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <div>
+                    <label for="">Category image</label>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputGroupFile03">
+                            <label class="custom-file-label" for="inputGroupFile03">Add image</label>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-light">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 bg-dark text-light  p-3">
+                <h3>Add item</h3>
+                <label for="name">Item Name</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <label for="name">Item Description</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <label for="name">Item Category</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <label for="name">Item Brand</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <label for="name">Item price</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <div>
+                    <label for="">Item image</label>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputGroupFile03">
+                            <label class="custom-file-label" for="inputGroupFile03">Add image</label>
+                        </div>
+                    </div>
+                </div>
+                <label for="name">Item sizes</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <div>
+                    <button class="btn btn-light">Submit</button>
+                </div>
+            </div>
+
+            <div class="col-md-6 scroll">
+                <h1>Orders</h1>
+
+                <%var count=0%>
+                    <%users.forEach(function(user){%>
+                        <%user.orders.forEach(function(order){%>
+                            <div class="card">
+                                <form action="adminOrder" method="POST">
+                                    <div class="card-header bg-warning text-dark">
+                                        Order #
+                                        <%=count%>
+                                            <p class="card-text float-end">Total Price: 50,0000LL
+                                            </p>
+
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <%=user.username%>
+                                        </h5>
+                                        <p class="card-text">Location:
+                                            <%=user.address.addr%>
+                                                <%=user.address.city%>
+                                        </p>
+                                        <p class="card-text">Date:
+                                            <%=order.date%>
+                                        </p>
+                                        <p class="card-text">Phone Number:
+                                            <%=user.address.tel%>
+                                        </p>
+                                        <input type="text" hidden name="userOrder" value=<%=user.id%>>
+                                        <input type="text" hidden name="Order" value=<%=order.id%>>
+                                        <button type="submit" class="btn btn-primary">See Full Order</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <%})%>
+
+                                <% })%>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <%- include('partials/footer')-%>
