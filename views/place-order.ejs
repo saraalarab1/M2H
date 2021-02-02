@@ -4,125 +4,133 @@
 
 
     <div class="container-fluid">
-                <div class="row py-3">
-                    <div class="col-lg-4"></div>
+        <div class="row py-3">
+            <div class="col-lg-4"></div>
 
-                    <div class="col col-lg-4">
-                        <div class="row">
-                            <div>
-                                <div class="progress bg-secondary mb-3">
-                                    <div class="progress-bar bg-warning" style="width: 75%;"></div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row pb-5">
-                            <div class="col-3">
-                                Sign in
-                            </div>
-                            <div class="col-3">
-                                Shipping
-                            </div>
-                            <div class="col-3">
-                                Payment
-                            </div>
-                            <div class="col-3">
-                                Place order
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4"></div>
-                </div>
-
-
+            <div class="col col-lg-4">
                 <div class="row">
-                    <div class="col-md-7">
-                        <div class="row py-3">
-                            <div class="col">
-                                <%=console.log("This is user's address: "+req.user.address)%>
-                                    <div class="card bg-light mb-3" >
-                                        <div class="card-header">
-                                            <%=req.user.address.addrs%>
-                                        </div>
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <%=req.user.address.city%>
-                                            </h5>
-                                            <p class="card-text">
-                                                <%=req.user.address.number%>
-                                            </p>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="card bg-light mb-3" style=";">
-                                    <div class="card-header">Payment</div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">Cash on Delivery</h5>
-                                        <p class="card-text">Free delivery for orders above 100,000LL</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="card bg-light mb-3" style=";">
-                                    <div class="card-header">
-                                        <p style="display: inline-block;">Your Orders</p>
-                                        <p class="float-end" style="display: inline-block;">Prices</p>
-                                    </div>
-                            
-                                    
-                                    <div class="card-body justify-content-start">
-                                        <%if(order.checkout==false){%>
-                                            <% var sum=0%>
-                                    <%items.forEach(function(item){%>
-                                        
-                                        <div class="row">
-                                            <div class="col-3">
-                                                <img src=<%="../images/"+item.img%> style="display: inline-block; height: 5rem; width: 5rem;" alt="">
-                                            </div>
-                                            <div class="col-9">
-                                                <div>
-                                                    <p style="display: inline-block;"><%=item.title%></p>
-                                                    <p class="float-end" style="display: inline-block;"><%=item.price%>LL</p>
-                                                </div>
-                                                <p>Quantity: <span><%=item.qty%></span></p>
-                                            </div>
-                                        </div>
-
-                                        <hr>
-                                        <%sum+=item.price*item.qty%>
-                                        <%  })%>
-                                         <%}%>
-                                    </div>
-                                </div>
-                            </div>
+                    <div>
+                        <div class="progress bg-secondary mb-3">
+                            <div class="progress-bar bg-warning" style="width: 75%;"></div>
                         </div>
                     </div>
 
-                    
+                </div>
+                <div class="row pb-5">
+                    <div class="col-3">
+                        Sign in
+                    </div>
+                    <div class="col-3">
+                        Shipping
+                    </div>
+                    <div class="col-3">
+                        Payment
+                    </div>
+                    <div class="col-3">
+                        Place order
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4"></div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-7">
+                <div class="row py-3">
+                    <div class="col">
+                        <%=console.log("This is user's address: "+req.user.address)%>
+                            <div class="card bg-light mb-3">
+                                <div class="card-header">
+                                    <%=req.user.address.addrs%>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <%=req.user.address.city%>
+                                    </h5>
+                                    <p class="card-text">
+                                        <%=req.user.address.number%>
+                                    </p>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card bg-light mb-3" style=";">
+                            <div class="card-header">Payment</div>
+                            <div class="card-body">
+                                <h5 class="card-title">Cash on Delivery</h5>
+                                <p class="card-text">Free delivery for orders above 100,000LL</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card bg-light mb-3" style=";">
+                            <div class="card-header">
+                                <p style="display: inline-block;">Your Orders</p>
+                                <p class="float-end" style="display: inline-block;">Prices</p>
+                            </div>
+                            <% var sum=0%>
+
+                                <div class="card-body justify-content-start">
+                                    <%if(order.checkout==false){%>
+
+                                        <%items.forEach(function(item){%>
+
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <img src=<%="../images/" +item.img%> style="display: inline-block; height: 5rem; width: 5rem;" alt="">
+                                                </div>
+                                                <div class="col-9">
+                                                    <div>
+                                                        <p style="display: inline-block;">
+                                                            <%=item.title%>
+                                                        </p>
+                                                        <p class="float-end" style="display: inline-block;">
+                                                            <%=item.price%>LL</p>
+                                                    </div>
+                                                    <p>Quantity: <span><%=item.qty%></span></p>
+                                                </div>
+                                            </div>
+
+                                            <hr>
+                                            <%sum+=item.price*item.qty%>
+                                                <%order.total=sum%>
+                                                    <%  })%>
+                                                        <%}%>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
-                    
-                    <div class="col-md-5">
-                        <div class="row py-3">
-                            <div class="col">
-                                <div class="card bg-light mb-3">
+
+
+
+            <div class="col-md-5">
+                <div class="row py-3">
+                    <div class="col">
+                        <div class="card bg-light mb-3">
 
                             <form method="post" action="/checkout">
-                                    <div class="card-header text-center ">
-                                        <button style="width: 65%;" class="btn btn-warning" Onclick="return ConfirmOrder();" type="submit" name="actiondelete"  value="1">Place Order</button>
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">Order Summary</h5>
+                                <div class="card-header text-center ">
+                                    <input type="text" hidden name="orderTotal" value=<%order.total%>>
+                                    <button style="width: 65%;" class="btn btn-warning" Onclick="return ConfirmOrder();" type="submit" name="actiondelete" value="1">Place Order</button>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Order Summary</h5>
+                                    <%if(sum!=0){%>
+
                                         <div class="row">
                                             <div class="col-6">Items: </div>
-                                            <div class="col-6"><%=sum%>LL</div>
+                                            <div class="col-6">
+                                                <%=req.user.orders[0].items.total%>LL</div>
                                         </div>
                                         <div class="row">
                                             <div class="col-6">Delivery: </div>
@@ -132,48 +140,66 @@
                                             <div class="col-6">
                                                 <h5 class="text-danger">Order Total: </h5>
                                             </div>
-                                            <div class="col-6"><%=sum%>LL</div>
-                                    </div>
-                                    </div>
 
-                                    </form>
-
-                                </div>
-                            </div>
-                        </div>
-
-<%console.log(orders)%>
-
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="card bg-light mb-3" >
-                                                    <div class="card-header">
-                                                        <p style="display: inline-block;">Your Purchases</p>
-                                                        <p class="float-end" style="display: inline-block;">Recieved</p>
-                                                    </div>
-                                                            
-                                                                    
-                                                <div class="card-body justify-content-start">            
-                                                    <%orders.forEach(function(order){%>
-                                                        <%if(order.checkout==true){%>
-                                                        <div class="row"> 
-                                                                <div>
-                                                                    <p style="display: inline-block;"><%=order.date%></p>
-                                                                    <p class="float-end" style="display: inline-block;"><%=order.recieved%></p>
-                                                                </div>
-                                                        </div>
-                                                                        <hr>
-                                                        <%}%>
-                                                    <%  })%>
-
-                                                </div>
-                                            
-                                            </div>
+                                            <div class="col-6">
+                                                <%=sum%>LL</div>
                                         </div>
+                                        <%}else{%>
+
+                                            <div class="row">
+                                                <p class="lead px-4">You have no items in your card!</p>
+                                            </div>
+                                            <%}%>
                                 </div>
-                            </div>
+
+                            </form>
+
                         </div>
                     </div>
+                </div>
+
+                <%console.log(orders)%>
+                    <%console.log(sum)%>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="card bg-light mb-3">
+                                    <div class="card-header">
+                                        <p style="display: inline-block;">Your Purchases</p>
+                                        <p class="float-end" style="display: inline-block;">Recieved</p>
+                                    </div>
+
+
+                                    <div class="card-body justify-content-start">
+                                        <%orders.forEach(function(order){%>
+                                            <%if(order.checkout==true){%>
+                                                <div class="row">
+                                                    <div>
+                                                        <p style="display: inline-block;">
+                                                            Order Date:
+                                                            <%=order.date%>
+                                                        </p>
+                                                        <p class="float-end" style="display: inline-block;">
+                                                            <%=order.recieved%>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    Total is:
+                                                    <%order.total%>
+                                                </div>
+                                                <hr>
+                                                <%}%>
+                                                    <%  })%>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+            </div>
+        </div>
+    </div>
     </div>
 
 
@@ -182,14 +208,6 @@
     </div>
 
     <script>
-    
-     
-       document.getElementById('root').innerHTML='Hellos';
-  
-
-        
-
-
     </script>
 
 

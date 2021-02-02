@@ -45,6 +45,10 @@ const brandSchema = new mongoose.Schema({
     img: String
 })
 
+const emailSchema = new mongoose.Schema({
+    email: String
+})
+
 const categorySchema = new mongoose.Schema({
     category: String,
     img: String
@@ -61,7 +65,8 @@ const itemSchema = new mongoose.Schema({
     sizes: [String]
 
 })
-
+const Item = new mongoose.model("Item", itemSchema);
+const Email = new mongoose.model("Email", emailSchema);
 
 const userSchema = new mongoose.Schema({
     email: String,
@@ -71,18 +76,20 @@ const userSchema = new mongoose.Schema({
     number: Number,
     name: String,
     message: String,
-    orders:[{
-        items:[{
-                img:String,
-                title:String,
-                price:Number,
-                qty:Number,
-                size:String }],
-                recieved:{type:Boolean,default :false},
-                checkout:{type:Boolean,default :false},
-                date:String
-            }],
-           
+    orders: [{
+        items: [{
+            img: String,
+            title: String,
+            price: Number,
+            qty: Number,
+            size: String
+        }],
+        total: Number,
+        recieved: { type: Boolean, default: false },
+        checkout: { type: Boolean, default: false },
+        date: String
+    }],
+
     address: {
         addrs: String,
         city: String,
@@ -140,7 +147,7 @@ const item1 = new Item({
     price: 33,
     category: "Shampoo",
     quantity: 3,
-    sizes: [200,500,100]
+    sizes: [200, 500, 100]
 
 
 })
@@ -153,7 +160,7 @@ const item2 = new Item({
     price: 34,
     category: "Shampoo",
     quantity: 3,
-    sizes: [200,500,100]
+    sizes: [200, 500, 100]
 
 
 })
@@ -167,7 +174,7 @@ const item3 = new Item({
     price: 35,
     category: "Shampoo",
     quantity: 3,
-    sizes: [200,500,100]
+    sizes: [200, 500, 100]
 
 
 })
@@ -181,7 +188,7 @@ const item4 = new Item({
     price: 35,
     category: "Shampoo",
     quantity: 3,
-    sizes:[200,500,100]
+    sizes: [200, 500, 100]
 
 
 })
@@ -303,6 +310,18 @@ app.get("/auth/google/secrets",
     });
 
 
+app.post("/stayConnected", function(req, res) {
+
+    const email = new Email({
+        email: req.body.email
+    })
+    console.log(email);
+    Email.create(email, function(err) {
+        if (err) console.log(err);
+    });
+    res.redirect("/")
+})
+
 app.post("/card", function(req, res) {
     if (req.isAuthenticated()) {
         const created_at = new Date().toLocaleString();
@@ -314,63 +333,67 @@ app.post("/card", function(req, res) {
         const title = req.body.title
         const price = req.body.price
 
-        let checked=false;
-        if(req.user.orders.length>0){
-         checked = req.user.orders[0].checkout;
+        let checked = false;
+        if (req.user.orders.length > 0) {
+            checked = req.user.orders[0].checkout;
         }
-        
-        
-      if(checked){
-        User.findByIdAndUpdate(req.user.id,
-            {$push:{'orders':{  $each:[{
-                                        'items':{
-                                        'img':img,
-                                        'title':title,
-                                        'price':price,
-                                        'qty':box,
-                                        'size':size}
-                                        }],
-                                $position:0
-                                
-                             }
-                           
+
+
+        if (checked) {
+            User.findByIdAndUpdate(req.user.id, {
+                $push: {
+                    'orders': {
+                        $each: [{
+                            'items': {
+                                'img': img,
+                                'title': title,
+                                'price': price,
+                                'qty': box,
+                                'size': size
+                            }
+                        }],
+                        $position: 0
+
+                    }
+
                 }
-        
-               
-                     
+
+
+
             }, function(err) {
-            if(err){
-                console.log(err)
-            }
-        });
-
-        }else{
-
-            User.findByIdAndUpdate(req.user.id,
-                {$push:{'orders.0.items':{
-    
-                                'img':img,
-                                'title':title,
-                                'price':price,
-                                'qty':box,
-                                'size':size
-               
-                                }
-                        }
-                   
-                         
-                }, function(err) {
-                if(err){
+                if (err) {
                     console.log(err)
                 }
             });
-    
+
+        } else {
+
+            User.findByIdAndUpdate(req.user.id, {
+                $push: {
+                    'orders.0.items': {
+
+                        'img': img,
+                        'title': title,
+                        'price': price,
+                        'qty': box,
+                        'size': size
+
+                    }
+                }
+
+
+            }, function(err) {
+                if (err) {
+                    console.log(err)
+                }
+            });
+
 
         }
-    
-    
-        res.render("shipping-card", { req: req,address:req.user.address });
-        
+
+
+        res.render("shipping-card", { req: req, address: req.user.address });
+
     } else {
         console.log("user is not signed in")
         res.render("card", { req: req });
@@ -394,70 +417,84 @@ app.get("/shipping-card", function(req, res) {
 
 app.post("/contact", function(req, res) {
 
-    if (req.isAuthenticated()) {
-        User.updateOne({ _id: req.user.id }, {
-            message: newMessage
-        }, function(err) {
-            if (!err) {
-                console.log("message received")
-                    // alert("Thank you for your feedback")
-                    // confirm("Message Received")
-                res.redirect("/");
-            } else {
-                console.log(err);
-            }
-        })
-    } else {
-        const newUser = new User({
-            name: req.body.txtName,
-            email: req.body.txtEmail,
-            number: req.body.Phone,
-            message: req.body.txtMsg
-        });
+        if (req.isAuthenticated()) {
+            User.updateOne({ _id: req.user.id }, {
+                message: newMessage
+            }, function(err) {
+                if (!err) {
+                    console.log("message received")
+                        // alert("Thank you for your feedback")
+                        // confirm("Message Received")
+                    res.redirect("/");
+                } else {
+                    console.log(err);
+                }
+            })
+        } else {
+            const newUser = new User({
+                name: req.body.txtName,
+                email: req.body.txtEmail,
+                number: req.body.Phone,
+                message: req.body.txtMsg
+            });
 
-        newUser.save();
+            newUser.save();
 
-        res.redirect("/")
+            res.redirect("/")
 
-    }
+        }
+    })
+    // app.get("/card", function(req, res) {
+
+
+//     User.findById(req.user.id, function(err, user) {
+//         user.orders.total = 0;
+
+//         const orders = user.orders;
+//         const order = orders[0]
+
+//         res.render("place-order", { req: req, items: order.items, order: order, orders: orders });
+//     })
+// })
+
+
+app.get("/card", function(req, res) {
+    User.find({}, function(err, users) {
+        res.render("admin", { req: req, users: users })
+    })
 })
-app.get("/card",function(req,res){
 
-    
-    User.findById(req.user.id,function(err,user){
-
-        const orders = user.orders;
-        const order = orders[0]
-        
-    res.render("place-order", { req:req,items:order.items,order:order,orders:orders});
-})
-})
 
 app.post("/payment-card", function(req, res) {
 
 
-    User.findById(req.user.id,function(err,user){
+    User.findById(req.user.id, function(err, user) {
 
         const orders = user.orders;
         const order = orders[0]
-        
-    res.render("place-order", { req: req,items:order.items,order:order,orders:orders});
-    })
-    
 
-    
+        res.render("place-order", { req: req, items: order.items, order: order, orders: orders });
+    })
+
+
+
 })
 
 
-app.post("/checkout", function(req,res){
+app.post("/checkout", function(req, res) {
     const date = new Date().toLocaleString()
-
-    User.findByIdAndUpdate(req.user.id,{'orders.0.checkout':true,'orders.0.date':date},function(err,user){
-            res.redirect('/card')
+    console.log("total order: " + req.body.orderTotal);
+    req.user.orders[0].items.total = req.body.orderTotal;
+    User.findByIdAndUpdate(req.user.id, { 'orders.0.checkout': true, 'orders.0.date': date }, function(err, user) {
+        res.redirect('/card')
     })
- 
+
 
 })
+
+
+
+
 app.post("/shipping-card", function(req, res) {
     const tel = req.body.number;
     const add = req.body.address;
@@ -465,17 +502,17 @@ app.post("/shipping-card", function(req, res) {
     const id = req.user.id;
 
     User.findByIdAndUpdate(id, { $set: { 'address.addrs': add, 'address.tel': tel, 'address.city': city }, }, function(err) {
-     
 
-            if (!err) {
-                console.log("No error: " + req.user.address);
-            } else {
-                console.log(err)
-            }
-        })
-        res.render("payment-card", { req: req });
+
+        if (!err) {
+            console.log("No error: " + req.user.address);
+        } else {
+            console.log(err)
+        }
     })
-  
+    res.render("payment-card", { req: req });
+})
+
 
 
 
@@ -573,6 +610,26 @@ app.get("/products/:custom", function(reqq, res) {
 
     })
 })
+
+app.get("/productsCat/:custom", function(req, res) {
+
+    const custom = req.params.custom;
+    Item.find({ category: custom }, function(err, foundItems) {
+        if (!err) {
+            if (foundItems) {
+                console.log("filtering items");
+                Category.find({}, function(err, foundCat) {
+                    if (!err) {
+                        console.log("ready to enter");
+                        res.render("products", { items: foundItems, categories: foundCat, req: req })
+                    }
+
+                })
+            }
+        }
+    })
+})
+
 
 app.get("/brand", function(req, res) {
     res.render("brand", { req: req, brands: brand })
@@ -861,6 +918,35 @@ app.post('/brands',function(req,res){
     })
 
 })
+
+
+/* admin*/
+
+
+app.get("/admin", function(req, res) {
+    res.render("admin", { req: req, emails: req.emails });
+})
+
+app.get("/adminOrder", function(req, res) {
+    console.log("order: " + req.body.userOrder);
+    res.render("adminOrder", { req: req });
+})
+
+app.post("/adminOrder", function(req, res) {
+    console.log("user id: " + req.body.userOrder);
+    console.log("order id: " + req.body.Order);
+    User.findById(req.body.userOrder, function(err, user) {
+
+        user.orders.forEach(function(order) {
+            if (order.id == req.body.Order) {
+                res.render("adminOrder", { req: req, order: order, user: user });
+                console.log("found")
+            }
+
+        })
+    })
+})
+
 
 
 app.listen(3000, function() {

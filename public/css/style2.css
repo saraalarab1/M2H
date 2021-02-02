@@ -234,4 +234,14 @@ body {
     text-align: left;
 }
 
-@media(min-width:)
+
+
+.scroll {
+    margin: 4px, 4px;
+    padding: 4px;
+    width: 500px;
+    height: 45rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: justify;
+}
