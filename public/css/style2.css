@@ -5,7 +5,13 @@ body {
 
 /* Header */
 
-
+.navbar-nav > .active > a {
+    color: #318fb5;
+       
+}
+.nav-item > a:hover {
+    color: #318fb5;
+}
 /* Navbar */
 
 .line1,
@@ -41,7 +47,7 @@ body {
     transition: color .5s;
 }
 
-.menu-item:hover {
+/* .menu-item:hover {
     color: #aee6e6;
 }
 
@@ -51,7 +57,7 @@ body {
 
 .nav-active {
     color: #318fb5;
-}
+} */
 
 
 /* End of Nav */
@@ -218,5 +224,14 @@ body {
 }
 
 .nav-linkk:hover {
-    background-color: #f7f7f7;
+    background-color: #f7f7f7 !important;
 }
+
+.nav-linkk {
+    background:none!important;
+    border:none; 
+    width:200px;
+    text-align: left;
+}
+
+@media(min-width:)

@@ -49,16 +49,16 @@
 
                     <ul class="navbar-nav m-1">
                         <li class="nav-item">
-                            <a href="/" class="nav-link hea m-2 menu-item nav-active ">Home</a>
+                            <a href="/" class="nav-link hea m-2 menu-item">Home</a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="brands" onclick="return changeActive();" class="nav-link hea m-2 menu-item">Brands</a>
+                            <a href="brands"  class="nav-link hea m-2 menu-item">Brands</a>
                         </li>
 
 
                         <li class="nav-item">
-                            <a href="products" class="nav-link hea m-2 menu-item">Products</a>
+                            <a href="category" class="nav-link hea m-2 menu-item" >Category</a>
                         </li>
 
                         <li class="nav-item">
@@ -178,10 +178,6 @@
                 return false;
         }
 
-        function changeActive(req, res) {
-            console.log("entered")
-            document.getElementsByClassName("active").classList.remove("active");
-        }
     </script>
 
 
