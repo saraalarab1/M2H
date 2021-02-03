@@ -42,6 +42,7 @@ mongoose.set("useFindAndModify", false);
 
 const brandSchema = new mongoose.Schema({
     brand: String,
+    categories: [String],
     img: String
 })
 
@@ -51,6 +52,7 @@ const emailSchema = new mongoose.Schema({
 
 const categorySchema = new mongoose.Schema({
     category: String,
+    brands: [String],
     img: String
 })
 
@@ -234,35 +236,42 @@ const item7 = new Item({
 
 const brand1 = new Brand({
     brand: "Johnson",
+    categories: ["Shampoo", "body care", "deodorant"],
     img: "../images/Johnson.jpg"
 })
 
 
 const brand2 = new Brand({
     brand: "Colgate",
+    categories: ["teeth"],
     img: "../images/teeth.jpg"
 })
 
 const brand3 = new Brand({
     brand: "vaseline",
+    categories: ["body care"],
     img: "../images/bodycare.jpg"
 })
 
 
 const categ1 = new Category({
     category: "Shampoo",
+    brands: ["Johnson", "dove"],
     img: "../images/Johnson.jpg"
 })
 const categ4 = new Category({
     category: "body care",
+    brands: ["vaseline"],
     img: "../images/Johnson.jpg"
 })
 const categ2 = new Category({
     category: "deodorant",
+    brands: ["axe", "dove", "adidas"],
     img: "../images/Johnson.jpg"
 })
 const categ3 = new Category({
     category: "teeth",
+    brands: ["colgate"],
     img: "../images/Johnson.jpg"
 })
 
@@ -687,8 +696,9 @@ app.post("/products", function(req, res) {
             Item.find({ brand: brand }, function(err, foundb) {
                 if (!err) {
                     if (foundb) {
+                        Brand.find({ brand: brand }, function(err, foundCat) {
 
-                        Category.find({}, function(err, foundCat) {
+                            console.log("categories: " + foundCat);
                             if (!err) {
                                 res.render("products", { items: foundb, categories: foundCat, req: req, brand: true, brandname: brand })
                             }
@@ -704,8 +714,7 @@ app.post("/products", function(req, res) {
             Item.find({ title: item, brand: brandname }, function(err, foundb) {
                 if (!err) {
                     if (foundb) {
-
-                        Category.find({}, function(err, foundCat) {
+                        Brand.find({ brand: brand }, function(err, foundCat) {
                             if (!err) {
                                 res.render("products", { items: foundb, categories: foundCat, req: req, brand: true })
                             }
@@ -722,7 +731,8 @@ app.post("/products", function(req, res) {
                 if (!err) {
                     if (foundb) {
 
-                        Category.find({}, function(err, foundCat) {
+                        Brand.find({ brand: brand }, function(err, foundCat) {
+                            console.log("categories found: " + foundCat)
                             if (!err) {
                                 res.render("products", { items: foundb, categories: foundCat, req: req, brand: true })
                             }
@@ -748,7 +758,7 @@ app.post("/products", function(req, res) {
                 if (!err) {
                     if (foundb) {
 
-                        Brand.find({}, function(err, foundCat) {
+                        Category.find({ category: category }, function(err, foundCat) {
                             if (!err) {
                                 res.render("products", { items: foundb, brands: foundCat, req: req, brand: false })
                             }
@@ -766,7 +776,7 @@ app.post("/products", function(req, res) {
                 if (!err) {
                     if (foundb) {
 
-                        Brand.find({}, function(err, foundCat) {
+                        Category.find({ category: category }, function(err, foundCat) {
                             if (!err) {
                                 res.render("products", { items: foundb, brands: foundCat, req: req, brand: false })
                             }
@@ -783,7 +793,7 @@ app.post("/products", function(req, res) {
                 if (!err) {
                     if (foundb) {
 
-                        Brand.find({}, function(err, foundCat) {
+                        Category.find({ category: category }, function(err, foundCat) {
                             if (!err) {
                                 res.render("products", { items: foundb, brands: foundCat, req: req, brand: false })
                             }
@@ -941,7 +951,6 @@ app.post("/adminOrder", function(req, res) {
 
             user.orders.forEach(function(order) {
                 if (order.id == req.body.Order) {
-                    console.log("rendering now!");
                     res.render("adminOrder", { req: req, order: order, userr: user, users: users });
                     console.log("found")
                 }
