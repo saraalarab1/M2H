@@ -100,8 +100,13 @@ const userSchema = new mongoose.Schema({
 
     },
 });
+const bestSellerSchema = new mongoose.Schema({
+    name: String,
+    image: String,
 
+});
 
+const BestSeller = new mongoose.model("BestSeller", bestSellerSchema)
 
 
 
@@ -138,6 +143,18 @@ passport.use(new GoogleStrategy({
         });
     }
 ));
+const b1 = new BestSeller({
+    name: "Johnson",
+    image: "../images/Johnson.jpg"
+})
+const b2 = new BestSeller({
+    name: "Colgate",
+    image: "../images/teeth.jpg"
+})
+const b3 = new BestSeller({
+    name: "Deodorant",
+    image: "../images/deodorant.Jpeg"
+})
 
 
 const item1 = new Item({
@@ -276,6 +293,13 @@ const categ3 = new Category({
     img: "../images/Johnson.jpg"
 })
 
+
+// BestSeller.insertMany([b1, b2, b3], function(err) {
+//     if (err) console.log(err);
+//     else console.log([b1, b2, b3]);
+// })
+
+
 // Category.insertMany([categ1, categ2, categ3, categ4], function(err) {
 //     if (err) console.log(err);
 //     else console.log([categ1, categ2, categ3]);
@@ -301,7 +325,17 @@ const categ3 = new Category({
 
 
 app.get("/", function(req, res) {
-    res.render("home", { req: req });
+    Brand.find({}, function(err, foundBrand) {
+        if (!err) {
+            console.log("no error till now")
+            BestSeller.find({}, function(err, best) {
+                Category.find({}, function(err, foundCat) {
+                    res.render("home", { categoriess: foundCat, req: req, brandss: foundBrand, best: best })
+
+                })
+            })
+        }
+    })
 });
 app.get("/home", function(req, res) {
     res.render("home", { req: req });
@@ -344,16 +378,16 @@ app.post("/card", function(req, res) {
         const price = req.body.price
 
         let checked = false;
-        let s =false;
-        if(req.user.orders.length==0){
-            s=true;
+        let s = false;
+        if (req.user.orders.length == 0) {
+            s = true;
         }
         if (req.user.orders.length > 0) {
             checked = req.user.orders[0].checkout;
         }
 
 
-        if (checked||s) {
+        if (checked || s) {
             User.findByIdAndUpdate(req.user.id, {
                 $push: {
                     'orders': {
@@ -380,28 +414,29 @@ app.post("/card", function(req, res) {
                 }
             });
 
-        }else{
+        } else {
 
             User.findByIdAndUpdate(req.user.id, {
-                $push: {
-                    'orders.$[ele].items': {
+                    $push: {
+                        'orders.$[ele].items': {
 
-                        'img': img,
-                        'title': title,
-                        'price': price,
-                        'qty': box,
-                        'size': size
-                    },
-                }},
-                { arrayFilters: [ { "ele.checkout": false} ] }
-                
+                            'img': img,
+                            'title': title,
+                            'price': price,
+                            'qty': box,
+                            'size': size
+                        },
+                    }
+                }, { arrayFilters: [{ "ele.checkout": false }] }
 
 
-            , function(err) {
-                if (err) {
-                    console.log(err)
-                }
-            });
+
+                ,
+                function(err) {
+                    if (err) {
+                        console.log(err)
+                    }
+                });
 
 
         }
@@ -432,38 +467,38 @@ app.get("/shipping-card", function(req, res) {
 
 app.post("/contact", function(req, res) {
 
-        if (req.isAuthenticated()) {
-            User.updateOne({ _id: req.user.id }, {
-                message: newMessage
-            }, function(err) {
-                if (!err) {
-                    console.log("message received")
-                        // alert("Thank you for your feedback")
-                        // confirm("Message Received")
-                    res.redirect("/");
-                } else {
-                    console.log(err);
-                }
-            })
-        } else {
-            const newUser = new User({
-                name: req.body.txtName,
-                email: req.body.txtEmail,
-                number: req.body.Phone,
-                message: req.body.txtMsg
-            });
+    if (req.isAuthenticated()) {
+        User.updateOne({ _id: req.user.id }, {
+            message: newMessage
+        }, function(err) {
+            if (!err) {
+                console.log("message received")
+                    // alert("Thank you for your feedback")
+                    // confirm("Message Received")
+                res.redirect("/");
+            } else {
+                console.log(err);
+            }
+        })
+    } else {
+        const newUser = new User({
+            name: req.body.txtName,
+            email: req.body.txtEmail,
+            number: req.body.Phone,
+            message: req.body.txtMsg
+        });
 
-            newUser.save();
+        newUser.save();
 
-            res.redirect("/")
+        res.redirect("/")
 
-        }
-    })
-    app.get("/card", function(req, res) {
+    }
+})
+app.get("/card", function(req, res) {
 
 
     User.findById(req.user.id, function(err, user) {
-   
+
         const orders = user.orders;
         const order = orders[0];
 
@@ -478,9 +513,9 @@ app.get("/adminpage", function(req, res) {
     })
 })
 app.get("/admin", function(req, res) {
-   
-   res.render("adminsign", { req: req,})
-   
+
+    res.render("adminsign", { req: req, })
+
 })
 app.post("/admin", function(req, res) {
 
@@ -501,7 +536,7 @@ app.post("/admin", function(req, res) {
         }
     });
 
-  
+
 })
 
 
@@ -525,9 +560,9 @@ app.post("/payment-card", function(req, res) {
 
 app.post("/checkout", function(req, res) {
     const date = new Date().toLocaleString()
-    const total =req.body.orderTotal;
+    const total = req.body.orderTotal;
     console.log(typeof total)
-    User.findByIdAndUpdate(req.user.id, { 'orders.0.checkout': true, 'orders.0.date': date,'orders.0.total':total }, function(err, user) {
+    User.findByIdAndUpdate(req.user.id, { 'orders.0.checkout': true, 'orders.0.date': date, 'orders.0.total': total }, function(err, user) {
         res.redirect('/card')
     })
 
@@ -535,13 +570,12 @@ app.post("/checkout", function(req, res) {
 
 
 
-app.post("/recieved",function (req,res) { 
+app.post("/recieved", function(req, res) {
     const id = req.body.userOrder;
     const orderid = req.body.Order;
     console.log(id)
     console.log(orderid)
-    User.findByIdAndUpdate(id, { 'orders.$[ele].recieved': true }, { arrayFilters: [ { "ele._id": orderid} ] }
-    ,function(err, user) {
+    User.findByIdAndUpdate(id, { 'orders.$[ele].recieved': true }, { arrayFilters: [{ "ele._id": orderid }] }, function(err, user) {
         res.redirect('/adminpage')
     })
 })
