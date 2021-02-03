@@ -11,17 +11,17 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">
-                            <%=user.username%>
+                            <%=userr.username%>
                         </h5>
                         <p class="card-text">Location:
-                            <%=user.address.addr%>
-                                <%=user.address.city%>
+                            <%=userr.address.addr%>
+                                <%=userr.address.city%>
                         </p>
                         <p class="card-text">Date:
                             <%=order.date%>
                         </p>
                         <p class="card-text">Phone Number:
-                            <%=user.address.tel%>
+                            <%=userr.address.tel%>
                         </p>
                         <div class="card bg-light mb-3" style=";">
                             <div class="card-header">
@@ -61,85 +61,45 @@
                 </div>
             </div>
             <div class="col-lg-4 scroll">
-                <h1>Orders</h1>
-                <div class="card">
-                    <div class="card-header bg-warning text-dark">
-                        Order #1
-                        <p class="card-text float-end">Total Price: 150,000LL</p>
 
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Hadi Youness</h5>
-                        <p class="card-text">Location: Nabatieh, Ebba, Main road, First floor</p>
-                        <p class="card-text">Date: 17/02/2021</p>
-                        <a href="#" class="btn btn-primary">See Full Order</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header bg-warning text-dark">
-                        Order #1
-                        <p class="card-text float-end">Total Price: 150,000LL</p>
+                <%var count=0%>
+                    <%=console.log("users are: "+users)%>
+                        <%users.forEach(function(user){%>
+                            <%user.orders.forEach(function(order){%>
+                                <div class="card">
+                                    <form action="adminOrder" method="POST">
+                                        <div class="card-header bg-warning text-dark">
+                                            Order #
+                                            <%=count%>
+                                                <p class="card-text float-end">Total Price: 50,0000LL
+                                                </p>
 
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Hadi Youness</h5>
-                        <p class="card-text">Location: Nabatieh, Ebba, Main road, First floor</p>
-                        <p class="card-text">Date: 17/02/2021</p>
-                        <a href="#" class="btn btn-primary">See Full Order</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header bg-warning text-dark">
-                        Order #1
-                        <p class="card-text float-end">Total Price: 150,000LL</p>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <%=user.username%>
+                                            </h5>
+                                            <p class="card-text">Location:
+                                                <%=user.address.addr%>
+                                                    <%=user.address.city%>
+                                            </p>
+                                            <p class="card-text">Date:
+                                                <%=order.date%>
+                                            </p>
+                                            <p class="card-text">Phone Number:
+                                                <%=user.address.tel%>
+                                            </p>
+                                            <input type="text" hidden name="userOrder" value=<%=user.id%>>
+                                            <input type="text" hidden name="Order" value=<%=order.id%>>
+                                            <button type="submit" class="btn btn-primary">See Full Order</button>
+                                        </div>
+                                    </form>
 
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Hadi Youness</h5>
-                        <p class="card-text">Location: Nabatieh, Ebba, Main road, First floor</p>
-                        <p class="card-text">Date: 17/02/2021</p>
-                        <a href="#" class="btn btn-primary">See Full Order</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header bg-warning text-dark">
-                        Order #1
-                        <p class="card-text float-end">Total Price: 150,000LL</p>
+                                </div>
+                                <%})%>
 
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Hadi Youness</h5>
-                        <p class="card-text">Location: Nabatieh, Ebba, Main road, First floor</p>
-                        <p class="card-text">Date: 17/02/2021</p>
-                        <a href="#" class="btn btn-primary">See Full Order</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header bg-warning text-dark">
-                        Order #1
-                        <p class="card-text float-end">Total Price: 150,000LL</p>
+                                    <% })%>
 
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Hadi Youness</h5>
-                        <p class="card-text">Location: Nabatieh, Ebba, Main road, First floor</p>
-                        <p class="card-text">Date: 17/02/2021</p>
-                        <a href="#" class="btn btn-primary">See Full Order</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header bg-warning text-dark">
-                        Order #1
-                        <p class="card-text float-end">Total Price: 150,000LL</p>
-
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Hadi Youness</h5>
-                        <p class="card-text">Location: Nabatieh, Ebba, Main road, First floor</p>
-                        <p class="card-text">Date: 17/02/2021</p>
-                        <a href="#" class="btn btn-primary">See Full Order</a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
