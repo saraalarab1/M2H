@@ -667,87 +667,61 @@ app.get("/brand", function(req, res) {
 // })
 
 
+app.post("/products", function(req, res) {
 
-if (category == null && item == null && which == null) {
-    console.log("1a")
-    Item.find({ brand: brand }, function(err, foundb) {
-        if (!err) {
-            if (foundb) {
+    category = req.body.category;
+    item = req.body.item;
+    brand = req.body.brand;
+    which = req.body.which;
+    categ = req.body.categ;
+    bra = req.body.bra;
+    console.log(category)
+    console.log(item)
+    console.log(brand)
+    console.log(which)
+    console.log(categ)
+    console.log(bra)
+    console.log(typeof which)
+    console.log(typeof categ)
+    console.log(typeof bra)
 
-                Category.find({}, function(err, foundCat) {
-                    if (!err) {
-                        res.render("products", { items: foundb, categories: foundCat, req: req, brande: true })
-                    }
-                })
 
 
-            } else {
-                res.render('')
+
+
+
+
+
+    if (category == null && item == null && which == null) {
+        console.log("1a")
+        Item.find({ brand: brand }, function(err, foundb) {
+            if (!err) {
+                if (foundb) {
+                    console.log("foundb")
+                    Brand.find({ brand: brand }, function(err, foundCat) {
+                        if (!err) {
+                            console.log("no error till now")
+                            res.render("products", { items: foundb, categories: foundCat, req: req, brande: true })
+                        }
+                    })
+
+
+                } else {
+                    res.render('')
+                }
             }
-        }
-    })
+        })
 
-} else
-if (item != null && which === "true") {
-    console.log("2a")
-    Item.find({ title: item, brand: brand }, function(err, foundb) {
-        if (!err) {
-            if (foundb) {
-
-                Category.find({}, function(err, foundCat) {
-                    if (!err) {
-                        res.render("products", { items: foundb, categories: foundCat, req: req, brande: true })
-                    }
-                })
-
-
-            }
-        }
-    })
-
-} else
-if (categ != null && which === "true") {
-    console.log("3a")
-    Item.find({ category: categ, brand: brand }, function(err, foundb) {
-        if (!err) {
-            if (foundb) {
-
-                Category.find({}, function(err, foundCat) {
-                    if (!err) {
-                        res.render("products", { items: foundb, categories: foundCat, req: req, brande: true })
-                    }
-                })
-
-
-            }
-        }
-    })
-} else if (brand == null && item == null && which == null) {
-    console.log("1b")
-    Item.find({ category: category }, function(err, foundb) {
-        if (!err) {
-            if (foundb) {
-
-                Brand.find({}, function(err, foundCat) {
-                    if (!err) {
-                        res.render("products", { items: foundb, brands: foundCat, req: req, brande: false })
-                    }
-                })
-
-
-            }
-        }
-    })
-
-    if (item != null && which === "false") {
-        console.log("2b")
-        Item.find({ title: item, category: category }, function(err, foundb) {
+    } else
+    if (item != null && which === "true") {
+        console.log("2a")
+        Item.find({ title: item, brand: brand }, function(err, foundb) {
             if (!err) {
                 if (foundb) {
 
-                    Brand.find({}, function(err, foundCat) {
+                    Category.find({}, function(err, foundCat) {
                         if (!err) {
-                            res.render("products", { items: foundb, brands: foundCat, req: req, brande: false })
+                            res.render("products", { items: foundb, categories: foundCat, req: req, brande: true })
                         }
                     })
 
@@ -757,9 +731,25 @@ if (categ != null && which === "true") {
         })
 
     } else
-    if (bra != null && which === "false") {
-        console.log("3b")
-        Item.find({ category: category, brand: bra }, function(err, foundb) {
+    if (categ != null && which === "true") {
+        console.log("3a")
+        Item.find({ category: categ, brand: brand }, function(err, foundb) {
+            if (!err) {
+                if (foundb) {
+
+                    Category.find({}, function(err, foundCat) {
+                        if (!err) {
+                            res.render("products", { items: foundb, categories: foundCat, req: req, brande: true })
+                        }
+                    })
+
+
+                }
+            }
+        })
+    } else if (brand == null && item == null && which == null) {
+        console.log("1b")
+        Item.find({ category: category }, function(err, foundb) {
             if (!err) {
                 if (foundb) {
 
@@ -774,30 +764,70 @@ if (categ != null && which === "true") {
             }
         })
 
+        if (item != null && which === "false") {
+            console.log("2b")
+            Item.find({ title: item, category: category }, function(err, foundb) {
+                if (!err) {
+                    if (foundb) {
+
+                        Brand.find({}, function(err, foundCat) {
+                            if (!err) {
+                                res.render("products", { items: foundb, brands: foundCat, req: req, brande: false })
+                            }
+                        })
+
+
+                    }
+                }
+            })
+
+        } else
+        if (bra != null && which === "false") {
+            console.log("3b")
+            Item.find({ category: category, brand: bra }, function(err, foundb) {
+                if (!err) {
+                    if (foundb) {
+
+                        Brand.find({}, function(err, foundCat) {
+                            if (!err) {
+                                res.render("products", { items: foundb, brands: foundCat, req: req, brande: false })
+                            }
+                        })
+
+
+                    }
+                }
+            })
+
+        }
     }
-}
 
-console.log("**************************")
-
-
+    console.log("**************************")
 })
+
+
+
+
+
+
+
 
 
 app.get("/products", function(req, res) {
-Item.find({}, function(err, foundItems) {
-    if (!err) {
-        Category.find({}, function(err, foundCat) {
-            if (!err) {
-                res.render("products", { items: foundItems, categories: foundCat, req: req })
-            }
-        })
-    } else {
-        console.log(err);
-    }
+    Item.find({}, function(err, foundItems) {
+        if (!err) {
+            Category.find({}, function(err, foundCat) {
+                if (!err) {
+                    res.render("products", { items: foundItems, categories: foundCat, req: req })
+                }
+            })
+        } else {
+            console.log(err);
+        }
 
+    })
 })
-})
-})
+
 
 
 
