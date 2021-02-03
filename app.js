@@ -668,204 +668,135 @@ app.get("/brand", function(req, res) {
 
 
 
+if (category == null && item == null && which == null) {
+    console.log("1a")
+    Item.find({ brand: brand }, function(err, foundb) {
+        if (!err) {
+            if (foundb) {
 
-app.post("/products", function(req, res) {
-
-    category = req.body.category;
-    item = req.body.productlist;
-    brand = req.body.brand;
-    which = req.body.which;
-    categ = req.body.categ;
-    bra = req.body.bra;
-    brandname = req.body.brandname;
-    console.log(category)
-    console.log(item)
-    console.log(brand)
-    console.log(which)
-    console.log(categ)
-    console.log(bra)
-    console.log(brandname)
-
-
-
-
-    if ((category == null && item == null) || (item != null && which) || (bra != null && which)) {
-
-
-        if (category == null && item == null) {
-            Item.find({ brand: brand }, function(err, foundb) {
-                if (!err) {
-                    if (foundb) {
-                        Brand.find({ brand: brand }, function(err, foundCat) {
-
-                            console.log("categories: " + foundCat);
-                            if (!err) {
-                                res.render("products", { items: foundb, categories: foundCat, req: req, brand: true, brandname: brand })
-                            }
-                        })
-
-
+                Category.find({}, function(err, foundCat) {
+                    if (!err) {
+                        res.render("products", { items: foundb, categories: foundCat, req: req, brande: true })
                     }
-                }
-            })
-
-        } else
-        if (item != null && which) {
-            Item.find({ title: item, brand: brandname }, function(err, foundb) {
-                if (!err) {
-                    if (foundb) {
-                        Brand.find({ brand: brand }, function(err, foundCat) {
-                            if (!err) {
-                                res.render("products", { items: foundb, categories: foundCat, req: req, brand: true })
-                            }
-                        })
+                })
 
 
-                    }
-                }
-            })
-
-        } else
-        if (categ != null && which) {
-            Item.find({ category: categ, brand: brandname }, function(err, foundb) {
-                if (!err) {
-                    if (foundb) {
-
-                        Brand.find({ brand: brand }, function(err, foundCat) {
-                            console.log("categories found: " + foundCat)
-                            if (!err) {
-                                res.render("products", { items: foundb, categories: foundCat, req: req, brand: true })
-                            }
-                        })
-
-
-                    }
-                }
-            })
-
+            } else {
+                res.render('')
+            }
         }
+    })
 
+} else
+if (item != null && which === "true") {
+    console.log("2a")
+    Item.find({ title: item, brand: brand }, function(err, foundb) {
+        if (!err) {
+            if (foundb) {
 
-
-        console.log("****************************************************************************")
-
-
-    } else if ((brand == null && item == null) || (item != null && !which) || (categ != null && !which)) {
-
-
-        if (brand == null && item == null) {
-            Item.find({ category: category }, function(err, foundb) {
-                if (!err) {
-                    if (foundb) {
-
-                        Category.find({ category: category }, function(err, foundCat) {
-                            if (!err) {
-                                res.render("products", { items: foundb, brands: foundCat, req: req, brand: false })
-                            }
-                        })
-
-
+                Category.find({}, function(err, foundCat) {
+                    if (!err) {
+                        res.render("products", { items: foundb, categories: foundCat, req: req, brande: true })
                     }
-                }
-            })
-        } else
-
-        if (item != null && !which) {
-
-            Item.find({ title: item }, function(err, foundb) {
-                if (!err) {
-                    if (foundb) {
-
-                        Category.find({ category: category }, function(err, foundCat) {
-                            if (!err) {
-                                res.render("products", { items: foundb, brands: foundCat, req: req, brand: false })
-                            }
-                        })
+                })
 
 
-                    }
-                }
-            })
-
-        } else
-        if (categ != null && !which) {
-            Item.find({ category: categ }, function(err, foundb) {
-                if (!err) {
-                    if (foundb) {
-
-                        Category.find({ category: category }, function(err, foundCat) {
-                            if (!err) {
-                                res.render("products", { items: foundb, brands: foundCat, req: req, brand: false })
-                            }
-                        })
-
-
-                    }
-                }
-            })
-
+            }
         }
+    })
+
+} else
+if (categ != null && which === "true") {
+    console.log("3a")
+    Item.find({ category: categ, brand: brand }, function(err, foundb) {
+        if (!err) {
+            if (foundb) {
+
+                Category.find({}, function(err, foundCat) {
+                    if (!err) {
+                        res.render("products", { items: foundb, categories: foundCat, req: req, brande: true })
+                    }
+                })
 
 
+            }
+        }
+    })
+} else if (brand == null && item == null && which == null) {
+    console.log("1b")
+    Item.find({ category: category }, function(err, foundb) {
+        if (!err) {
+            if (foundb) {
 
-        // Item.find({category:category},function(err,found){
-        //     if(!err){
-        //         Category.find({}, function(err, foundCat) {
-        //             if (!err) {
-        //                 if(found!=null){
-        //                      res.render("products.ejs", { items: found, categories: foundCat, req: req })
-        //                 }else{
-        //                     res.render("products.ejs", { items: [], categories: foundCat, req: req })
-        //                     }
-        //             } 
-        //         })
-        //     }
-        // })
+                Brand.find({}, function(err, foundCat) {
+                    if (!err) {
+                        res.render("products", { items: foundb, brands: foundCat, req: req, brande: false })
+                    }
+                })
 
 
+            }
+        }
+    })
+
+    if (item != null && which === "false") {
+        console.log("2b")
+        Item.find({ title: item, category: category }, function(err, foundb) {
+            if (!err) {
+                if (foundb) {
+
+                    Brand.find({}, function(err, foundCat) {
+                        if (!err) {
+                            res.render("products", { items: foundb, brands: foundCat, req: req, brande: false })
+                        }
+                    })
+
+
+                }
+            }
+        })
+
+    } else
+    if (bra != null && which === "false") {
+        console.log("3b")
+        Item.find({ category: category, brand: bra }, function(err, foundb) {
+            if (!err) {
+                if (foundb) {
+
+                    Brand.find({}, function(err, foundCat) {
+                        if (!err) {
+                            res.render("products", { items: foundb, brands: foundCat, req: req, brande: false })
+                        }
+                    })
+
+
+                }
+            }
+        })
 
     }
-    // else if(category==null&&brand==null){
+}
 
-    //     if(which==true){
-    //     Item.find({ item: item,brand:brand }, function(err, foundb) {
-    //         if (!err) {
-    //             if (foundb) {
-
-    //                 Brand.find({}, function(err, foundCat) {
-    //                     if (!err) {
-    //                         res.render("products", { items: foundb, brands: foundCat, req: req,brand:false })
-    //                             }
-    //                 })
-
-
-    //             }
-    //         }
-    //     })
-    // }else{
-
-
-    // }
-    // }
+console.log("**************************")
 
 
 })
 
 
-
 app.get("/products", function(req, res) {
-    Item.find({}, function(err, foundItems) {
-        if (!err) {
-            Category.find({}, function(err, foundCat) {
-                if (!err) {
-                    res.render("products", { items: foundItems, categories: foundCat, req: req })
-                }
-            })
-        } else {
-            console.log(err);
-        }
+Item.find({}, function(err, foundItems) {
+    if (!err) {
+        Category.find({}, function(err, foundCat) {
+            if (!err) {
+                res.render("products", { items: foundItems, categories: foundCat, req: req })
+            }
+        })
+    } else {
+        console.log(err);
+    }
 
-    })
+})
+})
 })
 
 
