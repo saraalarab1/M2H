@@ -49,16 +49,16 @@
 
                     <ul class="navbar-nav m-1">
                         <li class="nav-item">
-                            <a href="/" class="nav-link hea m-2 menu-item">Home</a>
+                            <a href="/" id="box1" active class=" nav-link box m-2 menu-item">Home</a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="brands"  class="nav-link hea m-2 menu-item">Brands</a>
+                            <a href="brands" id="box2" class="nav-link box m-2 menu-item">Brands</a>
                         </li>
 
 
                         <li class="nav-item">
-                            <a href="category" class="nav-link hea m-2 menu-item" >Category</a>
+                            <a href="category" id="box3" class="nav-link box m-2 menu-item">Category</a>
                         </li>
 
                         <li class="nav-item">
@@ -152,25 +152,23 @@
 
                     </div>
                     <div class="modal-footer justify-content-start">
-                        <a href="#" class="text-decoration-none text-dark"> Forgot your Password?</a>
                         <button type="submit" class="btn" style="background-color: #318fb5;">Sign in </button>
 
                     </div>
-                    <a href="auth/google" class="text-decoration-none">
-                        <div class="d-grid gap-2 py-2 mx-2">
-                            <button type="submit" class="btn p-2 fw-bold text-uppercase submit-google text-light ">
-                                <i class="fab fa-google"></i>
-                                Sign In With Google
-                            </button>
-                        </div>
-                    </a>
-
-
-                </div>
-            </div>
-
-
         </form>
+
+        <a href="auth/google" class="text-decoration-none">
+            <div class="d-grid btn p-2 fw-bold text-uppercase submit-google text-light">
+                <i class="fab fa-google"></i> Sign In With Google
+
+            </div>
+        </a>
+
+
+        </div>
+        </div>
+
+
 
 
 
@@ -185,7 +183,11 @@
             else
                 return false;
         }
-
+        for (var i = 0; i < document.links.length; i++) {
+            if (document.links[i].href == document.URL) {
+                document.links[i].className = 'nav-link box m-2 menu-item active';
+            }
+        }
     </script>
 
 
