@@ -58,8 +58,7 @@
                         <br>
 
 
-                        <p class="text-secondary ">
-                            <%=item.quantity%> bottles per box</p>
+
 
 
                         <div class="row">
@@ -67,19 +66,19 @@
                                 <input type="text" name="box" class="form-control px-2" value="1" min="1" />
                             </div>
                             <div class="col-2">
-                                <h4 class="font-weight-bold text-lg-left">Boxes</h4>
+                                <h4 class="font-weight-bold text-lg-left">Pieces</h4>
                             </div>
 
 
                         </div>
 
                         <div class="my-3">
-                            <button type="submit" style="display: inline-block;"  class="btn btn-dark">Add To Card</button>
+                            <button type="submit" style="display: inline-block;" class="btn btn-dark">Add To Card</button>
                         </div>
                         <input type="hidden" name="title" value=<%=item.title%>>
                         <input type="hidden" name="img" value=<%=item.imgURL%>>
                         <input type="hidden" name="price" value=<%=item.price%>>
-        
+
                     </form>
 
                 </div>
@@ -184,8 +183,5 @@
         </div>
     </section>
 
-    <script> 
-    
-  
-
-    <%- include("partials/footer") -%>
+    <script>
+        <%- include("partials/footer") -%>

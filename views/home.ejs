@@ -1,116 +1,170 @@
 <%- include("partials/header") -%>
 
 
-<!-- HOME -->
+    <div style="background-image:url('../images/welcome5.jpg');">
+        <div class="row">
+            <div class="col col-md-6 text-center mx-auto">
 
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <h2 class="heading-section mb-5 pb-md-4">Product Brands</h2>
-                </div>
-                <div class="col-md-12">
-                    <div class="featured-carousel owl-carousel">
-                        <div class="item">
-                            <div class="work">
-                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(images/work-1.jpg);">
-                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                        <span class="ion-ios-search"></span>
-                                    </a>
-                                </div>
-                                <div class="text pt-3 w-100 text-center">
-                                    <h3><a href="#">Axe</a></h3>
-                                    <span>Web Design</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="work">
-                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(images/work-2.jpg);">
-                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                        <span class="ion-ios-search"></span>
-                                    </a>
-                                </div>
-                                <div class="text pt-3 w-100 text-center">
-                                    <h3><a href="#">Work 02</a></h3>
-                                    <span>Web Design</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="work">
-                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(images/work-3.jpg);">
-                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                        <span class="ion-ios-search"></span>
-                                    </a>
-                                </div>
-                                <div class="text pt-3 w-100 text-center">
-                                    <h3><a href="#">Work 03</a></h3>
-                                    <span>Web Design</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="work">
-                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(images/work-4.jpg);">
-                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                        <span class="ion-ios-search"></span>
-                                    </a>
-                                </div>
-                                <div class="text pt-3 w-100 text-center">
-                                    <h3><a href="#">Work 04</a></h3>
-                                    <span>Web Design</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="work">
-                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(images/work-5.jpg);">
-                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                        <span class="ion-ios-search"></span>
-                                    </a>
-                                </div>
-                                <div class="text pt-3 w-100 text-center">
-                                    <h3><a href="#">Work 05</a></h3>
-                                    <span>Web Design</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="work">
-                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(images/work-6.jpg);">
-                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                        <span class="ion-ios-search"></span>
-                                    </a>
-                                </div>
-                                <div class="text pt-3 w-100 text-center">
-                                    <h3><a href="#">Work 06</a></h3>
-                                    <span>Web Design</span>
-                                </div>
-                            </div>
-                        </div>
+                <h1 class="p-4 "> <i>Welcome to M2H</i>
+                </h1>
+                <h6 class="p-3">Check out top quality items and exclusive offers!</h6>
+                <div class="row">
+                    <div class="col-4">
+                        <p class="lead">Top Quality</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="lead">1$ = 1520LL</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="lead">Fast Delivery</p>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- HOME -->
+
+    <section class="ftco-section">
+        <div class="container ">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2 class="heading-section mb-3 pb-md-4">Brands</h2>
+                    <p class="lead mb-5">Check out our various Brands!</p>
+                </div>
+                <div class="col-md-12">
+                    <div class="featured-carousel owl-carousel">
+                        <%=console.log(brandss)%>
+                            <%brandss.forEach(function(br){%>
+                                <div class="item">
+                                    <div class="work">
+                                        <%var image=br.img%>
+                                            <%=console.log(image)%>
+                                                <form action="products" method="POST">
+                                                    <button type="submit" class="btn">
+                                                <div class="card text-center" style="width: 18rem;">
+                                                    <img style="height: 12rem;" class="card-img-top" src="<%=br.img%>" alt="Card image cap">
+                                                    <div class="card-body">
+                                                        <h6 class="card-text">
+                                                            <%=br.brand%>
+                                                                </p>
+                                                    </div>
+                                                </div>
+                                            </button>
+                                                </form>
+                                    </div>
+                                </div>
+                                <%})%>
+                    </div>
+                </div>
+                <form action="brands" method="GET">
+                    <div class="text-center py-5">
+                        <button type="submit" class="btn btn-warning">
+                            Check out all brands
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-light text-center p-5">
+        <div class="container-fluid">
+            <!--title-->
+            <div class="row text-muted text-center">
+                <div class="col m-4">
+                    <h1 class="display-4 mb-4">Best Sellers</h1>
+                    <div class="underline-dark mb-4">
+                    </div>
+                    <p class="lead">Check out some of our best sellers items: </p>
+                </div>
+            </div>
+            <!--end of title-->
+            <div class="row align-items-center text-center mx-auto">
+                <%best.forEach(function(b){%>
+                    <div class="col-lg-4 col-10 mx-auto">
+                        <div class="card card-1 bg-light text-dark  my-4 mx-auto">
+                            <%let i= b.image%>
+                                <img style="max-height: 15rem;" src=<%=b.image%> alt="">
+                                <div class="card-body">
+                                    <h5 class="text-uppercase font-weight-bold mb-3 card-list-item">
+                                        <%=b.name%>
+                                    </h5>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <p class="text-left">One of the best seller products in 2020</p>
+
+                                        </div>
+                                        <div class="col-4">
+                                            <h4 class="text-info ">25000LL</h4>
+
+                                        </div>
+                                    </div>
+                                    <form action=<%="products/" +b.name%> method="POST">
+                                        <button type="submit" class="btn p-2 
+                                    text-uppercase font-weight-bold price-card-button btn-warning text-light">See Details</button>
+                                    </form>
+                                </div>
+                        </div>
+                    </div>
+                    <%})%>
+
+
+            </div>
+        </div>
+
         </div>
     </section>
 
 
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+
+
+    <section class="ftco-section">
+        <div class="container ">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2 class="heading-section mb-3 pb-md-4">Categories</h2>
+                    <p class="lead mb-5">Check out our various categories</p>
+                </div>
+                <div class="col-md-12">
+                    <div class="featured-carousel owl-carousel">
+                        <%=console.log(brandss)%>
+                            <%categoriess.forEach(function(cat){%>
+                                <div class="item">
+                                    <div class="work">
+                                        <%var image=cat.img%>
+                                            <%=console.log(image)%>
+                                                <form action="products" method="POST">
+                                                    <button type="submit" class="btn">
+                                                <div class="card text-center" style="width: 18rem;">
+                                                    <img style="height: 12rem;" class="card-img-top" src="<%=cat.img%>" alt="Card image cap">
+                                                    <div class="card-body">
+                                                        <h6 class="card-text">
+                                                            <%=cat.category%>
+                                                                </p>
+                                                    </div>
+                                                </div>
+                                            </button>
+                                                </form>
+                                    </div>
+                                </div>
+                                <%})%>
+                    </div>
+                </div>
+                <form action="category" method="GET">
+                    <div class="text-center py-5">
+                        <button type="submit" class="btn btn-warning">
+                            Check out all categories
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </section>
+
 
 
 
