@@ -5,13 +5,15 @@ body {
 
 /* Header */
 
-.navbar-nav > .active > a {
-    color: #318fb5;
-       
-}
-.nav-item > a:hover {
+.navbar-nav>.active>a {
     color: #318fb5;
 }
+
+.nav-item>a:hover {
+    color: #318fb5;
+}
+
+
 /* Navbar */
 
 .line1,
@@ -46,6 +48,7 @@ body {
     font-weight: lighter;
     transition: color .5s;
 }
+
 
 /* .menu-item:hover {
     color: #aee6e6;
@@ -228,13 +231,11 @@ body {
 }
 
 .nav-linkk {
-    background:none!important;
-    border:none; 
-    width:200px;
+    background: none!important;
+    border: none;
+    width: 200px;
     text-align: left;
 }
-
-
 
 .scroll {
     margin: 4px, 4px;
@@ -244,4 +245,8 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
     text-align: justify;
+}
+
+.active {
+    color: rgb(73, 134, 170)
 }

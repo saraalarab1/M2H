@@ -572,20 +572,21 @@ app.post("/signin", function(req, res) {
         username: req.body.username,
     });
 
-
     req.login(user, function(err) {
         if (err) {
             console.log(err);
         } else {
-            passport.authenticate("local")(req, res, function() {
-
+            passport.authenticate("local", { failureRedirect: "/signinFail" })(req, res, function() {
+                console.log("entered");
                 res.redirect("/");
             });
-
         }
     });
-
 });
+
+app.get("/signinFail", function(req, res) {
+    res.render("signinFail", { req: req });
+})
 
 
 app.get("/signout", function(req, res) {
