@@ -2,12 +2,17 @@
     <div class="text-center background-brand">
         <h1 class="pt-5">Products</h1>
         <p class="lead pb-5">Choose your product of the brand of your choice </p>
-
         <form action="/products" method="post">
             <div class="input-group mb-3 mx-auto" style="max-width: 35rem;">
                 <input type="text" class="form-control" name="item" placeholder="Search for your product" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                <input type="hidden" name="which" value=<%=brand%>>
-                <input type="hidden" name="brandname" value=<%=brandname%>>
+                <input type="hidden" name="which" value=<%=brande%>>
+             <%   if(brande){%>
+          
+            <input type="hidden" name="brand" value=<%=items[0].brand%>>
+              <%  }else{%>
+            <input type="hidden" name="category" value=<%=items[0].category%>>
+              <%  }%>
+                
 
 
                 <div class="input-group-append">
@@ -16,11 +21,11 @@
             </div>
         </form>
     </div>
-    <%console.log(brand)%>
-        <%if(brand){%>
+
+        <%if(brande){%>
             <!--Brand-->
             <h1 class="text-center">
-                <%=brandname%>
+                <%=items[0].brand%>
             </h1>
             <div class="row">
                 <div class="col-lg-2 text-center">
@@ -30,18 +35,28 @@
                                 <li class="nav-title pl-2 pt-2">
                                     <h4>Categories</h4>
                                 </li>
-                                <%categories[0].categories.forEach(function(cat){%>
-                                    <form name="form1" method="post" action="/products">
+                                <form  method="post" action="/products">
+                                            <li class="nav-item ">
+                                                <input type="hidden" name="categ" value="All">
+                                                <button type="submit" class="nav-link nav-linkk" style="color: dark;">
+                                                <p class="lead">
+                                                All
+                                                </p>
+                                            </button>
+                                            </li>
+                                            <input type="hidden" name="which" value=<%=brande%>>
+                                            <input type="hidden" name="brand" value=<%=items[0].brand%>>
+                                        </form>
+                                <%categories.forEach(function(cat){%>
+                                    <form  method="post" action="/products">
                                         <li class="nav-item ">
-                                            <input type="hidden" name="categ" value=<%=cat.category%>>
-                                            <button class="nav-link nav-linkk" style="color: dark;">
-                            <input type="hidden" name="which" value=<%=brand%>>
-                            <input type="hidden" name="brandname" value=<%=brandname%>>
-
-                                    <p class="lead">
-                                    <%=cat%>
-                             
-                                </button>
+                                            <input type="hidden" name="categ" value=<%=cat%>>
+                                            <button type="submit" class="nav-link nav-linkk" style="color: dark;">
+                                             <p class="lead">
+                                                        <%=cat%> </p>
+                                            </button>
+                                            <input type="hidden" name="which" value=<%=brande%>>
+                                            <input type="hidden" name="brand" value=<%=items[0].brand%>>
                                         </li>
                                     </form>
                                     <%})%>
@@ -59,10 +74,16 @@
                             <div class="col">
                                 <ul class="products">
                                     <%items.forEach(function(item){ %>
+                                     <%if(Object.keys(item)=='brand'){%>
+
+                                         <p class="h4 text-center mx-auto mt-4 py-5 ">No Results</p>
+                                       
+                             
+
+                                        <%}else{%>
                                         <li>
                                             <div class="product">
                                                 <a href=<%="/products/" +item.title%>  name="inn" style="text-decoration: none;">
-                                            <%console.log(item.imgURL)%>
                                             <img src=<%="../images/"+item.imgURL%> alt=" " class="product-image">
                                      
                                             <div class="row mt-2">
@@ -91,6 +112,7 @@
 
                             </div>
                             </li>
+                            <%}%>
                             <%})%>
                                 </ul>
                         </div>
@@ -103,6 +125,10 @@
 
 
                 <!--Category-->
+
+                  <h1 class="text-center">
+                <%=items[0].category%>
+            </h1>
                 <div class="row">
                     <div class="col-lg-2 text-center">
                         <div class="sidebar">
@@ -113,20 +139,30 @@
                                     <li class="nav-title pl-2 pt-2">
                                         <h4>Brands</h4>
                                     </li>
-
-                                    <%brands[0].brands.forEach(function(brandd){%>
-                                        <form name="form1" method="post" action="/products">
+                                    <form method="post" action="/products">
                                             <li class="nav-item ">
-                                                <input type="hidden" name="bra" value=<%=brandd.brand%>>
-                                                <button class="nav-link nav-linkk" style="color: dark;">
-                                <input type="hidden" name="which" value=<%=brand%>>
-
-      
-                                    <p class="lead">
-                                    <%=brandd%>
-                             
-                                </button>
+                                                <input type="hidden" name="bra" value="All">
+                                                <button type="submit" class="nav-link nav-linkk" style="color: dark;">
+                                                <p class="lead">
+                                                All
+                                                </p>
+                                            </button>
                                             </li>
+                                            <input type="hidden" name="which" value=<%=brande%>>
+                                            <input type="hidden" name="category" value=<%=items[0].category%>>
+                                        </form>
+                                    <%brands.forEach(function(brandd){%>
+                                        <form method="post" action="/products">
+                                            <li class="nav-item ">
+                                                <input type="hidden" name="bra" value=<%=brandd%>>
+                                                <button type="submit" class="nav-link nav-linkk" style="color: dark;">
+                                                <p class="lead">
+                                                <%=brandd%>
+                                                </p>
+                                            </button>
+                                            </li>
+                                            <input type="hidden" name="which" value=<%=brande%>>
+                                            <input type="hidden" name="category" value=<%=items[0].category%>>
                                         </form>
                                         <%})%>
 
@@ -136,38 +172,55 @@
                         </div>
                     </div>
                     <div class="col-lg-10">
-                        <section class="bg-light ">
+                        <section class="bg-light m-0">
 
 
                             <div class="row">
                                 <div class="col">
                                     <ul class="products">
+                                  
                                         <%items.forEach(function(item){ %>
-                                            <li>
-                                                <div class="product">
-                                                    <a href=<%="/products/" +item.title%>  name="inn" style="text-decoration: none;">
-                                            <img src=<%="images/"+item.imgURL%> alt=" " class="product-image">
+                                      <%  if(Object.keys(item)=='category'){%>
+                                      
+                                       
+                                        <p class="h4 text-center mx-auto mt-4 py-5 ">No Results</p>
+                                       
+                             
+
+                                        <%}else{%>
+                                              <li>
+                                            <div class="product">
+                                                <a href=<%="/products/" +item.title%>  name="inn" style="text-decoration: none;">
+                                            <img src=<%="../images/"+item.imgURL%> alt=" " class="product-image">
                                      
                                             <div class="row mt-2">
         
-                                                <div class="center-block col">
+                                                <div class="center-block col ">
                                                     <span  name="inn" style="text-decoration: none;" class="product-name h4">  <%=item.title%> </span>
                                                 </div>
                                             </a>
-                                                    <div class="col text-end mx-2 h5 center-block product-price">$
-                                                        <%=item.price%>
-                                                    </div>
-
+                                                <div class="col text-end mx-2 h5 center-block product-price">$
+                                                    <%=item.price%>
                                                 </div>
 
-                                                <div class="product-brand">
-                                                    <%=item.brand%>
-                                                </div>
+                                            </div>
 
-                                                <div class="product-rating"> 4.5 Start (10 reviews) </div>
+                                            <div class="product-brand">
+                                                Brand:
+                                                <span class="font-weight-bold"><%=item.brand%></span>
+                                            </div>
 
-                                </div>
-                                </li>
+                                            <div class="product-brand">
+                                                Category:
+                                                <span class="font-weight-bold">  <%=item.category%></span>
+
+
+                                            </div>
+
+                            </div>
+                            </li>
+                               
+                             <%}%>
                                 <%})%>
                                     </ul>
                             </div>
