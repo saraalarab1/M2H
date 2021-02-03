@@ -6,20 +6,23 @@
     <form action="/products" method="post">
         <div class="input-group mb-3 mx-auto" style="max-width: 35rem;">
             <input type="text" class="form-control" name="item" placeholder="Search for your product" aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <input type="hidden" name="which" value=<%=brand%>>
-            <input type="hidden" name="brandname" value=<%=brandname%>>
-     
-
+            <input type="hidden" name="which" value=<%=brande%>>
+            <%if(brande){%>
+            <input type="hidden" name="brand" value=<%=items[0].brand%>>
+            <%}else{%>
+            <input type="hidden" name="category" value=<%=items[0].category%>>
+            <%}%>
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary mb-5" type="submit">Search</button>
             </div>
         </div>
         </form>
     </div>
-  <%console.log(brand)%>
-  <%if(brand){%>
+
+  <%if(brande){%>
     <!--Brand-->
-    <h1 class="text-center"><%=brandname%></h1>
+  
+    <h1 class="text-center"><%=items[0].brand%></h1>
     <div class="row">
         <div class="col-lg-2 text-center">
             <div class="sidebar">
@@ -36,9 +39,8 @@
                             <li class="nav-item ">
                             <input type="hidden" name="categ" value=<%=cat.category%>>
                                 <button class="nav-link nav-linkk" style="color: dark;" >
-                            <input type="hidden" name="which" value=<%=brand%>>
-                            <input type="hidden" name="brandname" value=<%=brandname%>>
-
+                            <input type="hidden" name="which" value=<%=brande%>>
+                            <input type="hidden" name="brand" value=<%=items[0].brand%>>
                                     <p class="lead">
                                     <%=cat.category%>
                              
@@ -104,6 +106,7 @@
 
     
 <!--Category-->
+<h1 class="text-center"><%=items[0].category%></h1>
     <div class="row">
         <div class="col-lg-2 text-center">
             <div class="sidebar">
@@ -120,8 +123,8 @@
                             <li class="nav-item ">
                             <input type="hidden" name="bra" value=<%=brandd.brand%>>
                                 <button class="nav-link nav-linkk" style="color: dark;" >
-                                <input type="hidden" name="which" value=<%=brand%>>
-
+                                <input type="hidden" name="which" value=<%=brande%>>
+                                 <input type="hidden" name="category" value=<%=items[0].category%>>
       
                                     <p class="lead">
                                     <%=brandd.brand%>
