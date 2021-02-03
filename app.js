@@ -77,6 +77,8 @@ const userSchema = new mongoose.Schema({
     name: String,
     message: String,
     orders: [{
+        recieved: { type: Boolean, default: false },
+        checkout: { type: Boolean, default: false },
         items: [{
             img: String,
             title: String,
@@ -84,9 +86,7 @@ const userSchema = new mongoose.Schema({
             qty: Number,
             size: String
         }],
-        total: Number,
-        recieved: { type: Boolean, default: false },
-        checkout: { type: Boolean, default: false },
+        total: String,
         date: String
     }],
 
@@ -334,12 +334,16 @@ app.post("/card", function(req, res) {
         const price = req.body.price
 
         let checked = false;
+        let s =false;
+        if(req.user.orders.length==0){
+            s=true;
+        }
         if (req.user.orders.length > 0) {
             checked = req.user.orders[0].checkout;
         }
 
 
-        if (checked) {
+        if (checked||s) {
             User.findByIdAndUpdate(req.user.id, {
                 $push: {
                     'orders': {
@@ -366,23 +370,24 @@ app.post("/card", function(req, res) {
                 }
             });
 
-        } else {
+        }else{
 
             User.findByIdAndUpdate(req.user.id, {
                 $push: {
-                    'orders.0.items': {
+                    'orders.$[ele].items': {
 
                         'img': img,
                         'title': title,
                         'price': price,
                         'qty': box,
                         'size': size
+                    },
+                }},
+                { arrayFilters: [ { "ele.checkout": false} ] }
+                
 
-                    }
-                }
 
-
-            }, function(err) {
+            , function(err) {
                 if (err) {
                     console.log(err)
                 }
@@ -444,25 +449,52 @@ app.post("/contact", function(req, res) {
 
         }
     })
-    // app.get("/card", function(req, res) {
+    app.get("/card", function(req, res) {
 
 
-//     User.findById(req.user.id, function(err, user) {
-//         user.orders.total = 0;
+    User.findById(req.user.id, function(err, user) {
+   
+        const orders = user.orders;
+        const order = orders[0];
 
-//         const orders = user.orders;
-//         const order = orders[0]
-
-//         res.render("place-order", { req: req, items: order.items, order: order, orders: orders });
-//     })
-// })
+        res.render("place-order", { req: req, items: order.items, order: order, orders: orders });
+    })
+})
 
 
-app.get("/card", function(req, res) {
+app.get("/adminpage", function(req, res) {
     User.find({}, function(err, users) {
         res.render("admin", { req: req, users: users })
     })
 })
+app.get("/admin", function(req, res) {
+   
+   res.render("adminsign", { req: req,})
+   
+})
+app.post("/admin", function(req, res) {
+
+    const user = new User({
+        username: req.body.username,
+    });
+
+
+    req.login(user, function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            passport.authenticate("local")(req, res, function() {
+
+                res.redirect("/adminpage");
+            });
+
+        }
+    });
+
+  
+})
+
+
 
 
 app.post("/payment-card", function(req, res) {
@@ -483,14 +515,27 @@ app.post("/payment-card", function(req, res) {
 
 app.post("/checkout", function(req, res) {
     const date = new Date().toLocaleString()
-    console.log("total order: " + req.body.orderTotal);
-    req.user.orders[0].items.total = req.body.orderTotal;
-    User.findByIdAndUpdate(req.user.id, { 'orders.0.checkout': true, 'orders.0.date': date }, function(err, user) {
+    const total =req.body.orderTotal;
+    console.log(typeof total)
+    User.findByIdAndUpdate(req.user.id, { 'orders.0.checkout': true, 'orders.0.date': date,'orders.0.total':total }, function(err, user) {
         res.redirect('/card')
     })
 
-
 })
+
+
+
+app.post("/recieved",function (req,res) { 
+    const id = req.body.userOrder;
+    const orderid = req.body.Order;
+    console.log(id)
+    console.log(orderid)
+    User.findByIdAndUpdate(id, { 'orders.$[ele].recieved': true }, { arrayFilters: [ { "ele._id": orderid} ] }
+    ,function(err, user) {
+        res.redirect('/adminpage')
+    })
+})
+
 
 
 
@@ -611,51 +656,7 @@ app.get("/products/:custom", function(reqq, res) {
     })
 })
 
-app.get("/productsCat/:custom", function(req, res) {
 
-    const custom = req.params.custom;
-    Item.find({ category: custom }, function(err, foundItems) {
-        if (!err) {
-            if (foundItems) {
-                console.log("filtering items");
-                Category.find({}, function(err, foundCat) {
-                    if (!err) {
-                        console.log("ready to enter");
-                        res.render("products", { items: foundItems, categories: foundCat, req: req })
-                    }
-
-                })
-            }
-        }
-    })
-})
-
-
-app.get("/brand", function(req, res) {
-    res.render("brand", { req: req, brands: brand })
-})
-
-// app.post("/brand", function(req, res) {
-//     console.log(req.body.brandName);
-
-//     const product = req.body.brandName;
-//     Item.find({ brand: product }, function(err, found) {
-//         if (!err) {
-//             if (found.length != 0) {
-//                 console.log(found);
-//                 Category.find({}, function(err, foundCat) {
-//                     if (!err) {
-//                         res.render("products", { items: found, categories: foundCat, req: req })
-
-//                     }
-
-//                 })
-//             } else {
-//                 console.log("not found");
-//             }
-//         }
-//     })
-// })
 
 
 
@@ -793,12 +794,10 @@ app.post("/products", function(req, res) {
                             }
                         })
 
-
+                    }
                     }
              
                     console.log("****************************************************************************")
-            
-    
     })
     
     
@@ -817,7 +816,7 @@ app.post("/products", function(req, res) {
     
         })
     })
-})
+
 
 
 
@@ -884,10 +883,6 @@ app.post('/brands', function(req, res) {
 /* admin*/
 
 
-app.get("/admin", function(req, res) {
-    res.render("admin", { req: req, emails: req.emails });
-})
-
 app.get("/adminOrder", function(req, res) {
 
     res.render("adminOrder", { req: req });
@@ -901,6 +896,7 @@ app.post("/adminOrder", function(req, res) {
         User.findById(req.body.userOrder, function(err, user) {
 
             user.orders.forEach(function(order) {
+                console.log(order.id)
                 if (order.id == req.body.Order) {
                     console.log("rendering now!");
                     res.render("adminOrder", { req: req, order: order, userr: user, users: users });

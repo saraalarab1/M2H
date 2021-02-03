@@ -5,8 +5,8 @@
             <div class="col-lg-8 bg-light">
                 <div class="card">
                     <div class="card-header bg-dark text-light">
-                        Order #1
-                        <p class="card-text float-end">Total Price: 150,000LL</p>
+                       
+                        <p class="card-text float-start">Total Price: <%=order.total%>,000LL</p>
 
                     </div>
                     <div class="card-body">
@@ -62,16 +62,17 @@
             </div>
             <div class="col-lg-4 scroll">
 
-                <%var count=0%>
+                <%var count=1%>
                     <%=console.log("users are: "+users)%>
                         <%users.forEach(function(user){%>
                             <%user.orders.forEach(function(order){%>
+                             <%if(order.recieved==false){%>
                                 <div class="card">
-                                    <form action="adminOrder" method="POST">
+                                    
                                         <div class="card-header bg-warning text-dark">
                                             Order #
                                             <%=count%>
-                                                <p class="card-text float-end">Total Price: 50,0000LL
+                                                <p class="card-text float-end">Total Price:  <%=order.total%>,000LL
                                                 </p>
 
                                         </div>
@@ -89,13 +90,20 @@
                                             <p class="card-text">Phone Number:
                                                 <%=user.address.tel%>
                                             </p>
-                                            <input type="text" hidden name="userOrder" value=<%=user.id%>>
-                                            <input type="text" hidden name="Order" value=<%=order.id%>>
+                                            <form action="adminOrder" method="POST">
+                                            <input type="hidden"  name="userOrder" value=<%=user.id%>>
+                                            <input type="hidden"  name="Order" value=<%=order.id%>>
                                             <button type="submit" class="btn btn-primary">See Full Order</button>
+                                            </form>
+                                            <form method="post" action="/recieved">
+                                        <button type="submit" class="btn btn-danger float-end">Remove</button>
+                                        </form>
                                         </div>
-                                    </form>
+                                    
 
                                 </div>
+                                <%count++%>
+                                <%}%>
                                 <%})%>
 
                                     <% })%>
