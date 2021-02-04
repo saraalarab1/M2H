@@ -2,73 +2,72 @@
 
 
     <%items.forEach(function(item){%>
+        <form action="/add" method="POST">
 
-        <div class="container-fluid p-5">
+            <div class="container-fluid p-5">
 
-            <div class="row">
-                <div class="col">
-                    <div class="card-body bg-light justify-content-start">
+                <div class="row">
+                    <div class="col">
+                        <div class="card-body bg-light justify-content-start">
 
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <img src=<%="../images/" +item.imgURL%> style="display: inline-block; height: 15rem; width: 15rem;" alt="">
-                                <div class="p-4 text-center">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <input type="button" id="edit" class="btn btn-warning py-2 " value="Edit ">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <img src=<%="../images/" +item.imgURL%> style="display: inline-block; height: 15rem; width: 15rem;" alt="">
+                                    <div class="p-4 text-center">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <input type="button" id="edit" class="btn btn-warning py-2 " value="Edit ">
 
-                                        </div>
-                                        <div class="col-6">
-                                            <form action="add" method="POST">
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="hidden" name="id" value=<%=item.id%>>
                                                 <button type="submit" disabled id="nextSumit " class="btn p-2 btn-warning f  py-2 ">Submit</button>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
-
-
                                 </div>
-                            </div>
-                            <div class="col-lg-9 ">
+                                <div class="col-lg-9 ">
 
 
-                                <div class="row ">
+                                    <div class="row ">
 
 
-                                    <div class="col-6 ">
-                                        <label for="name ">Product Name</label>
-                                        <div class="input-group mb-3 ">
-                                            <input type="text " name="name " value=<%=item.title%> disabled class="form-control f" id="nextSumit" aria-describedby="basic-addon3 ">
-                                        </div>
-                                        <label for="name ">Product Description</label>
-                                        <div class="input-group mb-3 ">
-                                            <input type="text " name="name " value=<%=item.description%> disabled class="form-control f" id="nextSumit " aria-describedby="basic-addon3 ">
-                                        </div>
-                                        <label for="name ">Product image URL</label>
-                                        <div class="input-group mb-3 ">
-                                            <input type="text " name="name " value=<%=item.imgURL%> disabled class="form-control f" id="nextSumit " aria-describedby="basic-addon3 ">
-                                        </div>
-                                        <label for="name ">Product quantity</label>
-                                        <div class="input-group mb-3 ">
-                                            <input type="text " name="name " value=<%=item.quantity%> disabled class="form-control f " id="nextSumit " aria-describedby="basic-addon3 ">
-                                        </div>
+                                        <div class="col-6 ">
+                                            <label for="name ">Product Name</label>
+                                            <div class="input-group mb-3 ">
+                                                <input type="text " name="name" value=<%=item.title%> disabled class="form-control f" id="nextSumit" aria-describedby="basic-addon3 ">
+                                            </div>
+                                            <label for="name ">Product Description</label>
+                                            <div class="input-group mb-3 ">
+                                                <input type="text " name="description" value=<%=item.description%> disabled class="form-control f" id="nextSumit " aria-describedby="basic-addon3 ">
+                                            </div>
+                                            <label for="name ">Product image URL</label>
+                                            <div class="input-group mb-3 ">
+                                                <input type="text " name="imageURL" value=<%=item.imgURL%> disabled class="form-control f" id="nextSumit " aria-describedby="basic-addon3 ">
+                                            </div>
+                                            <label for="name ">Product quantity</label>
+                                            <div class="input-group mb-3 ">
+                                                <input type="text " name="quantity" value=<%=item.quantity%> disabled class="form-control f " id="nextSumit " aria-describedby="basic-addon3 ">
+                                            </div>
 
-                                    </div>
-                                    <div class="col-6 ">
-                                        <label for="name ">Product Price</label>
-                                        <div class="input-group mb-3 ">
-                                            <input type="text " name="name " value=<%=item.price%> disabled class="form-control f " id="nextSumit " aria-describedby="basic-addon3 ">
                                         </div>
-                                        <label for="name ">Product size</label>
-                                        <div class="input-group mb-3 ">
-                                            <input type="text " name="name " value="Colgate " disabled class="form-control  f" id="nextSumit " aria-describedby="basic-addon3 ">
-                                        </div>
-                                        <label for="name ">Product brand</label>
-                                        <div class="input-group mb-3 ">
-                                            <input type="text " name="name " value=<%=item.brand%> disabled class="form-control f" id="nextSumit " aria-describedby="basic-addon3 ">
-                                        </div>
-                                        <label for="name ">Product category</label>
-                                        <div class="input-group mb-3 ">
-                                            <input type="text " name="name " value=<%=item.category%> disabled class="form-control f " id="nextSumit " aria-describedby="basic-addon3 ">
+                                        <div class="col-6 ">
+                                            <label for="name ">Product Price</label>
+                                            <div class="input-group mb-3 ">
+                                                <input type="text " name="price" value=<%=item.price%> disabled class="form-control f " id="nextSumit " aria-describedby="basic-addon3 ">
+                                            </div>
+                                            <label for="name ">Product size</label>
+                                            <div class="input-group mb-3 ">
+                                                <input type="text " name="size" value=<%=item.size%> disabled class="form-control f" id="nextSumit " aria-describedby="basic-addon3 ">
+                                            </div>
+                                            <label for="name ">Product brand</label>
+                                            <div class="input-group mb-3 ">
+                                                <input type="text " name="brand" value=<%=item.brand%> disabled class="form-control f" id="nextSumit " aria-describedby="basic-addon3 ">
+                                            </div>
+                                            <label for="name ">Product category</label>
+                                            <div class="input-group mb-3 ">
+                                                <input type="text " name="category" value=<%=item.category%> disabled class="form-control f " id="nextSumit " aria-describedby="basic-addon3 ">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -77,7 +76,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
+
         <% })%>
 
             <script src='http://code.jquery.com/jquery-2.1.1.min.js'></script>
