@@ -83,7 +83,17 @@
                     <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                 </div>
                 <div>
-                    <button class="btn btn-light">Submit</button>
+                    <div class="row">
+                        <div class="col-6">
+                            <button class="btn btn-light">Submit</button>
+                        </div>
+                        <div class="col-6 float-right">
+                            <form action="/items" method="POST">
+                                <button class="btn btn-light float-end">View all items</button>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -93,50 +103,51 @@
                 <%var count=1%>
                     <%users.forEach(function(user){%>
                         <%user.orders.forEach(function(order){%>
-                        <%if(order.recieved==false){%>
-                            <div class="card">
-                                <form action="adminOrder" method="POST">
-                                    <div class="card-header bg-warning text-dark">
-                                        Order #
-                                        <%=count%>
-                                            <p class="card-text float-end">Total Price: <%=order.total%>,0000LL
+                            <%if(order.recieved==false){%>
+                                <div class="card">
+                                    <form action="adminOrder" method="POST">
+                                        <div class="card-header bg-warning text-dark">
+                                            Order #
+                                            <%=count%>
+                                                <p class="card-text float-end">Total Price:
+                                                    <%=order.total%>,0000LL
+                                                </p>
+
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <%=user.username%>
+                                            </h5>
+                                            <p class="card-text">Location:
+                                                <%=user.address.addr%>
+                                                    <%=user.address.city%>
+                                            </p>
+                                            <p class="card-text">Date:
+                                                <%=order.date%>
+                                            </p>
+                                            <p class="card-text">Phone Number:
+                                                <%=user.address.tel%>
                                             </p>
 
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <%=user.username%>
-                                        </h5>
-                                        <p class="card-text">Location:
-                                            <%=user.address.addr%>
-                                                <%=user.address.city%>
-                                        </p>
-                                        <p class="card-text">Date:
-                                            <%=order.date%>
-                                        </p>
-                                        <p class="card-text">Phone Number:
-                                            <%=user.address.tel%>
-                                        </p>
-                                   
-                                        
+
+                                            <input type="text" hidden name="userOrder" value=<%=user.id%>>
+                                            <input type="text" hidden name="Order" value=<%=order.id%>>
+                                            <button type="submit" class="btn btn-primary">See Full Order</button>
+                                    </form>
+                                    <form method="post" action="/recieved">
                                         <input type="text" hidden name="userOrder" value=<%=user.id%>>
                                         <input type="text" hidden name="Order" value=<%=order.id%>>
-                                        <button type="submit" class="btn btn-primary">See Full Order</button>
-                                         </form>
-                                         <form method="post" action="/recieved">
-                                         <input type="text" hidden name="userOrder" value=<%=user.id%>>
-                                        <input type="text" hidden name="Order" value=<%=order.id%>>
                                         <button type="submit" class="btn btn-danger float-end">Remove</button>
-                                        </form>
+                                    </form>
                                     </div>
-                               
 
-                            </div>
-                            <%count++%>
-                            <%}%>
-                            <%})%>
 
-                                <% })%>
+                                </div>
+                                <%count++%>
+                                    <%}%>
+                                        <%})%>
+
+                                            <% })%>
 
             </div>
         </div>
