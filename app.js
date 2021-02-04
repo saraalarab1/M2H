@@ -456,7 +456,7 @@ app.post("/admin", function(req, res) {
             console.log(err);
         } else {
             passport.authenticate("local")(req, res, function() {
-
+                if(user.username=='saraalarab2000@gmail.com')
                 res.redirect("/adminpage");
             });
 
@@ -617,11 +617,11 @@ app.post("/shipping", function(req, res) {
 
 
         }
-        if(req.user.address==null){
+        if(req.user.address.addrs==null){
         res.render("shipping-card", { req: req, address: req.user.address });
         }else{
 
-        res.render("payment-card", { req: req });
+        res.redirect("/cart");
         }
 })
 
@@ -655,7 +655,10 @@ app.post("/payment", function(req, res) {
             console.log(err)
         }
     })
+
+
     res.render("payment-card", { req: req });
+    
 
 })
 
@@ -668,9 +671,26 @@ app.get("/cart", function(req, res) {
     User.findById(req.user.id, function(err, user) {
 
         const orders = user.orders;
-        const order = orders[0]
-
-        res.render("place-order", { req: req, items: order.items, order: order, orders: orders });
+        if(req.user.address.addrs==null){
+            res.render("shipping-card", { req: req, address: req.user.address });
+            
+                
+        }else  if(orders.length==0){
+           
+        
+                res.render("place-order", { req: req, items:[], order: {}, orders: [] });
+                }
+            
+       
+        
+            else{
+            const order = orders[0];
+            
+            res.render("place-order", { req: req, items: order.items, order: order, orders: orders });
+            }
+        
+       
+        
     })
 
 
@@ -685,7 +705,14 @@ app.post("/cart", function(req, res) {
         const orders = user.orders;
         const order = orders[0]
 
+        if(req.user.address.addrs==null){
+            res.render("shipping-card", { req: req, address: req.user.address });
+            
+                
+        }else{
+
         res.render("place-order", { req: req, items: order.items, order: order, orders: orders });
+        }
     })
 
 
@@ -696,9 +723,10 @@ app.post("/cart", function(req, res) {
 app.post("/checkout", function(req, res) {
     const date = new Date().toLocaleString()
     const total = req.body.orderTotal;
+
     console.log(typeof total)
     User.findByIdAndUpdate(req.user.id, { 'orders.0.checkout': true, 'orders.0.date': date, 'orders.0.total': total }, function(err, user) {
-        res.redirect('/card')
+        res.redirect('/cart')
     })
 
 })

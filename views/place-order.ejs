@@ -43,7 +43,7 @@
                         <%=console.log("This is user's address: "+req.user.address)%>
                             <div class="card bg-light mb-3">
                                 <div class="card-header">
-                                    <%=req.user.address.addrs%>
+                                   Address  <%=req.user.address.addrs%>
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">
@@ -139,8 +139,14 @@
 
                             <form method="post" action="/checkout">
                                 <div class="card-header text-center ">
-                                    <input type="hidden" name="orderTotal" value=<%=sum%>>
+                                      <input type="hidden" name="orderTotal" value=<%=sum%>>
+                                      
+                                    <%if(order.checkout==true||items.length==0){%>
+                                      <button style="width: 65%;" class="btn btn-warning disabled" Onclick="return ConfirmOrder();" type="button" name="actiondelete" value="1">Place Order</button>
+                                    <%}else{%>
+                              
                                     <button style="width: 65%;" class="btn btn-warning" Onclick="return ConfirmOrder();" type="submit" name="actiondelete" value="1">Place Order</button>
+                                    <%}%>
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">Order Summary</h5>
