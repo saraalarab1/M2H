@@ -5,98 +5,98 @@
     <div class="container-fluid">
         <div class="row p-4">
             <div class="col-lg-6 bg-light p-3">
-                <h3>Add Category</h3>
-                <label for="name">Category Name</label>
+                <form action="/addCategory" method="POST">
+                    <h3>Add Category</h3>
+                    <label for="name">Category Name</label>
 
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                </div>
-                <div>
-                    <label for="">Category image</label>
                     <div class="input-group mb-3">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputGroupFile03">
-                            <label class="custom-file-label" for="inputGroupFile03">Add image</label>
-                        </div>
+                        <input type="text" name="name" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
-                </div>
-                <div>
-                    <button class="btn btn-dark">Submit</button>
-                </div>
-            </div>
-            <div class="col-lg-6 bg-dark text-light p-3">
-                <h3>Add Brand</h3>
-                <label for="name">Brand Name</label>
-
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                </div>
-                <div>
-                    <label for="">Category image</label>
-                    <div class="input-group mb-3">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputGroupFile03">
-                            <label class="custom-file-label" for="inputGroupFile03">Add image</label>
+                    <div>
+                        <label for="">Category image</label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="imageURL" class="form-control" placeholder="Add image" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                     </div>
                     <div>
-                        <button class="btn btn-light">Submit</button>
+                        <button class="btn btn-dark">Submit</button>
                     </div>
-                </div>
+                </form>
+            </div>
+            <div class="col-lg-6 bg-dark text-light p-3">
+                <form action="/addBrand" method="POST">
+                    <h3>Add Brand</h3>
+                    <label for="name">Brand Name</label>
+
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="name" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <div>
+                        <label for="">Category image</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="imageURL" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                        <div>
+                            <button class="btn btn-light">Submit</button>
+                        </div>
+                    </div>
+                </form>
             </div>
 
         </div>
         <div class="row">
+
             <div class="col-md-6 bg-dark text-light  p-3">
-                <h3>Add item</h3>
-                <label for="name">Item Name</label>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                </div>
-                <label for="name">Item Description</label>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                </div>
-                <label for="name">Item Category</label>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                </div>
-                <label for="name">Item Brand</label>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                </div>
-                <label for="name">Item price</label>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                </div>
-                <div>
-                    <label for="">Item image</label>
+                <form action="/addNew" method="POST">
+
+                    <h3>Add item</h3>
+                    <label for="name">Item Name</label>
                     <div class="input-group mb-3">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputGroupFile03">
-                            <label class="custom-file-label" for="inputGroupFile03">Add image</label>
-                        </div>
+                        <input type="text" class="form-control" name="name" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
-                </div>
-                <label for="name">Item sizes</label>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                </div>
-                <div>
-                    <div class="row">
-                        <div class="col-6">
-                            <button class="btn btn-light">Submit</button>
-                        </div>
-                        <div class="col-6 float-right">
-                            <form action="/items" method="POST">
-                                <button class="btn btn-light float-end">View all items</button>
-                            </form>
-                        </div>
+                    <label for="name">Item Description</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="description" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
+                    <label for="name">Item Category</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="category" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <label for="name">Item Brand</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="brand" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <label for="name">Item price</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="price" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <div>
+                        <label for="">Item image</label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="imageURL" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
 
-                </div>
+                        </div>
+                    </div>
+                    <label for="name">Item size</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="size" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <div>
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-light">Submit</button>
+                            </div>
+                            <div class="col-6 float-right">
+                                <form action="/items" method="POST">
+                                    <button class="btn btn-light float-end">View all items</button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+
             </div>
-
             <div class="col-md-6 scroll">
                 <h1>Orders</h1>
 

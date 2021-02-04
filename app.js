@@ -345,7 +345,7 @@ app.get("/auth/google",
 app.get("/auth/google/secrets",
     passport.authenticate('google', { failureRedirect: "/signup" }),
     function(req, res) {
-        
+
         // Successful authentication, redirect to secrets.
         res.redirect("/");
     });
@@ -407,6 +407,63 @@ app.post("/items", function(req, res) {
 })
 
 
+app.post("/add", function(req, res) {
+    console.log(req.body.id);
+    Item.findByIdAndUpdate(req.body.id, {
+        title: req.body.name,
+        description: req.body.description,
+        imgURL: req.body.imageURL,
+        brand: req.body.brand,
+        price: req.body.price,
+        category: req.body.category,
+        quantity: req.body.quantity,
+        size: req.body.size
+    }, function(err, user) {
+        res.redirect('/items')
+    })
+
+});
+app.post("/addNew", function(req, res) {
+    const newItem = new Item({
+        title: req.body.name,
+        description: req.body.description,
+        imgURL: req.body.imageURL,
+        brand: req.body.brand,
+        price: req.body.price,
+        category: req.body.category,
+        quantity: req.body.quantity,
+        size: req.body.size
+    });
+    Item.insertMany([newItem]);
+    res.redirect("/items");
+})
+
+app.post("/addCategory", function(req, res) {
+    const newCat = new Category({
+        category: req.body.name,
+        img: req.body.imageURL
+    })
+    Category.insertMany([newCat]);
+    res.redirect("/adminpage");
+})
+
+
+app.post("/addBrand", function(req, res) {
+    const newBrand = new Brand({
+        brand: req.body.name,
+        img: req.body.imageURL
+    })
+    Brand.insertMany([newBrand]);
+    res.redirect("/adminpage");
+})
+
+
+app.get("/items", function(req, res) {
+    Item.find({}, function(err, items) {
+        res.render("items", { req: req, items: items });
+    })
+
+})
 app.get("/adminOrder", function(req, res) {
 
     res.render("adminOrder", { req: req });
@@ -504,7 +561,7 @@ app.post("/signin", function(req, res) {
 
     let path = req.headers.referer;
     path = path.split('//localhost:3000')
-    path=path[1]
+    path = path[1]
 
     const user = new User({
         username: req.body.username,
@@ -544,85 +601,85 @@ app.get("/feedback", function(req, res) {
 
 
 app.post("/shipping", function(req, res) {
-  
-        const created_at = new Date().toLocaleString();
 
-        console.log("user is signed in")
-        const box = req.body.box
-        const size = req.body.size
-        const img = req.body.img
-        const title = req.body.title
-        const price = req.body.price
+    const created_at = new Date().toLocaleString();
 
-        let checked = false;
-        let s = false;
-        if (req.user.orders.length == 0) {
-            s = true;
-        }
-        if (req.user.orders.length > 0) {
-            checked = req.user.orders[0].checkout;
-        }
+    console.log("user is signed in")
+    const box = req.body.box
+    const size = req.body.size
+    const img = req.body.img
+    const title = req.body.title
+    const price = req.body.price
 
-
-        if (checked || s) {
-            User.findByIdAndUpdate(req.user.id, {
-                $push: {
-                    'orders': {
-                        $each: [{
-                            'items': {
-                                'img': img,
-                                'title': title,
-                                'price': price,
-                                'qty': box,
-                                'size': size
-                            }
-                        }],
-                        $position: 0
-
-                    }
-
-                }
+    let checked = false;
+    let s = false;
+    if (req.user.orders.length == 0) {
+        s = true;
+    }
+    if (req.user.orders.length > 0) {
+        checked = req.user.orders[0].checkout;
+    }
 
 
-
-            }, function(err) {
-                if (err) {
-                    console.log(err)
-                }
-            });
-
-        } else {
-
-            User.findByIdAndUpdate(req.user.id, {
-                    $push: {
-                        'orders.$[ele].items': {
-
+    if (checked || s) {
+        User.findByIdAndUpdate(req.user.id, {
+            $push: {
+                'orders': {
+                    $each: [{
+                        'items': {
                             'img': img,
                             'title': title,
                             'price': price,
                             'qty': box,
                             'size': size
-                        },
-                    }
-                }, { arrayFilters: [{ "ele.checkout": false }] }
+                        }
+                    }],
+                    $position: 0
+
+                }
+
+            }
 
 
 
-                ,
-                function(err) {
-                    if (err) {
-                        console.log(err)
-                    }
-                });
+        }, function(err) {
+            if (err) {
+                console.log(err)
+            }
+        });
+
+    } else {
+
+        User.findByIdAndUpdate(req.user.id, {
+                $push: {
+                    'orders.$[ele].items': {
+
+                        'img': img,
+                        'title': title,
+                        'price': price,
+                        'qty': box,
+                        'size': size
+                    },
+                }
+            }, { arrayFilters: [{ "ele.checkout": false }] }
 
 
-        }
-        if(req.user.address==null){
+
+            ,
+            function(err) {
+                if (err) {
+                    console.log(err)
+                }
+            });
+
+
+    }
+    if (req.user.address == null) {
         res.render("shipping-card", { req: req, address: req.user.address });
-        }else{
+    } else {
 
         res.render("payment-card", { req: req });
-        }
+    }
 })
 
 app.post("/changeLocation", function(req, res) {
@@ -634,13 +691,13 @@ app.get("/shipping", function(req, res) {
     res.render("shipping-card", { req: req, address: req.user.address });
 })
 
-app.get("/payment", function(req, res){
+app.get("/payment", function(req, res) {
     res.render("payment-card", { req: req });
 
 })
 
 app.post("/payment", function(req, res) {
-   
+
     const tel = req.body.number;
     const add = req.body.address;
     const city = req.body.city;
@@ -698,36 +755,36 @@ app.post("/checkout", function(req, res) {
     const total = req.body.orderTotal;
     console.log(typeof total)
     User.findByIdAndUpdate(req.user.id, { 'orders.0.checkout': true, 'orders.0.date': date, 'orders.0.total': total }, function(err, user) {
-        res.redirect('/card')
+        res.redirect('/cart')
     })
 
 })
 
 
 
-app.post("/remove", function(req,res){
+app.post("/remove", function(req, res) {
 
     const item = req.body.item;
 
     User.findByIdAndUpdate(req.user.id, {
-        $pull: {
-            'orders.$[ele].items': {
+            $pull: {
+                'orders.$[ele].items': {
 
-                '_id': item,
-              
-            },
-        }
-    }, { arrayFilters: [{ "ele.checkout": false }] }
+                    '_id': item,
+
+                },
+            }
+        }, { arrayFilters: [{ "ele.checkout": false }] }
 
 
 
-    ,
-    function(err) {
-        if (err) {
-            console.log(err)
-        }
-    });
-   
+        ,
+        function(err) {
+            if (err) {
+                console.log(err)
+            }
+        });
+
     res.redirect("/cart")
 
 
@@ -803,7 +860,7 @@ app.get("/products/:custom", function(reqq, res) {
     const custom = reqq.params.custom
     Item.findOne({ title: custom }, function(err, foundItems) {
         if (!err) {
-            if (foundItems==null) {
+            if (foundItems == null) {
                 res.redirect("/");
             } else {
                 console.log("item found: " + foundItems);
@@ -816,7 +873,7 @@ app.get("/products/:custom", function(reqq, res) {
 
 
 app.get("/products", function(req, res) {
-   
+
     res.redirect("/brands")
 })
 
