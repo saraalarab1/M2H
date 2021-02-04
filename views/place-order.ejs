@@ -49,9 +49,19 @@
                                     <h5 class="card-title">
                                         <%=req.user.address.city%>
                                     </h5>
-                                    <p class="card-text">
-                                        <%=req.user.address.number%>
-                                    </p>
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p class="card-text">
+                                                <%=req.user.address.tel%>
+                                            </p>
+                                        </div>
+                                        <div class="col-6">
+                                            <form action="changeLocation" method="POST">
+                                                <button class="btn float-end btn-outline-primary">Edit</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                     </div>
@@ -77,34 +87,34 @@
                             <% var sum=0%>
 
                                 <div class="card-body justify-content-start">
-                                <%console.log(typeof order.checkout)%>
-                                    <%if(order.checkout===false){%>
-                                   
-                                        <%items.forEach(function(item){%>
+                                    <%console.log(typeof order.checkout)%>
+                                        <%if(order.checkout===false){%>
 
-                                            <div class="row">
-                                                <div class="col-3">
-                                                    <img src=<%="../images/" +item.img%> style="display: inline-block; height: 5rem; width: 5rem;" alt="">
-                                                </div>
-                                                <div class="col-9">
-                                                    <div>
-                                                        <p style="display: inline-block;">
-                                                            <%=item.title%>
-                                                        </p>
-                                                        <p class="float-end" style="display: inline-block;">
-                                                            <%=item.price%>LL</p>
+                                            <%items.forEach(function(item){%>
+
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        <img src=<%="../images/" +item.img%> style="display: inline-block; height: 5rem; width: 5rem;" alt="">
                                                     </div>
-                                                    <p>Quantity: <span><%=item.qty%></span></p>
+                                                    <div class="col-9">
+                                                        <div>
+                                                            <p style="display: inline-block;">
+                                                                <%=item.title%>
+                                                            </p>
+                                                            <p class="float-end" style="display: inline-block;">
+                                                                <%=item.price%>LL</p>
+                                                        </div>
+                                                        <p>Quantity: <span><%=item.qty%></span></p>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <hr>
-                                            <%sum+=item.price*item.qty%>
-                                           
+                                                <hr>
+                                                <%sum+=item.price*item.qty%>
+
                                                     <%  })%>
                                                         <%}else{%>
-                                                    <%sum=0%>
-                                                        <%}%>
+                                                            <%sum=0%>
+                                                                <%}%>
                                 </div>
                         </div>
                     </div>
@@ -184,10 +194,10 @@
                                                             <%=order.date%>
                                                         </p>
                                                         <%if(order.recieved==true){%>
-                                                        <button class="float-end btn btn-success" style="display: inline-block;">Recieved </button>
-                                                        <%}else{%>
-                                                       <button class="float-end btn btn-danger" style="display: inline-block;">Pending </button>
-                                                        <%}%>
+                                                            <button class="float-end btn btn-success" style="display: inline-block;">Recieved </button>
+                                                            <%}else{%>
+                                                                <button class="float-end btn btn-danger" style="display: inline-block;">Pending </button>
+                                                                <%}%>
                                                     </div>
                                                 </div>
                                                 <div class="row ms-1">

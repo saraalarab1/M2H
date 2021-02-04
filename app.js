@@ -65,7 +65,7 @@ const itemSchema = new mongoose.Schema({
     category: String,
     quantity: Number,
     size: String
-    
+
 
 })
 const Item = new mongoose.model("Item", itemSchema);
@@ -602,25 +602,28 @@ app.post("/shipping-card", function(req, res) {
     res.render("payment-card", { req: req });
 })
 
-
+app.post("/changeLocation", function(req, res) {
+    res.render("shipping-card", { req: req });
+})
 
 
 app.post("/signin-card", function(req, res) {
-
+    console.log("entered the signin card post");
     const user = new User({
         username: req.body.username,
     });
-
+    console.log(user);
 
     req.login(user, function(err) {
         if (err) {
             console.log(err);
         } else {
+            console.log("enterd the login")
             passport.authenticate("local")(req, res, function() {
-
+                console.log("success")
                 res.render("shipping-card", { req: req });
             });
-
+            console.log("failed")
         }
     });
 })
@@ -728,7 +731,7 @@ app.post("/products", function(req, res) {
 
 
 
-    
+
 
 
 
@@ -736,9 +739,9 @@ app.post("/products", function(req, res) {
         console.log("1a")
         Item.find({ brand: brand }, function(err, foundb) {
             if (!err) {
-               
-                if (foundb.length!=0) {
-                   
+
+                if (foundb.length != 0) {
+
                     Brand.find({ brand: brand }, function(err, found) {
                         if (!err) {
                             const foundCat = found[0].categories;
@@ -746,11 +749,11 @@ app.post("/products", function(req, res) {
                         }
                     })
 
-                } else{
+                } else {
                     Brand.find({ brand: brand }, function(err, found) {
                         if (!err) {
                             const foundCat = found[0].categories;
-                            res.render("products", { items: [{brand:brand}], categories: foundCat, req: req, brande: true })
+                            res.render("products", { items: [{ brand: brand }], categories: foundCat, req: req, brande: true })
                         }
                     })
 
@@ -762,27 +765,27 @@ app.post("/products", function(req, res) {
     if (item != null && which === "true") {
         console.log("2a")
 
-        
+
 
         Item.find({ title: item, brand: brand }, function(err, foundb) {
             if (!err) {
-                if (foundb.length!=0) {
-  
-                    Brand.find({brand:brand}, function(err, found) {
+                if (foundb.length != 0) {
+
+                    Brand.find({ brand: brand }, function(err, found) {
                         const foundCat = found[0].categories;
- 
+
                         if (!err) {
                             res.render("products", { items: foundb, categories: foundCat, req: req, brande: true })
                         }
                     })
 
 
-                }else{
-                    Brand.find({brand:brand}, function(err, found) {
+                } else {
+                    Brand.find({ brand: brand }, function(err, found) {
                         const foundCat = found[0].categories;
                         console.log(found)
                         if (!err) {
-                            res.render("products", { items: [{brand:brand}], categories: foundCat, req: req, brande: true })
+                            res.render("products", { items: [{ brand: brand }], categories: foundCat, req: req, brande: true })
                         }
                     })
 
@@ -794,160 +797,160 @@ app.post("/products", function(req, res) {
     if (categ != null && which === "true") {
         console.log("3a")
 
-        if(categ=="All"){
-            console.log("dd"+brand)
-            Item.find({brand:brand}, function(err, foundb) {      
-                             if (!err) {
-                                Brand.find({brand:brand},function(err,found){
-                                  
-                                const foundCat = found[0].categories;
-                                console.log(foundCat)
-                                
-                                res.render("products", { items: foundb, categories: foundCat, req: req, brande: true })
-                                })
-                                
-                            }
-                     
-            
-        
-    })
-}else{
-
-        Item.find({ category: categ, brand: brand }, function(err, foundb) {
-            if (!err) {
-                if (foundb.length!=0) {
-
-                    Brand.find({brand:brand}, function(err, found) {
+        if (categ == "All") {
+            console.log("dd" + brand)
+            Item.find({ brand: brand }, function(err, foundb) {
+                if (!err) {
+                    Brand.find({ brand: brand }, function(err, found) {
 
                         const foundCat = found[0].categories;
-                        if (!err) {
-                            res.render("products", { items: foundb, categories: foundCat, req: req, brande: true })
-                        }
+                        console.log(foundCat)
+
+                        res.render("products", { items: foundb, categories: foundCat, req: req, brande: true })
                     })
 
-                }else{
-           
-                    Brand.find({brand:brand}, function(err, found) {
-
-                        const foundCat = found[0].categories;
-                        if (!err) {
-                            res.render("products", { items: [{brand:brand}], categories: foundCat, req: req, brande: true })
-                        }
-                    })
                 }
 
 
-                
-            }
-        })
-    }
-    } else if (brand == null && item == null&& which == null) {
+
+            })
+        } else {
+
+            Item.find({ category: categ, brand: brand }, function(err, foundb) {
+                if (!err) {
+                    if (foundb.length != 0) {
+
+                        Brand.find({ brand: brand }, function(err, found) {
+
+                            const foundCat = found[0].categories;
+                            if (!err) {
+                                res.render("products", { items: foundb, categories: foundCat, req: req, brande: true })
+                            }
+                        })
+
+                    } else {
+
+                        Brand.find({ brand: brand }, function(err, found) {
+
+                            const foundCat = found[0].categories;
+                            if (!err) {
+                                res.render("products", { items: [{ brand: brand }], categories: foundCat, req: req, brande: true })
+                            }
+                        })
+                    }
+
+
+
+                }
+            })
+        }
+    } else if (brand == null && item == null && which == null) {
         console.log("1b")
         Item.find({ category: category }, function(err, foundb) {
             if (!err) {
-                if (foundb.length!=0) {
+                if (foundb.length != 0) {
 
-                
-                        if (!err) {
-                            Category.find({category:category},function(err,found){
+
+                    if (!err) {
+                        Category.find({ category: category }, function(err, found) {
                             const foundBrand = found[0].brands;
-     
-                            
+
+
                             res.render("products", { items: foundb, brands: foundBrand, req: req, brande: false })
-                            })
-                            
-                        }
-                 
+                        })
+
+                    }
 
 
-                }else{
+
+                } else {
 
                     Category.find({}, function(err, found) {
                         if (!err) {
-                            Category.find({category:category},function(err,found){
-                            const foundBrand = found[0].brands;
-                            
-                            res.render("products", { items: [{category:category}], brands: foundBrand, req: req, brande: false })
+                            Category.find({ category: category }, function(err, found) {
+                                const foundBrand = found[0].brands;
+
+                                res.render("products", { items: [{ category: category }], brands: foundBrand, req: req, brande: false })
                             })
-                            
+
                         }
                     })
 
                 }
             }
         })
-       
 
-    }else  if (item != null && which === "false") {
-            console.log("2b")
-            Item.find({ title: item, category: category }, function(err, foundb) {
+
+    } else if (item != null && which === "false") {
+        console.log("2b")
+        Item.find({ title: item, category: category }, function(err, foundb) {
+            if (!err) {
+                if (foundb.length != 0) {
+
+                    Category.find({ category: category }, function(err, found) {
+                        if (!err) {
+                            const foundBrand = found[0].brands;
+
+                            res.render("products", { items: foundb, brands: foundBrand, req: req, brande: false })
+                        }
+                    })
+
+
+                } else {
+                    Category.find({ category: category }, function(err, found) {
+                        if (!err) {
+                            const foundBrand = found[0].brands;
+
+
+                            res.render("products", { items: [{ category: category }], brands: foundBrand, req: req, brande: false })
+                        }
+                    })
+
+                }
+            }
+        })
+
+    } else
+    if (bra != null && which === "false") {
+        console.log("3b")
+        if (bra == "All") {
+
+            Item.find({ category: category }, function(err, foundb) {
                 if (!err) {
-                    if (foundb.length!=0) {
 
-                        Category.find({category:category}, function(err, found) {
-                            if (!err) {
-                                const foundBrand = found[0].brands;
-       
-                                res.render("products", { items: foundb, brands: foundBrand, req: req, brande: false })
-                            }
-                        })
+                    if (!err) {
+                        Category.find({ category: category }, function(err, found) {
+                            const foundBrand = found[0].brands;
 
 
-                    }else{
-                        Category.find({category:category}, function(err, found) {
-                            if (!err) {
-                                const foundBrand = found[0].brands;
-           
-       
-                                res.render("products", { items: [{category:category}], brands: foundBrand, req: req, brande: false })
-                            }
+                            res.render("products", { items: foundb, brands: foundBrand, req: req, brande: false })
                         })
 
                     }
+
+
                 }
             })
-
-        } else
-        if (bra != null && which === "false") {
-            console.log("3b")
-            if(bra=="All"){
-
-                Item.find({ category: category }, function(err, foundb) {
-                    if (!err) {
-                        
-                                if (!err) {
-                                    Category.find({category:category},function(err,found){
-                                    const foundBrand = found[0].brands;
-             
-                                    
-                                    res.render("products", { items: foundb, brands: foundBrand, req: req, brande: false })
-                                    })
-                                    
-                                }
-                         
-                
-            }
-        })
-    }else{
+        } else {
             Item.find({ category: category, brand: bra }, function(err, foundb) {
                 if (!err) {
-                    if (foundb.length!=0) {
+                    if (foundb.length != 0) {
 
-                       Category.find({category:category}, function(err, found) {
+                        Category.find({ category: category }, function(err, found) {
                             if (!err) {
                                 const foundBrand = found[0].brands;
-       
+
                                 res.render("products", { items: foundb, brands: foundBrand, req: req, brande: false })
                             }
                         })
 
 
-                    }else{
-                        Category.find({category:category}, function(err, found) {
+                    } else {
+                        Category.find({ category: category }, function(err, found) {
                             if (!err) {
                                 const foundBrand = found[0].brands;
-     
-                                res.render("products", { items: [{category:category}], brands: foundBrand, req: req, brande: false })
+
+                                res.render("products", { items: [{ category: category }], brands: foundBrand, req: req, brande: false })
                             }
                         })
                     }
@@ -955,9 +958,9 @@ app.post("/products", function(req, res) {
             })
 
         }
-    
+
     }
-    
+
 })
 
 
@@ -973,7 +976,7 @@ app.get("/products", function(req, res) {
         if (!err) {
             Category.find({}, function(err, foundCat) {
                 if (!err) {
-                    res.render("products", { items: foundItems, categories: foundCat, req: req,brande:true })
+                    res.render("products", { items: foundItems, categories: foundCat, req: req, brande: true })
                 }
             })
         } else {
@@ -1072,6 +1075,17 @@ app.post("/adminOrder", function(req, res) {
         })
     })
 
+})
+
+
+
+
+app.post("/items", function(req, res) {
+    Item.find({}, function(err, items) {
+        console.log(items);
+        res.render("items", { req: req, items: items });
+
+    })
 })
 
 
