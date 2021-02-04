@@ -81,10 +81,11 @@
                                     <%if(order.checkout===false){%>
                                    
                                         <%items.forEach(function(item){%>
-
+                                <form method="post" action="/remove"/>
                                             <div class="row">
                                                 <div class="col-3">
                                                     <img src=<%="../images/" +item.img%> style="display: inline-block; height: 5rem; width: 5rem;" alt="">
+                                                    
                                                 </div>
                                                 <div class="col-9">
                                                     <div>
@@ -95,9 +96,14 @@
                                                             <%=item.price%>LL</p>
                                                     </div>
                                                     <p>Quantity: <span><%=item.qty%></span></p>
+                                                    <input type="hidden" name="item" value=<%=item.id%>>
+                                                   
                                                 </div>
+                                             
+                                                 <button class="btn btn-danger float-left" type="submit">Remove</button>
+                                                
                                             </div>
-
+                                    </form>
                                             <hr>
                                             <%sum+=item.price*item.qty%>
                                            

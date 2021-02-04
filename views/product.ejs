@@ -23,9 +23,9 @@
                 </div>
 
                 <div class="col-6 col-lg-4 ">
-
-                    <form method="post" action="/card">
-
+                    <%if(req.isAuthenticated()){%>
+                    <form method="post" action="/shipping">
+                    <%}%>
                         <h2 class="text-info">
                             <%=item.title%>
                         </h2>
@@ -72,14 +72,14 @@
                         </div>
 
                         <div class="my-3">
-                            <button type="submit" style="display: inline-block;" class="btn btn-dark">Add To Card</button>
+                            <button type="submit" data-bs-toggle="modal" data-bs-target="#sign-in" style="display: inline-block;" class="btn btn-dark">Add To Card</button>
                         </div>
                         <input type="hidden" name="title" value=<%=item.title%>>
                         <input type="hidden" name="img" value=<%=item.imgURL%>>
                         <input type="hidden" name="price" value=<%=item.price%>>
-
+    <%if(req.isAuthenticated()){%>
                     </form>
-
+                <%}%>
                 </div>
 
 
@@ -181,6 +181,59 @@
             </div>
         </div>
     </section>
+
+  
+    <%if(!req.isAuthenticated()){%>
+    <div class="modal" id="sign-in">
+        <form action="/signin" method="POST">
+
+        
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <h4 class="modal-title">Sign in</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group py-2">
+                            <label for="email" class="label">Email Address</label>
+                            <input type="email" class="form-control my-2 p-2 input" name="username">
+
+                        </div>
+
+                        <div class="form-group py-2">
+                            <label for="password" class="label">Password</label>
+                            <input type="password" class="form-control my-2 p-2 input" name="password">
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer justify-content-start">
+                   
+                        <input type="hidden" name="pathh" class="form-control my-2 p-2 input" value=<%=req.path%>/>
+                        <button type="submit" class="btn" style="background-color: #318fb5;">Sign in </button>
+
+                    </div>
+                    
+                    
+        
+        <div class=" btn m-2 px-4 fw-bold text-uppercase submit-google  text-light">
+            <a href="auth/google" class="text-decoration-none text-light">
+            
+                <i class="fab fa-google"></i> Sign In With Google
+            </a>
+            </div>
+        </form>
+
+        </div>
+        </div>
+ 
+    </div>
+       <%}%>
+
 
     <script>
         <%- include("partials/footer") -%>

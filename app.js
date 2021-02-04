@@ -327,7 +327,6 @@ const categ3 = new Category({
 app.get("/", function(req, res) {
     Brand.find({}, function(err, foundBrand) {
         if (!err) {
-            console.log("no error till now")
             BestSeller.find({}, function(err, best) {
                 Category.find({}, function(err, foundCat) {
                     res.render("home", { categoriess: foundCat, req: req, brandss: foundBrand, best: best })
@@ -337,9 +336,7 @@ app.get("/", function(req, res) {
         }
     })
 });
-app.get("/home", function(req, res) {
-    res.render("home", { req: req });
-})
+
 
 app.get("/auth/google",
     passport.authenticate('google', { scope: ["profile"] })
@@ -348,6 +345,7 @@ app.get("/auth/google",
 app.get("/auth/google/secrets",
     passport.authenticate('google', { failureRedirect: "/signup" }),
     function(req, res) {
+        
         // Successful authentication, redirect to secrets.
         res.redirect("/");
     });
@@ -366,8 +364,187 @@ app.post("/stayConnected", function(req, res) {
     res.redirect("/")
 })
 
-app.post("/card", function(req, res) {
+
+
+
+
+app.post("/contact", function(req, res) {
+
     if (req.isAuthenticated()) {
+        User.updateOne({ _id: req.user.id }, {
+            message: newMessage
+        }, function(err) {
+            if (!err) {
+                console.log("message received")
+                    // alert("Thank you for your feedback")
+                    // confirm("Message Received")
+                res.redirect("/");
+            } else {
+                console.log(err);
+            }
+        })
+    } else {
+        const newUser = new User({
+            name: req.body.txtName,
+            email: req.body.txtEmail,
+            number: req.body.Phone,
+            message: req.body.txtMsg
+        });
+
+        newUser.save();
+
+        res.redirect("/")
+
+    }
+})
+
+app.post("/items", function(req, res) {
+    Item.find({}, function(err, items) {
+        console.log(items);
+        res.render("items", { req: req, items: items });
+
+    })
+})
+
+
+app.get("/adminOrder", function(req, res) {
+
+    res.render("adminOrder", { req: req });
+})
+
+app.post("/adminOrder", function(req, res) {
+    // console.log("user id: " + req.body.userOrder);
+    // console.log("order id: " + req.body.Order);
+    console.log("this is the post adminOrder");
+    User.find({}, function(err, users) {
+        User.findById(req.body.userOrder, function(err, user) {
+
+            user.orders.forEach(function(order) {
+                console.log(order.id)
+                if (order.id == req.body.Order) {
+                    res.render("adminOrder", { req: req, order: order, userr: user, users: users });
+                    console.log("found")
+                }
+
+            })
+        })
+    })
+
+})
+
+
+
+app.get("/adminpage", function(req, res) {
+    User.find({}, function(err, users) {
+        res.render("admin", { req: req, users: users })
+    })
+})
+app.get("/admin", function(req, res) {
+
+    res.render("adminsign", { req: req, })
+
+})
+app.post("/admin", function(req, res) {
+
+    const user = new User({
+        username: req.body.username,
+    });
+
+
+    req.login(user, function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            passport.authenticate("local")(req, res, function() {
+
+                res.redirect("/adminpage");
+            });
+
+        }
+    });
+
+
+})
+
+app.post("/recieved", function(req, res) {
+    const id = req.body.userOrder;
+    const orderid = req.body.Order;
+    console.log(id)
+    console.log(orderid)
+    User.findByIdAndUpdate(id, { 'orders.$[ele].recieved': true }, { arrayFilters: [{ "ele._id": orderid }] }, function(err, user) {
+        res.redirect('/adminpage')
+    })
+})
+
+
+
+
+app.get("/signup", function(req, res) {
+    res.render("signup", { req: req });
+})
+app.post("/signup", function(req, res) {
+
+    User.register({ username: req.body.username }, req.body.password, function(err, user) {
+        if (err) {
+            console.log(err);
+            res.redirect("/signup");
+        } else {
+            passport.authenticate("local")(req, res, function() {
+                res.redirect("/");
+            });
+
+        }
+    });
+
+});
+
+
+app.post("/signin", function(req, res) {
+
+
+    let path = req.headers.referer;
+    path = path.split('//localhost:3000')
+    path=path[1]
+
+    const user = new User({
+        username: req.body.username,
+    });
+
+    req.login(user, function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            passport.authenticate("local", { failureRedirect: "/signinFail" })(req, res, function() {
+                console.log("entered");
+                res.redirect(path);
+            });
+        }
+    });
+});
+
+app.get("/signinFail", function(req, res) {
+    res.render("signinFail", { req: req });
+})
+
+
+app.get("/signout", function(req, res) {
+    req.logout();
+    res.redirect("/");
+});
+
+
+app.get("/about", function(req, res) {
+    res.render("about.ejs", { req: req });
+})
+
+app.get("/feedback", function(req, res) {
+    res.render("feedback.ejs", { req: req });
+})
+
+
+
+app.post("/shipping", function(req, res) {
+  
         const created_at = new Date().toLocaleString();
 
         console.log("user is signed in")
@@ -440,109 +617,67 @@ app.post("/card", function(req, res) {
 
 
         }
-
-
+        if(req.user.address==null){
         res.render("shipping-card", { req: req, address: req.user.address });
+        }else{
 
-    } else {
-        console.log("user is not signed in")
-        res.render("card", { req: req });
+        res.render("payment-card", { req: req });
+        }
+})
 
-    }
+app.post("/changeLocation", function(req, res) {
+    res.render("shipping-card", { req: req, address: req.user.address });
+})
+
+
+app.get("/shipping", function(req, res) {
+    res.render("shipping-card", { req: req, address: req.user.address });
+})
+
+app.get("/payment", function(req, res){
+    res.render("payment-card", { req: req });
+
+})
+
+app.post("/payment", function(req, res) {
+   
+    const tel = req.body.number;
+    const add = req.body.address;
+    const city = req.body.city;
+    const id = req.user.id;
+
+    User.findByIdAndUpdate(id, { $set: { 'address.addrs': add, 'address.tel': tel, 'address.city': city } }, function(err) {
+
+
+        if (!err) {
+            console.log("No error: " + req.user.address);
+        } else {
+            console.log(err)
+        }
+    })
+    res.render("payment-card", { req: req });
+
 })
 
 
 
 
-
-app.get("/shipping-card", function(req, res) {
-    res.render("shipping-card", { req: req });
-})
-
-
-
-
-
-
-
-app.post("/contact", function(req, res) {
-
-    if (req.isAuthenticated()) {
-        User.updateOne({ _id: req.user.id }, {
-            message: newMessage
-        }, function(err) {
-            if (!err) {
-                console.log("message received")
-                    // alert("Thank you for your feedback")
-                    // confirm("Message Received")
-                res.redirect("/");
-            } else {
-                console.log(err);
-            }
-        })
-    } else {
-        const newUser = new User({
-            name: req.body.txtName,
-            email: req.body.txtEmail,
-            number: req.body.Phone,
-            message: req.body.txtMsg
-        });
-
-        newUser.save();
-
-        res.redirect("/")
-
-    }
-})
-app.get("/card", function(req, res) {
+app.get("/cart", function(req, res) {
 
 
     User.findById(req.user.id, function(err, user) {
 
         const orders = user.orders;
-        const order = orders[0];
+        const order = orders[0]
 
         res.render("place-order", { req: req, items: order.items, order: order, orders: orders });
     })
-})
 
-
-app.get("/adminpage", function(req, res) {
-    User.find({}, function(err, users) {
-        res.render("admin", { req: req, users: users })
-    })
-})
-app.get("/admin", function(req, res) {
-
-    res.render("adminsign", { req: req, })
-
-})
-app.post("/admin", function(req, res) {
-
-    const user = new User({
-        username: req.body.username,
-    });
-
-
-    req.login(user, function(err) {
-        if (err) {
-            console.log(err);
-        } else {
-            passport.authenticate("local")(req, res, function() {
-
-                res.redirect("/adminpage");
-            });
-
-        }
-    });
 
 
 })
 
-
-
-
-app.post("/payment-card", function(req, res) {
+app.post("/cart", function(req, res) {
 
 
     User.findById(req.user.id, function(err, user) {
@@ -570,119 +705,97 @@ app.post("/checkout", function(req, res) {
 
 
 
-app.post("/recieved", function(req, res) {
-    const id = req.body.userOrder;
-    const orderid = req.body.Order;
-    console.log(id)
-    console.log(orderid)
-    User.findByIdAndUpdate(id, { 'orders.$[ele].recieved': true }, { arrayFilters: [{ "ele._id": orderid }] }, function(err, user) {
-        res.redirect('/adminpage')
-    })
-})
+app.post("/remove", function(req,res){
+
+    const item = req.body.item;
+
+    User.findByIdAndUpdate(req.user.id, {
+        $pull: {
+            'orders.$[ele].items': {
+
+                '_id': item,
+              
+            },
+        }
+    }, { arrayFilters: [{ "ele.checkout": false }] }
 
 
 
-
-
-app.post("/shipping-card", function(req, res) {
-    const tel = req.body.number;
-    const add = req.body.address;
-    const city = req.body.city;
-    const id = req.user.id;
-
-    User.findByIdAndUpdate(id, { $set: { 'address.addrs': add, 'address.tel': tel, 'address.city': city }, }, function(err) {
-
-
-        if (!err) {
-            console.log("No error: " + req.user.address);
-        } else {
+    ,
+    function(err) {
+        if (err) {
             console.log(err)
         }
+    });
+   
+    res.redirect("/cart")
+
+
+})
+
+
+
+
+
+app.get("/category", function(req, res) {
+
+    Category.find({}, function(err, found) {
+        if (!err) {
+            res.render("category.ejs", { categories: found, req: req });
+        } else {
+            console.log(err);
+        }
     })
-    res.render("payment-card", { req: req });
 })
 
 
 
-
-app.post("/signin-card", function(req, res) {
-
-    const user = new User({
-        username: req.body.username,
-    });
+app.post("/category", function(req, res) {
 
 
-    req.login(user, function(err) {
-        if (err) {
-            console.log(err);
+    const category = req.body.categoryname;
+
+    Category.find({ category: category }, function(err, found) {
+        if (found != null) {
+            const categories = found;
+            console.log(categories)
+            res.render("category", { categories: categories, req: req });
         } else {
-            passport.authenticate("local")(req, res, function() {
-
-                res.render("shipping-card", { req: req });
-            });
-
+            res.render("category", { categories: [], req: req });
         }
-    });
+    })
 })
 
-app.get("/signup", function(req, res) {
-    res.render("signup", { req: req });
-})
-app.post("/signup", function(req, res) {
 
-    User.register({ username: req.body.username }, req.body.password, function(err, user) {
-        if (err) {
-            console.log(err);
-            res.redirect("/signup");
+
+
+app.get("/brands", function(req, res) {
+
+    Brand.find({}, function(err, foundBrands) {
+        if (!err) {
+            res.render("brands.ejs", { brands: foundBrands, req: req });
         } else {
-            passport.authenticate("local")(req, res, function() {
-                res.redirect("/");
-            });
-
-        }
-    });
-
-});
-
-
-
-app.post("/signin", function(req, res) {
-
-    const user = new User({
-        username: req.body.username,
-    });
-
-    req.login(user, function(err) {
-        if (err) {
             console.log(err);
-        } else {
-            passport.authenticate("local", { failureRedirect: "/signinFail" })(req, res, function() {
-                console.log("entered");
-                res.redirect("/");
-            });
         }
-    });
-});
-
-app.get("/signinFail", function(req, res) {
-    res.render("signinFail", { req: req });
+    })
 })
 
+app.post('/brands', function(req, res) {
 
-app.get("/signout", function(req, res) {
-    req.logout();
-    res.redirect("/");
-});
+    const brand = req.body.brandname;
+    console.log(brand)
+    Brand.find({ brand: brand }, function(err, found) {
+        if (found != null) {
+            const brands = found;
+            console.log(brands)
+            res.render("brands.ejs", { brands: brands, req: req });
+        } else {
+            res.render("brands.ejs", { brands: [], req: req });
+        }
+    })
 
-
-
-app.get("/about", function(req, res) {
-    res.render("about.ejs", { req: req });
 })
 
-app.get("/feedback", function(req, res) {
-    res.render("feedback.ejs", { req: req });
-})
 
 
 
@@ -690,8 +803,8 @@ app.get("/products/:custom", function(reqq, res) {
     const custom = reqq.params.custom
     Item.findOne({ title: custom }, function(err, foundItems) {
         if (!err) {
-            if (!foundItems) {
-                res.redirect("/" + custom);
+            if (foundItems==null) {
+                res.redirect("/");
             } else {
                 console.log("item found: " + foundItems);
                 res.render("product", { req: reqq, item: foundItems });
@@ -700,6 +813,13 @@ app.get("/products/:custom", function(reqq, res) {
 
     })
 })
+
+
+app.get("/products", function(req, res) {
+   
+    res.redirect("/brands")
+})
+
 
 
 
@@ -724,12 +844,6 @@ app.post("/products", function(req, res) {
     console.log(typeof categ)
     console.log(typeof bra)
     console.log("**************************")
-
-
-
-
-    
-
 
 
     if (category == null && item == null && which == null) {
@@ -958,120 +1072,6 @@ app.post("/products", function(req, res) {
     
     }
     
-})
-
-
-
-
-
-
-
-
-
-app.get("/products", function(req, res) {
-    Item.find({}, function(err, foundItems) {
-        if (!err) {
-            Category.find({}, function(err, foundCat) {
-                if (!err) {
-                    res.render("products", { items: foundItems, categories: foundCat, req: req,brande:true })
-                }
-            })
-        } else {
-            console.log(err);
-        }
-
-    })
-})
-
-
-
-
-app.get("/category", function(req, res) {
-
-    Category.find({}, function(err, found) {
-        if (!err) {
-            res.render("category.ejs", { categories: found, req: req });
-        } else {
-            console.log(err);
-        }
-    })
-})
-
-
-
-app.post("/category", function(req, res) {
-
-
-    const category = req.body.categoryname;
-
-    Category.find({ category: category }, function(err, found) {
-        if (found != null) {
-            const categories = found;
-            console.log(categories)
-            res.render("category", { categories: categories, req: req });
-        } else {
-            res.render("category", { categories: [], req: req });
-        }
-    })
-})
-
-
-
-
-app.get("/brands", function(req, res) {
-
-    Brand.find({}, function(err, foundBrands) {
-        if (!err) {
-            res.render("brands.ejs", { brands: foundBrands, req: req });
-        } else {
-            console.log(err);
-        }
-    })
-})
-
-app.post('/brands', function(req, res) {
-
-    const brand = req.body.brandname;
-    console.log(brand)
-    Brand.find({ brand: brand }, function(err, found) {
-        if (found != null) {
-            const brands = found;
-            console.log(brands)
-            res.render("brands.ejs", { brands: brands, req: req });
-        } else {
-            res.render("brands.ejs", { brands: [], req: req });
-        }
-    })
-
-})
-
-
-/* admin*/
-
-
-app.get("/adminOrder", function(req, res) {
-
-    res.render("adminOrder", { req: req });
-})
-
-app.post("/adminOrder", function(req, res) {
-    // console.log("user id: " + req.body.userOrder);
-    // console.log("order id: " + req.body.Order);
-    console.log("this is the post adminOrder");
-    User.find({}, function(err, users) {
-        User.findById(req.body.userOrder, function(err, user) {
-
-            user.orders.forEach(function(order) {
-                console.log(order.id)
-                if (order.id == req.body.Order) {
-                    res.render("adminOrder", { req: req, order: order, userr: user, users: users });
-                    console.log("found")
-                }
-
-            })
-        })
-    })
-
 })
 
 
