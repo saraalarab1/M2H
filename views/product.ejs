@@ -51,13 +51,29 @@
 
                                     </div>
 
-                                    <p class="lead">
-                                        <%=item.size%>
-                                    </p>
 
                                     </select>
                                 </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <input type="text" name="box" class="form-control" placeholder="Qty" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" id="basic-addon2">pieces</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="my-3">
+                                    <button type="submit" data-bs-toggle="modal" data-bs-target="#sign-in" style="display: inline-block;" class="btn btn-dark">Add To Card</button>
+                                </div>
+                                <input type="hidden" name="title" value=<%=item.title%>>
+                                <input type="hidden" name="img" value=<%=item.imgURL%>>
+                                <input type="hidden" name="price" value=<%=item.price%>>
+                                <%if(req.isAuthenticated()){%>
+                        </form>
+                        <%}%>
                 </div>
 
 
@@ -67,26 +83,7 @@
 
 
 
-                <div class="row">
-                    <div class="col-6">
-                        <div class="input-group mb-3">
-                            <input type="text" name="box" class="form-control" placeholder="Qty" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="basic-addon2">pieces</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="my-3">
-                    <button type="submit" data-bs-toggle="modal" data-bs-target="#sign-in" style="display: inline-block;" class="btn btn-dark">Add To Card</button>
-                </div>
-                <input type="hidden" name="title" value=<%=item.title%>>
-                <input type="hidden" name="img" value=<%=item.imgURL%>>
-                <input type="hidden" name="price" value=<%=item.price%>>
-                <%if(req.isAuthenticated()){%>
-                    </form>
-                    <%}%>
             </div>
 
 
@@ -121,11 +118,12 @@
                                                             <form action=<%="/products/" +items[i].title%> method="GET">
                                                                 <button type="submit" class="btn">
                                                 <div class="card text-center" style="width: 18rem;">
-                                                    <img style="height: 12rem;" class="card-img-top" src=<%="../images/"+items[i].imgURL%> alt="Card image cap">
+                                                    <img style="max-height: 12rem; max-width: 12rem;" class="mx-auto card-img-top" src=<%="../images/"+items[i].imgURL%> alt="Card image cap">
                                                     <div class="card-body">
                                                         <h6 class="card-text">
-                                                            <%=items[i].brand%>
-                                                                </p>
+                                                            <%=items[i].title%> 
+                                                        </h6>
+                                                        <p><%=items[i].size%></p>
                                                     </div>
                                                 </div>
                                             </button>
