@@ -94,59 +94,49 @@
 
         <br><br><br><br>
 
-
-        <div class="container-fluid">
+        
+    <section class="ftco-section">
+        <div class="container ">
             <div class="row">
-
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="row">
-
-                        <div class="col-md-12 text-center">
-                            <h2 class="heading-section mb-5 pb-md-4">You Might Also Like</h2>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="featured-carousel owl-carousel">
-                                <%=console.log("These are the items: "+items)%>
-                                    <%let count=0%>
-                                        <%for(var i=0;i<items.length&&i<5;i++){%>
-                                            <div class="item">
-                                                <div class="work">
-                                                    <%var image=items[i].imgURL%>
-                                                        <%=console.log(image)%>
-                                                            <form action=<%="/products/" +items[i].title%> method="GET">
-                                                                <button type="submit" class="btn">
-                                                <div class="card text-center" style="width: 18rem;">
-                                                    <img style="max-height: 12rem; max-width: 12rem;" class="mx-auto card-img-top" src=<%="../images/"+items[i].imgURL%> alt="Card image cap">
+                <div class="col-md-12 text-center">
+                    <h2 class="heading-section mb-3 pb-md-4 ">You Might Also Like</h2>
+                </div>
+                <div class="col-md-12">
+                    <div class="featured-carousel owl-carousel">
+                    <% let count =1%>
+                        <%items.forEach(function(item){%>
+                            <%if(count<=3){%>
+                            <div class="item">
+                                <div class="work">
+                                    <form action=<%="/products/" +item.title%> method="GET">
+                                        <button type="submit" class="btn">
+                                            <div class="card text-center" style="width: 18rem;">
+                                                    <img style="max-height: 12rem; max-width: 10rem;" class="card-img-top" src=<%="../images/"+item.imgURL%> alt="Card image cap">
                                                     <div class="card-body">
-                                                        <h6 class="card-text">
-                                                            <%=items[i].title%> 
-                                                        </h6>
-                                                        <p><%=items[i].size%></p>
+                                                        <h6 class="card-text"> <%=item.title%>  </h6>
+                                                        <p><%=item.size%></p>
                                                     </div>
-                                                </div>
-                                            </button>
-                                                                <input type="hidden" name="brand" value=<%=items[i].title%>>
-                                                            </form>
-                                                </div>
                                             </div>
-                                            <%}%>
+                                        </button>
+                                        <input type="hidden" name="brand" value=<%=item.title%>>
+                                    </form>                                                 
+                                </div>
                             </div>
-                        </div>
-                        <form action="brands" method="GET">
-                            <div class="text-center py-5">
-                                <button type="submit" class="btn btn-warning">
-                            Check out all brands
-                        </button>
-                            </div>
-                        </form>
-
+                            <%}%>
+                            <%count=count+1%>
+                        <%})%>
                     </div>
                 </div>
+                <form action="brands" method="GET">
+                    <div class="text-center py-5">
+                        <button type="submit" class="btn btn-warning">Check out all brands</button>
+                    </div>
+                </form>
             </div>
         </div>
     </section>
+
+
 
     <%-include('partials/footer')-%>
         <%if(!req.isAuthenticated()){%>
