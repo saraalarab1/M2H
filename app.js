@@ -388,7 +388,7 @@ app.get("/items", function(req, res) {
 app.get("/adminOrder", function(req, res) {
     if (req.isAuthenticated()) {
         passport.authenticate("local")(req, res, function() {
-            if (user.username == 'saraalarab2000@gmail.com') {
+            if (user.username == 'saraalarab2000@gmail.com' || user.username == 'hadiyouness10@icloud.com') {
 
                 res.render("adminOrder", { req: req, users: users })
 
@@ -426,7 +426,8 @@ app.post("/adminOrder", function(req, res) {
 app.get("/adminpage", function(req, res) {
     if (req.isAuthenticated()) {
         passport.authenticate("local")(req, res, function() {
-            if (user.username == 'saraalarab2000@gmail.com') {
+            console.log("entered")
+            if (user.username == 'saraalarab2000@gmail.com' || user.username == 'hadiyouness10@icloud.com') {
 
                 User.find({}, function(err, users) {
                     res.render("admin", { req: req, users: users })
@@ -462,8 +463,16 @@ app.post("/admin", function(req, res) {
             console.log(err);
         } else {
             passport.authenticate("local")(req, res, function() {
-                if (user.username == 'saraalarab2000@gmail.com' || user.username == "hadiyouness10@icloud.com")
-                    res.redirect("/adminpage");
+                console.log("hello")
+                if (user.username == 'saraalarab2000@gmail.com' || user.username == "hadiyouness10@icloud.com") {
+                    console.log(user.username);
+                    User.find({}, function(err, users) {
+                        res.render("admin", { req: req, users: users })
+                    })
+
+                } else {
+                    res.redirect("/adminsign")
+                }
             });
 
         }
