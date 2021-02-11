@@ -78,15 +78,20 @@
                                         <p class="h4 text-center mx-auto mt-4 py-5 ">No Results</p>
 
                                         <%}else{%>
-                                            <li>
+                                            <<<<<<< HEAD <li>
                                                 <div class="product">
                                                     <%console.log("entered the also: "+ item.brand)%>
                                                         <a href=<%="/products/" +item.title%>  name="inn" style="text-decoration: none;">
+                                        <li>
+                                            <div class="product">
+                                                <a href=<%="/products/" +item.id%>  name="inn" style="text-decoration: none;">
+
                                             <img src=<%="../images/"+item.imgURL%> alt=" " class="product-image">
                                      
                                             <div class="row mt-2">
         
                                                 <div class="center-block col ">
+
                                                     <span  name="inn" style="text-decoration: none;" class="product-name ">  <%=item.title%> </span>
                                                 </div>
                                             </a>
@@ -94,19 +99,36 @@
                                                             <%=item.price%>
                                                         </div>
 
+                                                        <span name="inn" style="text-decoration: none;" class="product-name h6">  <%=item.title%> </span>
+                                                </div>
+                                                </a>
+                                                <div class="col text-end mx-5 h5 center-block product-price">
+                                                    <%=item.price%> L.L.
                                                 </div>
 
-                                                <div class="product-brand">
-                                                    Brand:
-                                                    <span class="font-weight-bold"><%=item.brand%></span>
-                                                </div>
-
-                                                <div class="product-brand">
-                                                    Category:
-                                                    <span class="font-weight-bold">  <%=item.category%></span>
+                        </div>
 
 
-                                                </div>
+                    </div>
+
+                    <div class="product-brand">
+                        Brand:
+                        <span class="font-weight-bold"><%=item.brand%></span>
+                    </div>
+
+                    <div class="product-brand">
+                        Category:
+                        <span class="font-weight-bold">  <%=item.category%></span>
+                        <div class="product-brand">
+                            Size:
+                            <span class="font-weight-bold">  <%=item.size%></span>
+
+                            <div class="product-brand">
+                                Category:
+                                <span class="font-weight-bold">  <%=item.category%></span>
+
+
+                            </div>
                         </div>
                         </li>
                         <%}%>
@@ -171,57 +193,54 @@
                 <div class="col-lg-10">
                     <section class="bg-light m-0">
 
+                        <%}else{%>
+                            <li>
 
-                        <div class="row">
-                            <div class="col">
-                                <ul class="products">
+                                <div class="product">
 
-                                    <%items.forEach(function(item){ %>
-                                        <%  if(Object.keys(item)=='category'){%>
-
-
-                                            <p class="h4 text-center mx-auto mt-4 py-5 ">No Results</p>
-
-
-
-                                            <%}else{%>
-                                                <li>
-                                                    <div class="product">
-                                                        <a href=<%="/products/" +item.title%>  name="inn" style="text-decoration: none;">
+                                    <a href=<%="/products/" +item.id%>  name="inn" style="text-decoration: none;">
+                                               
                                             <img src=<%="../images/"+item.imgURL%> alt=" " class="product-image">
-                                     
+                                            
                                             <div class="row mt-2">
         
                                                 <div class="center-block col ">
-                                                    <span  name="inn" style="text-decoration: none;" class="product-name ">  <%=item.title%> </span>
+                                                    <span  name="inn" style="text-decoration: none;" class="product-name h6">  <%=item.title%> </span>
                                                 </div>
                                             </a>
-                                                        <div class="col text-end mx-2 h5 center-block product-price">
-                                                            <%=item.price%>
-                                                        </div>
+                                    <div class="col text-end  mx-5 h5  center-block product-price">
+                                        <%=item.price%> L.L.
+                                    </div>
 
-                                                    </div>
+                                </div>
 
-                                                    <div class="product-brand">
-                                                        Brand:
-                                                        <span class="font-weight-bold"><%=item.brand%></span>
-                                                    </div>
+                                <div class="product-brand">
+                                    Brand:
+                                    <span class="font-weight-bold"><%=item.brand%></span>
+                                </div>
 
-                                                    <div class="product-brand">
-                                                        Category:
-                                                        <span class="font-weight-bold">  <%=item.category%></span>
+                                <div class="product-brand">
+                                    Category:
+                                    <span class="font-weight-bold">  <%=item.category%></span>
+                                </div>
+
+                                <div class="product-brand">
+                                    Size:
+                                    <span class="font-weight-bold">  <%=item.size%></span>
 
 
-                                                    </div>
 
-                            </div>
-                            </li>
 
-                            <%}%>
-                                <%})%>
-                                    </ul>
-                        </div>
+                                </div>
+
                 </div>
+                </li>
+
+                <%}%>
+                    <%})%>
+                        </ul>
+            </div>
+            </div>
             </div>
 
 

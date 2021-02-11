@@ -26,13 +26,15 @@
            
 
                 <%brands.forEach(function(brand){%>
-                    <div class="col-md-6 col-lg-4 my-2">
+                    <div class="col-md-6 col-lg-4 my-2 p-1 ">
                         <div class="card brand-card">
                             <form action="products" method="POST">
                                 <img class="card-img" style="max-height: 5rem;" src=<%="../images/" +brand.img%> alt="">
                                 <div class="card-header">
+                                  
                                     <input  type="hidden" name="brand" value=<%=brand.brand%>>
-                            
+                          
+                                    
                                     <p class="lead">
                                         <%=brand.brand%>
                                     </p>

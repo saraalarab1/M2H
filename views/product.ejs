@@ -14,7 +14,8 @@
                 <div class="col-0 col-lg-1"></div>
                 <div class="col-6 col-lg-4 align-items-center">
                     <div>
-                        <img src=<%="../images/" +item.imgURL%> alt="hello " style="max-width: 100%;">
+                        <%console.log("^"+item.imgURL)%>
+                            <img style="max-width:300px" src=<%="../images/" +item.imgURL%> alt="hello " >
                     </div>
 
                 </div>
@@ -26,11 +27,8 @@
                                 <h2 class="text-info">
                                     <%=item.title%>
                                 </h2>
-                                <div>
-                                    <p class="my-3">
-                                        <%=item.description%>
-                                </div>
-                                <p class="h5">Price: <span class="text-secondary"><%=item.price%></span></p>
+
+                                <p class="h5">Price: <span class="text-secondary"><%=item.price%>L.L.</span></p>
                                 <br>
                                 <p class=""><span class="font-weight-bold ">Brand: </span>
                                     <%=item.brand%>
@@ -41,7 +39,7 @@
 
                                 <div class="row">
 
-                                    <div class="col-2 m-1">
+                                    <div class="col-2 mt-2">
                                         <p class="text-secondary h6">Size </p>
                                     </div>
                                     <div class="col-2">
@@ -50,43 +48,50 @@
                                             <%=item.size%>
                                         </p>
 
-                                        </select>
+
                                     </div>
 
+                                    <p class="lead">
+                                        <%=item.size%>
+                                    </p>
+
+                                    </select>
                                 </div>
 
-
-                                <br>
-
-
-
-
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <input type="text" name="box" class="form-control" placeholder="Qty" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="basic-addon2">pieces</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="my-3">
-                                    <button type="submit" data-bs-toggle="modal" data-bs-target="#sign-in" style="display: inline-block;" class="btn btn-dark">Add To Card</button>
-                                </div>
-                                <input type="hidden" name="title" value=<%=item.title%>>
-                                <input type="hidden" name="img" value=<%=item.imgURL%>>
-                                <input type="hidden" name="price" value=<%=item.price%>>
-                                <%if(req.isAuthenticated()){%>
-                        </form>
-                        <%}%>
                 </div>
 
 
+                <br>
 
+
+
+
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="input-group mb-3">
+                            <input type="text" name="box" class="form-control" placeholder="Qty" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">pieces</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="my-3">
+                    <button type="submit" data-bs-toggle="modal" data-bs-target="#sign-in" style="display: inline-block;" class="btn btn-dark">Add To Card</button>
+                </div>
+                <input type="hidden" name="title" value=<%=item.title%>>
+                <input type="hidden" name="img" value=<%=item.imgURL%>>
+                <input type="hidden" name="price" value=<%=item.price%>>
+                <%if(req.isAuthenticated()){%>
+                    </form>
+                    <%}%>
             </div>
+
+
+
+        </div>
         </div>
 
 
@@ -195,6 +200,4 @@
 
                 <%}%>
 
-
-                    <script>
-                        <%- include("partials/footer") -%>
+                    <%- include("partials/footer") -%>

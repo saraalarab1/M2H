@@ -39,8 +39,9 @@
                 </div>
                 <div class="col-md-12">
                     <div class="featured-carousel owl-carousel">
-                        <%=console.log(brandss)%>
+                        <%=console.log("ww"+brandss)%>
                             <%brandss.forEach(function(br){%>
+
                                 <div class="item">
                                     <div class="work">
                                         <%var image=br.img%>
@@ -48,7 +49,7 @@
                                                 <form action="/products" method="POST">
                                                     <button type="submit" class="btn">
                                                 <div class="card text-center" style="width: 18rem;">
-                                                    <img style="height: 12rem;" class="card-img-top" src="<%=br.img%>" alt="Card image cap">
+                                                    <img style="height: 12rem;" class="card-img-top" src=<%="../images/"+br.img%> alt="Card image cap">
                                                     <div class="card-body">
                                                         <h6 class="card-text">
                                                             <%=br.brand%>
@@ -88,24 +89,26 @@
             </div>
             <!--end of title-->
             <div class="row align-items-center text-center mx-auto">
+
                 <%best.forEach(function(b){%>
-                    <div class="col-lg-4 col-10 mx-auto">
-                        <div class="card card-1 bg-light text-dark  my-4 mx-auto">
-                            <%let i= b.image%>
-                                <img style="max-height: 15rem;" src=<%=b.image%> alt="">
+                    <%console.log("55"+b.name)%>
+                        <div class="col-lg-4 col-10 mx-auto">
+                            <div class="card card-1  text-dark  my-4 mx-auto">
+
+                                <img style="max-height: 200px; max-width:200px" class="mx-auto my-2" src=<%="../images/" +b.img%> alt="">
                                 <div class="card-body">
                                     <h5 class="text-uppercase font-weight-bold mb-3 card-list-item">
                                         <%=b.name%>
                                     </h5>
-
-                                    <form action=<%="/products/" +b.name%> method="GET">
-                                        <button type="submit" class="btn p-2 
+                                    <%console.log("&"+b.item)%>
+                                        <form action=<%="/products/" +b.item%> method="GET">
+                                            <button type="submit" class="btn p-2 
                                     text-uppercase font-weight-bold price-card-button btn-warning text-light">See Details</button>
-                                    </form>
+                                        </form>
                                 </div>
+                            </div>
                         </div>
-                    </div>
-                    <%})%>
+                        <%})%>
 
 
             </div>
@@ -136,7 +139,7 @@
                                                 <form action="/products" method="POST">
                                                     <button type="submit" class="btn">
                                                 <div class="card text-center" style="width: 18rem;">
-                                                    <img style="height: 12rem;" class="card-img-top" src="<%=cat.img%>" alt="Card image cap">
+                                                    <img style="height: 12rem;" class="card-img-top" src=<%="../images/"+cat.img%> alt="Card image cap">
                                                     <div class="card-body">
                                                         <h6 class="card-text">
                                                             <%=cat.category%>
