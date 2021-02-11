@@ -83,17 +83,17 @@
                                         <%}else{%>
                                         <li>
                                             <div class="product">
-                                                <a href=<%="/products/" +item.title%>  name="inn" style="text-decoration: none;">
+                                                <a href=<%="/products/" +item.id%>  name="inn" style="text-decoration: none;">
                                             <img src=<%="../images/"+item.imgURL%> alt=" " class="product-image">
                                      
                                             <div class="row mt-2">
         
                                                 <div class="center-block col ">
-                                                    <span  name="inn" style="text-decoration: none;" class="product-name h4">  <%=item.title%> </span>
+                                                    <span  name="inn" style="text-decoration: none;" class="product-name h6">  <%=item.title%> </span>
                                                 </div>
                                             </a>
-                                                <div class="col text-end mx-2 h5 center-block product-price">$
-                                                    <%=item.price%>
+                                                <div class="col text-end mx-5 h5 center-block product-price">
+                                                    <%=item.price%> L.L.
                                                 </div>
 
                                             </div>
@@ -106,6 +106,9 @@
                                             <div class="product-brand">
                                                 Category:
                                                 <span class="font-weight-bold">  <%=item.category%></span>
+                                                    <div class="product-brand">
+                                                Size:
+                                                <span class="font-weight-bold">  <%=item.size%></span>
 
 
                                             </div>
@@ -189,18 +192,21 @@
 
                                         <%}else{%>
                                               <li>
+
                                             <div class="product">
-                                                <a href=<%="/products/" +item.title%>  name="inn" style="text-decoration: none;">
+                                            
+                                                <a href=<%="/products/" +item.id%>  name="inn" style="text-decoration: none;">
+                                               
                                             <img src=<%="../images/"+item.imgURL%> alt=" " class="product-image">
-                                     
+                                            
                                             <div class="row mt-2">
         
                                                 <div class="center-block col ">
-                                                    <span  name="inn" style="text-decoration: none;" class="product-name h4">  <%=item.title%> </span>
+                                                    <span  name="inn" style="text-decoration: none;" class="product-name h6">  <%=item.title%> </span>
                                                 </div>
                                             </a>
-                                                <div class="col text-end mx-2 h5 center-block product-price">$
-                                                    <%=item.price%>
+                                                <div class="col text-end  mx-5 h5  center-block product-price">
+                                                    <%=item.price%> L.L.
                                                 </div>
 
                                             </div>
@@ -213,6 +219,13 @@
                                             <div class="product-brand">
                                                 Category:
                                                 <span class="font-weight-bold">  <%=item.category%></span>
+                                            </div>
+
+                                            <div class="product-brand">
+                                                Size:
+                                                <span class="font-weight-bold">  <%=item.size%></span>
+                                            
+
 
 
                                             </div>

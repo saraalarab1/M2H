@@ -33,8 +33,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-
-mongoose.connect("mongodb://localhost:27017/M2HDB", { useNewUrlParser: true });
+mongoose.connect("mongodb+srv://admin_sara:test123@cluster0.w4g1n.mongodb.net/M2HDB",{useNewUrlParser:true});
+// mongoose.connect("mongodb://localhost:27017/M2HDB", { useNewUrlParser: true });
 mongoose.set('useFindAndModify', false)
 mongoose.set("useCreateIndex", true);
 mongoose.set("useFindAndModify", false);
@@ -101,8 +101,12 @@ const userSchema = new mongoose.Schema({
     },
 });
 const bestSellerSchema = new mongoose.Schema({
-    name: String,
-    image: String,
+    item:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Item",
+    },
+    name:String,
+    img:String
 
 });
 
@@ -157,101 +161,6 @@ const b3 = new BestSeller({
 })
 
 
-const item1 = new Item({
-
-    title: "Beyonce",
-    description: "hahahhaahhahahha",
-    imgURL: "teeth.jpg",
-    brand: "b@beyonce.com",
-    price: 33,
-    category: "Shampoo",
-    quantity: 3,
-    size: 600
-
-
-})
-const item2 = new Item({
-
-    title: "Hadi",
-    description: "hahahhaahhahahha",
-    imgURL: "deodorant.Jpeg",
-    brand: "b@beyonce.com",
-    price: 34,
-    category: "Shampoo",
-    quantity: 3,
-    size: 500
-
-
-})
-
-const item3 = new Item({
-
-    title: "Sara",
-    description: "hahahhaahhahahha",
-    imgURL: "teeth.jpg",
-    brand: "b@beyonce.com",
-    price: 35,
-    category: "Shampoo",
-    quantity: 3,
-    size: 200
-
-
-})
-
-const item4 = new Item({
-
-    title: "Nivine",
-    description: "hahahhaahhahahha",
-    imgURL: "teeth.jpg",
-    brand: "b@beyonce.com",
-    price: 35,
-    category: "Shampoo",
-    quantity: 3,
-    size: 100
-
-
-})
-const item5 = new Item({
-
-    title: "Tala",
-    description: "hahahhaahhahahha",
-    imgURL: "teeth.jpg",
-    brand: "b@beyonce.com",
-    price: 35,
-    category: "Shampoo",
-    quantity: 3,
-    size: 500
-
-
-})
-const item6 = new Item({
-
-    title: "Tala",
-    description: "hahahhaahhahahha",
-    imgURL: "teeth.jpg",
-    brand: "Johnson",
-    price: 35,
-    category: "Shampoo",
-    quantity: 3,
-    size: 400
-
-
-})
-
-const item7 = new Item({
-
-    title: "Tala",
-    description: "hahahhaahhahahha",
-    imgURL: "teeth.jpg",
-    brand: "Johnson",
-    price: 35,
-    category: "Shampoo",
-    quantity: 3,
-    size: 300
-
-
-})
-
 const brand1 = new Brand({
     brand: "Johnson",
     categories: ["Shampoo", "body care", "deodorant"],
@@ -293,11 +202,18 @@ const categ3 = new Category({
     img: "../images/Johnson.jpg"
 })
 
+// Item.findOne({title:'C&C Adv. Wash'},function(err,found){
 
-// BestSeller.insertMany([b1, b2, b3], function(err) {
-//     if (err) console.log(err);
-//     else console.log([b1, b2, b3]);
+//     BestSeller.insertMany(
+//         {
+//         item:found.id
+//         }
+//         , function(err) {
+//         if (err) console.log(err);
+    
+//     })
 // })
+
 
 
 // Category.insertMany([categ1, categ2, categ3, categ4], function(err) {
@@ -305,21 +221,25 @@ const categ3 = new Category({
 //     else console.log([categ1, categ2, categ3]);
 // })
 
-// Brand.insertMany([brand1, brand2, brand3], function(err) {
+// Brand.insertMany(
+//     {
+//         it
+//     }
+//     , function(err) {
 //     if (err) console.log(err);
 //     else console.log([brand1, brand2, brand3]);
 // })
 
-// Item.insertMany([item1,item2,item3,item4,item5,item6, item7], function(err) {
+// Item.insertMany(
+
+    
+//     , function(err) {
 //     if (err) {
 //         console.log(err);
 //     } else {
-//         console.log([item1, item2, item3])
+       
 //     }
 // })
-
-
-
 
 
 
@@ -328,6 +248,7 @@ app.get("/", function(req, res) {
     Brand.find({}, function(err, foundBrand) {
         if (!err) {
             BestSeller.find({}, function(err, best) {
+                console.log("gg"+best)
                 Category.find({}, function(err, foundCat) {
                     res.render("home", { categoriess: foundCat, req: req, brandss: foundBrand, best: best })
 
@@ -465,8 +386,20 @@ app.get("/items", function(req, res) {
 
 })
 app.get("/adminOrder", function(req, res) {
-
-    res.render("adminOrder", { req: req });
+    if(req.isAuthenticated()){
+        passport.authenticate("local")(req, res, function() {
+            if(user.username=='saraalarab2000@gmail.com'){
+          
+                res.render("adminOrder", { req: req, users: users })
+                   
+             }else{
+                    res.render("adminsign", { req: req, })
+                    }     
+})
+ }
+ else{
+    res.render("adminsign", { req: req, })
+ } 
 })
 
 app.post("/adminOrder", function(req, res) {
@@ -492,10 +425,28 @@ app.post("/adminOrder", function(req, res) {
 
 
 app.get("/adminpage", function(req, res) {
-    User.find({}, function(err, users) {
-        res.render("admin", { req: req, users: users })
-    })
+    if(req.isAuthenticated()){
+        passport.authenticate("local")(req, res, function() {
+            if(user.username=='saraalarab2000@gmail.com'){
+          
+                User.find({}, function(err, users) {
+                res.render("admin", { req: req, users: users })
+                    })
+             }else{
+                    res.render("adminsign", { req: req, })
+                    }     
 })
+ }
+ else{
+    res.render("adminsign", { req: req, })
+ } 
+})
+
+
+
+
+
+
 app.get("/admin", function(req, res) {
 
     res.render("adminsign", { req: req, })
@@ -885,8 +836,9 @@ app.post('/brands', function(req, res) {
 
 
 app.get("/products/:custom", function(reqq, res) {
-    const custom = reqq.params.custom
-    Item.findOne({ title: custom }, function(err, foundItems) {
+    const custom = reqq.params.custom;
+    
+    Item.findById( custom, function(err, foundItems) {
         if (!err) {
             if (foundItems == null) {
                 res.redirect("/");
@@ -911,6 +863,7 @@ app.get("/products", function(req, res) {
 
 app.post("/products", function(req, res) {
 
+  
     category = req.body.category;
     item = req.body.item;
     brand = req.body.brand;
@@ -921,18 +874,12 @@ app.post("/products", function(req, res) {
     console.log(category)
     console.log(item)
     console.log(brand)
-    console.log(which)
-    console.log(categ)
-    console.log(bra)
-    console.log("**************************")
-    console.log(typeof which)
-    console.log(typeof categ)
-    console.log(typeof bra)
-    console.log("**************************")
+
 
 
     if (category == null && item == null && which == null) {
         console.log("1a")
+        
         Item.find({ brand: brand }, function(err, foundb) {
             if (!err) {
 
@@ -946,8 +893,10 @@ app.post("/products", function(req, res) {
                     })
 
                 } else {
+                    
                     Brand.find({ brand: brand }, function(err, found) {
                         if (!err) {
+                        
                             const foundCat = found[0].categories;
                             res.render("products", { items: [{ brand: brand }], categories: foundCat, req: req, brande: true })
                         }
@@ -1159,8 +1108,12 @@ app.post("/products", function(req, res) {
 
 })
 
+let port = process.env.PORT;
+if(port==""||port==null){
+  port = 3000;
+}
 
 
-app.listen(3000, function() {
+app.listen(port, function() {
     console.log("Server started on port 3000");
 })

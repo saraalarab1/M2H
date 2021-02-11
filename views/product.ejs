@@ -14,7 +14,8 @@
                 <div class="col-0 col-lg-2"></div>
                 <div class="col-6 col-lg-4 align-items-center">
                     <div>
-                        <img src=<%="../images/" +item.imgURL%> alt="hello " style="max-width: 100%;">
+                    <%console.log("^"+item.imgURL)%>
+                        <img  style="max-width:300px" src=<%="../images/" +item.imgURL%> alt="hello " >
                     </div>
                     <div>
                         <p class="my-3">
@@ -30,7 +31,7 @@
                             <%=item.title%>
                         </h2>
 
-                        <p class="h5">Price: <span class="text-secondary"><%=item.price%>$</span></p>
+                        <p class="h5">Price: <span class="text-secondary"><%=item.price%>L.L.</span></p>
                         <br>
                         <p class=""><span class="font-weight-bold ">Brand: </span>
                             <%=item.brand%>
@@ -41,14 +42,14 @@
 
                         <div class="row">
 
-                            <div class="col-2 m-1">
+                            <div class="col-2 mt-2">
                                 <p class="text-secondary h6">Size </p>
                             </div>
                             <div class="col-2">
                                
-                                <p class="lead"><%=item.size%>ML</p>
+                                <p class="lead"><%=item.size%></p>
                          
-                                </select>
+                         
                             </div>
 
                         </div>
