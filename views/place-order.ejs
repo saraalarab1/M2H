@@ -43,7 +43,8 @@
                         <%=console.log("This is user's address: "+req.user.address)%>
                             <div class="card bg-light mb-3">
                                 <div class="card-header">
-                                   Address  <%=req.user.address.addrs%>
+                                    Address
+                                    <%=req.user.address.addrs%>
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">
@@ -87,36 +88,44 @@
                             <% var sum=0%>
 
                                 <div class="card-body justify-content-start">
-                                <%console.log(typeof order.checkout)%>
-                                    <%if(order.checkout===false){%>
-                                   
-                                        <%items.forEach(function(item){%>
-                                <form method="post" action="/remove"/>
-                                            <div class="row">
-                                                <div class="col-3">
-                                                    <img src=<%="../images/" +item.img%> style="display: inline-block; height: 5rem; width: 5rem;" alt="">
-                                                    
-                                                </div>
-                                                <div class="col-9">
-                                                    <div>
-                                                        <p style="display: inline-block;">
-                                                            <%=item.title%>
-                                                        </p>
-                                                        <p class="float-end" style="display: inline-block;">
-                                                            <%=item.price%>LL</p>
+                                    <%console.log(typeof order.checkout)%>
+                                        <%if(order.checkout===false){%>
+
+                                            <%items.forEach(function(item){%>
+                                                <form method="post" action="/remove" />
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        <img src=<%="../images/" +item.img%> style="display: inline-block; height: 5rem; width: 5rem;" alt="">
+
                                                     </div>
-                                                    <p>Quantity: <span><%=item.qty%></span></p>
-                                                    <input type="hidden" name="item" value=<%=item.id%>>
-                                                   
+                                                    <div class="col-9">
+                                                        <div>
+                                                            <p style="display: inline-block;">
+                                                                <%=item.title%>
+                                                            </p>
+                                                            <p class="float-end" style="display: inline-block;">
+                                                                <%=item.price%>LL</p>
+                                                        </div>
+                                                        <p>Quantity: <span><%=item.qty%></span></p>
+                                                        <input type="hidden" name="item" value=<%=item.id%>>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6">
+
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <button class="btn btn-danger float-right" type="submit">Remove</button>
+
+                                                        </div>
+
+                                                    </div>
+
                                                 </div>
-                                             
-                                                 <button class="btn btn-danger float-left" type="submit">Remove</button>
-                                                
-                                            </div>
-                                    </form>
-                                            <hr>
-                                            <%sum+=item.price*item.qty%>
-                                           
+                                                </form>
+                                                <hr>
+                                                <%sum+=item.price*item.qty%>
+
                                                     <%  })%>
                                                         <%}else{%>
                                                             <%sum=0%>
@@ -139,14 +148,14 @@
 
                             <form method="post" action="/checkout">
                                 <div class="card-header text-center ">
-                                      <input type="hidden" name="orderTotal" value=<%=sum%>>
-                                      
+                                    <input type="hidden" name="orderTotal" value=<%=sum%>>
+
                                     <%if(order.checkout==true||items.length==0){%>
-                                      <button style="width: 65%;" class="btn btn-warning disabled" Onclick="return ConfirmOrder();" type="button" name="actiondelete" value="1">Place Order</button>
-                                    <%}else{%>
-                              
-                                    <button style="width: 65%;" class="btn btn-warning" Onclick="return ConfirmOrder();" type="submit" name="actiondelete" value="1">Place Order</button>
-                                    <%}%>
+                                        <button style="width: 65%;" class="btn btn-warning disabled" Onclick="return ConfirmOrder();" type="button" name="actiondelete" value="1">Place Order</button>
+                                        <%}else{%>
+
+                                            <button style="width: 65%;" class="btn btn-warning" Onclick="return ConfirmOrder();" type="submit" name="actiondelete" value="1">Place Order</button>
+                                            <%}%>
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">Order Summary</h5>

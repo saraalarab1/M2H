@@ -8,31 +8,31 @@
                 <h1 class="p-4 "> <i>Welcome to M2H</i>
                 </h1>
                 <h6 class="p-3">Check out top quality items and exclusive offers!</h6>
-               
+
             </div>
         </div>
     </div>
 
     <!-- HOME -->
-  <div class="row text-center m-0 p-2 bg-light">
-                    <div class="col-4">
-                        <p class="lead">Top Quality</p>
-                    </div>
-                    <div class="col-4">
-                        <p class="lead">1$ = 1520LL</p>
-                    </div>
-                    <div class="col-4">
-                        <p class="lead">Fast Delivery</p>
-                    </div>
-                </div>
+    <div class="row text-center m-0 p-2 bg-light">
+        <div class="col-4">
+            <p class="lead">Top Quality</p>
+        </div>
+        <div class="col-4">
+            <p class="lead">1$ = 1520LL</p>
+        </div>
+        <div class="col-4">
+            <p class="lead">Fast Delivery</p>
+        </div>
+    </div>
 
 
     <section class="ftco-section">
         <div class="container ">
 
-       
+
             <div class="row">
-            
+
                 <div class="col-md-12 text-center">
                     <h2 class="heading-section mb-3 pb-md-4">Brands</h2>
                     <p class="lead mb-5">Check out our various Brands!</p>
@@ -56,7 +56,7 @@
                                                     </div>
                                                 </div>
                                             </button>
-                                            <input  type="hidden" name="brand" value=<%=br.brand%>>
+                                                    <input type="hidden" name="brand" value=<%=br.brand%>>
                                                 </form>
                                     </div>
                                 </div>
@@ -83,7 +83,7 @@
                     <h1 class="display-4 mb-4 ">Best Sellers</h1>
                     <div class="underline-dark mb-4">
                     </div>
-                    <p class="lead">Check out some of our best sellers items: </p>
+                    <p class="lead">Check out some of our best sellers items</p>
                 </div>
             </div>
             <!--end of title-->
@@ -97,16 +97,7 @@
                                     <h5 class="text-uppercase font-weight-bold mb-3 card-list-item">
                                         <%=b.name%>
                                     </h5>
-                                    <div class="row">
-                                        <div class="col-8">
-                                            <p class="text-left">One of the best seller products in 2020</p>
 
-                                        </div>
-                                        <div class="col-4">
-                                            <h4 class="text-info ">25000LL</h4>
-
-                                        </div>
-                                    </div>
                                     <form action=<%="/products/" +b.name%> method="GET">
                                         <button type="submit" class="btn p-2 
                                     text-uppercase font-weight-bold price-card-button btn-warning text-light">See Details</button>
@@ -153,8 +144,8 @@
                                                     </div>
                                                 </div>
                                             </button>
-                                            <%console.log(cat.category)%>
-                                            <input type="hidden" name="category" value=<%=cat.category%>>
+                                                    <%console.log(cat.category)%>
+                                                        <input type="hidden" name="category" value=<%=cat.category%>>
                                                 </form>
                                     </div>
                                 </div>
