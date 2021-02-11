@@ -11,81 +11,84 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-0 col-lg-2"></div>
+                <div class="col-0 col-lg-1"></div>
                 <div class="col-6 col-lg-4 align-items-center">
                     <div>
-                    <%console.log("^"+item.imgURL)%>
-                        <img  style="max-width:300px" src=<%="../images/" +item.imgURL%> alt="hello " >
+                        <%console.log("^"+item.imgURL)%>
+                            <img style="max-width:300px" src=<%="../images/" +item.imgURL%> alt="hello " >
                     </div>
-                    <div>
-                        <p class="my-3">
-                            <%=item.description%>.</p>
-                    </div>
-                </div>
 
+                </div>
+                <div class="col-lg-1"></div>
                 <div class="col-6 col-lg-4 ">
                     <%if(req.isAuthenticated()){%>
-                    <form method="post" action="/shipping">
-                    <%}%>
-                        <h2 class="text-info">
-                            <%=item.title%>
-                        </h2>
+                        <form method="post" action="/shipping">
+                            <%}%>
+                                <h2 class="text-info">
+                                    <%=item.title%>
+                                </h2>
 
-                        <p class="h5">Price: <span class="text-secondary"><%=item.price%>L.L.</span></p>
-                        <br>
-                        <p class=""><span class="font-weight-bold ">Brand: </span>
-                            <%=item.brand%>
-                        </p>
+                                <p class="h5">Price: <span class="text-secondary"><%=item.price%>L.L.</span></p>
+                                <br>
+                                <p class=""><span class="font-weight-bold ">Brand: </span>
+                                    <%=item.brand%>
+                                </p>
 
-                        <br>
-
-
-                        <div class="row">
-
-                            <div class="col-2 mt-2">
-                                <p class="text-secondary h6">Size </p>
-                            </div>
-                            <div class="col-2">
-                               
-                                <p class="lead"><%=item.size%></p>
-                         
-                         
-                            </div>
-
-                        </div>
+                                <br>
 
 
-                        <br>
+                                <div class="row">
+
+                                    <div class="col-2 mt-2">
+                                        <p class="text-secondary h6">Size </p>
+                                    </div>
+                                    <div class="col-2">
+
+                                        <p class="lead">
+                                            <%=item.size%>
+                                        </p>
 
 
+                                    </div>
 
 
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <input type="text" name="box" class="form-control" placeholder="Qty" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" id="basic-addon2">pieces</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="row">
-                            <div class="col-2">
-                                <input type="text" name="box" class="form-control px-2" value="1" min="1" />
-                            </div>
-                            <div class="col-2">
-                                <h4 class="font-weight-bold text-lg-left">Pieces</h4>
-                            </div>
-
-
-                        </div>
-
-                        <div class="my-3">
-                            <button type="submit" data-bs-toggle="modal" data-bs-target="#sign-in" style="display: inline-block;" class="btn btn-dark">Add To Card</button>
-                        </div>
-                        <input type="hidden" name="title" value=<%=item.title%>>
-                        <input type="hidden" name="img" value=<%=item.imgURL%>>
-                        <input type="hidden" name="price" value=<%=item.price%>>
-    <%if(req.isAuthenticated()){%>
-                    </form>
-                <%}%>
+                                <div class="my-3">
+                                    <button type="submit" data-bs-toggle="modal" data-bs-target="#sign-in" style="display: inline-block;" class="btn btn-dark">Add To Card</button>
+                                </div>
+                                <input type="hidden" name="title" value=<%=item.title%>>
+                                <input type="hidden" name="img" value=<%=item.imgURL%>>
+                                <input type="hidden" name="price" value=<%=item.price%>>
+                                <%if(req.isAuthenticated()){%>
+                        </form>
+                        <%}%>
                 </div>
+
+
+                <br>
+
+
+
 
 
 
             </div>
+
+
+
+        </div>
         </div>
 
 
@@ -94,147 +97,105 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12 text-center">
-                    <h2 class="heading-section mb-5 pb-md-4">You Might Also Like</h2>
-                </div>
-                <div class="col-md-12">
-                    <div class="featured-carousel owl-carousel">
-                        <div class="item">
-                            <div class="work">
-                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-1.jpg);">
-                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                        <span class="ion-ios-search"></span>
-                                    </a>
-                                </div>
-                                <div class="text pt-3 w-100 text-center">
-                                    <h3><a href="#">Axe</a></h3>
-                                    <span>Web Design</span>
-                                </div>
+
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+
+                        <div class="col-md-12 text-center">
+                            <h2 class="heading-section mb-5 pb-md-4">You Might Also Like</h2>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="featured-carousel owl-carousel">
+                                <%=console.log("These are the items: "+items)%>
+                                    <%let count=0%>
+                                        <%for(var i=0;i<items.length&&i<5;i++){%>
+                                            <div class="item">
+                                                <div class="work">
+                                                    <%var image=items[i].imgURL%>
+                                                        <%=console.log(image)%>
+                                                            <form action=<%="/products/" +items[i].title%> method="GET">
+                                                                <button type="submit" class="btn">
+                                                <div class="card text-center" style="width: 18rem;">
+                                                    <img style="max-height: 12rem; max-width: 12rem;" class="mx-auto card-img-top" src=<%="../images/"+items[i].imgURL%> alt="Card image cap">
+                                                    <div class="card-body">
+                                                        <h6 class="card-text">
+                                                            <%=items[i].title%> 
+                                                        </h6>
+                                                        <p><%=items[i].size%></p>
+                                                    </div>
+                                                </div>
+                                            </button>
+                                                                <input type="hidden" name="brand" value=<%=items[i].title%>>
+                                                            </form>
+                                                </div>
+                                            </div>
+                                            <%}%>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="work">
-                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-2.jpg);">
-                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                        <span class="ion-ios-search"></span>
-                                    </a>
-                                </div>
-                                <div class="text pt-3 w-100 text-center">
-                                    <h3><a href="#">Work 02</a></h3>
-                                    <span>Web Design</span>
-                                </div>
+                        <form action="brands" method="GET">
+                            <div class="text-center py-5">
+                                <button type="submit" class="btn btn-warning">
+                            Check out all brands
+                        </button>
                             </div>
-                        </div>
-                        <div class="item">
-                            <div class="work">
-                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-3.jpg);">
-                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                        <span class="ion-ios-search"></span>
-                                    </a>
-                                </div>
-                                <div class="text pt-3 w-100 text-center">
-                                    <h3><a href="#">Work 03</a></h3>
-                                    <span>Web Design</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="work">
-                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-4.jpg);">
-                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                        <span class="ion-ios-search"></span>
-                                    </a>
-                                </div>
-                                <div class="text pt-3 w-100 text-center">
-                                    <h3><a href="#">Work 04</a></h3>
-                                    <span>Web Design</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="work">
-                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-5.jpg);">
-                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                        <span class="ion-ios-search"></span>
-                                    </a>
-                                </div>
-                                <div class="text pt-3 w-100 text-center">
-                                    <h3><a href="#">Work 05</a></h3>
-                                    <span>Web Design</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="work">
-                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url(../images/work-6.jpg);">
-                                    <a href="#" class="icon d-flex align-items-center justify-content-center">
-                                        <span class="ion-ios-search"></span>
-                                    </a>
-                                </div>
-                                <div class="text pt-3 w-100 text-center">
-                                    <h3><a href="#">Work 06</a></h3>
-                                    <span>Web Design</span>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-  
-    <%if(!req.isAuthenticated()){%>
-    <div class="modal" id="sign-in">
-        <form action="/signin" method="POST">
-
-        
-
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-
-                        <h4 class="modal-title">Sign in</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="form-group py-2">
-                            <label for="email" class="label">Email Address</label>
-                            <input type="email" class="form-control my-2 p-2 input" name="username">
-
-                        </div>
-
-                        <div class="form-group py-2">
-                            <label for="password" class="label">Password</label>
-                            <input type="password" class="form-control my-2 p-2 input" name="password">
-                        </div>
+    <%-include('partials/footer')-%>
+        <%if(!req.isAuthenticated()){%>
+            <div class="modal" id="sign-in">
+                <form action="/signin" method="POST">
 
 
-                    </div>
-                    <div class="modal-footer justify-content-start">
-                   
-                        <input type="hidden" name="pathh" class="form-control my-2 p-2 input" value=<%=req.path%>/>
-                        <button type="submit" class="btn" style="background-color: #318fb5;">Sign in </button>
 
-                    </div>
-                    
-                    
-        
-        <div class=" btn m-2 px-4 fw-bold text-uppercase submit-google  text-light">
-            <a href="auth/google" class="text-decoration-none text-light">
-            
-                <i class="fab fa-google"></i> Sign In With Google
-            </a>
-            </div>
-        </form>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
 
-        </div>
-        </div>
- 
-    </div>
-       <%}%>
+                                <h4 class="modal-title">Sign in</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="form-group py-2">
+                                    <label for="email" class="label">Email Address</label>
+                                    <input type="email" class="form-control my-2 p-2 input" name="username">
+
+                                </div>
+
+                                <div class="form-group py-2">
+                                    <label for="password" class="label">Password</label>
+                                    <input type="password" class="form-control my-2 p-2 input" name="password">
+                                </div>
 
 
-    <script>
-        <%- include("partials/footer") -%>
+                            </div>
+                            <div class="modal-footer justify-content-start">
+
+                                <input type="hidden" name="pathh" class="form-control my-2 p-2 input" value=<%=req.path%>/>
+                                <button type="submit" class="btn" style="background-color: #318fb5;">Sign in </button>
+
+                            </div>
+
+
+
+                            <div class=" btn m-2 px-4 fw-bold text-uppercase submit-google  text-light">
+                                <a href="auth/google" class="text-decoration-none text-light">
+
+                                    <i class="fab fa-google"></i> Sign In With Google
+                                </a>
+                            </div>
+                </form>
+
+                </div>
+
+                <%}%>
+
+                    <%- include("partials/footer") -%>
