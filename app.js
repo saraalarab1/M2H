@@ -33,7 +33,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-mongoose.connect(process.env.MONGOO, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGOO_URI, { useNewUrlParser: true });
 // mongoose.connect("mongodb://localhost:27017/M2HDB", { useNewUrlParser: true });
 mongoose.set('useFindAndModify', false)
 mongoose.set("useCreateIndex", true);
